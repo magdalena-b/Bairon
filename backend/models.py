@@ -16,7 +16,7 @@ class Input(models.Model):
     # TODO another input options
     keywords = models.CharField(max_length=100, null=True, blank=True)
 
-    def __str__(self) -> str: return self.poet + " | " + self.first_line
+    def __str__(self) -> str: return self.style + " | " + self.first_line
 
 
 class Poem(models.Model):
