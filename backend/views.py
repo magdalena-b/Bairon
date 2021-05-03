@@ -80,6 +80,29 @@ class PoemView(views.APIView):
             print(e)
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class RatingView(views.APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request: Request, id = None):
+        try:
+            if id:
+                poem = Poem.objects.get(id=id)
+                result = {}
+                result["rate-average"] = poem.rate_set.all().aggregate(models.Avg('rate'))["rate__avg"]
+                result["rate-count"] = len(poem.rate_set.all())
+                result["TT-human"] = len(poem.turingtestvote_set.filter(vote="Human"))
+                result["TT-machine"] = len(poem.turingtestvote_set.filter(vote="Machine"))
+                return Response(result, status=status.HTTP_200_OK)
+            else:
+                result = {}
+                result["rate-average"] = Rate.objects.all().aggregate(models.Avg('rate'))["rate__avg"]
+                result["rate-count"] = len(Rate.objects.all())
+                result["TT-human"] = len(TuringTestVote.objects.filter(vote="Human"))
+                result["TT-machine"] = len(TuringTestVote.objects.filter(vote="Machine"))
+                return Response(result, status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class PoemListView(views.APIView):
     permission_classes = (AllowAny,)
