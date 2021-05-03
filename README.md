@@ -81,9 +81,9 @@ endpoint do dodawania opinii Human/Machine dla wiersza z konkretnym id
 
 ### Django
 
-Najlepiej chyba zdropować za każdym razem bazę po większych zmianach (`db.sqlite3`)
-
 Pobieranie modułów do pythona: `pip install -r requirements.txt`
+
+Najlepiej chyba zdropować za każdym razem bazę po większych zmianach (`db.sqlite3`) i usunąć migracje, jak jakieś są (`*/migrations/*` - wszystko za wyjątkiem `init.py`)
 
 Migracje: `python manage.py makemigrations` i `python manage.py migrate`
 
