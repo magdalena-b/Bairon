@@ -3,34 +3,35 @@ from django.db import models
 
 # Create your models here.
 
-
-class Poet(models.Model):
-    NAMES = [
-        ("Plain", "Plain"),
-        ("Shakespeare","Shakespeare"),
-        ("Cummings","Cummings"),
-        ("Dickinson","Dickinson"),
-    ]
-
-    name = models.CharField(choices=NAMES, default=NAMES[0], max_length=100, primary_key=True)
-
+POETS = [
+    ("Machine", "Machine"),
+    ("Shakespeare", "Shakespeare"),
+    ("Cummings", "Cummings"),
+    ("Dickinson", "Dickinson"),
+]
 
 class Input(models.Model):
-    poet = models.ForeignKey(Poet, on_delete=models.CASCADE)
+    style = models.CharField(choices=POETS, default=POETS[0], max_length=100)
     first_line = models.CharField(max_length=100)
     # TODO another input options
     keywords = models.CharField(max_length=100, null=True, blank=True)
 
+    def __str__(self) -> str: return self.poet + " | " + self.first_line
+
 
 class Poem(models.Model):
-    input = models.ForeignKey(Input, on_delete=models.CASCADE)
+    author = models.CharField(choices=POETS, default=POETS[0], max_length=100)
+    input = models.ForeignKey(Input, on_delete=models.DO_NOTHING, null=True, blank=True)
     text = models.CharField(max_length=1000, default="")
     views = models.IntegerField(default=0)
+    sentiment = models.CharField(max_length=100, null=True, blank=True)
+
+    def __str__(self) -> str: return self.input.first_line + "\n" + self.text
 
 
 class Rate(models.Model):
     poem = models.ForeignKey(Poem, on_delete=models.DO_NOTHING)
-    rate = models.IntegerField(validators=[models.MinValueValidator(1), models.MaxValueValidator(10)])
+    rate = models.IntegerField()
 
 
 class TuringTestVote(models.Model):
