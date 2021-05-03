@@ -12,6 +12,7 @@ urlpatterns = [
     path('poems/', PoemListView.as_view(), name='poems'),
     path('poems/style=<style>/', PoemListView.as_view(), name='poems'),
     path('poems/sentiment=<sentiment>/', PoemListView.as_view(), name='poems'),
+    path('poems/style=<style>&sentiment=<sentiment>/', PoemListView.as_view(), name='poems'),
     path('rating/', RatingView.as_view(), name='rating'),
     path('rating/<int:id>/', RatingView.as_view(), name='rating'),
     path('add/rate/<int:id>/', CreateRate.as_view(), name='rate'),
