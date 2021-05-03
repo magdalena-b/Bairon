@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import fields
 from rest_framework import serializers
 
 from .models import *
@@ -37,6 +38,43 @@ class PoemSerializer(serializers.ModelSerializer):
             )
             input.save()
             return input
+        except Exception as e:
+            print(e)
+        return None
+
+
+class RateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rate
+        fields = '__all__'
+
+    def create(self, validated_data):
+        try:
+            rate, created = Rate.objects.create(
+                poem = validated_data["poem"],
+                rate = validated_data["rate"],
+            )
+            rate.save()
+            return rate
+        except Exception as e:
+            print(e)
+        return None
+
+
+class TuringTestVoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TuringTestVote
+        fields = '__all__'
+
+    def create(self, validated_data):
+        try:
+            ttv, created = Rate.objects.create(
+                poem = validated_data["poem"],
+                fragment = validated_data["fragment"],
+                vote = validated_data["vote"],
+            )
+            ttv.save()
+            return ttv
         except Exception as e:
             print(e)
         return None

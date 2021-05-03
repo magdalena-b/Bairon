@@ -2,7 +2,7 @@ from rest_framework.permissions import AllowAny
 from django.shortcuts import render
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework import generics, status
+from rest_framework import generics, status, views
 from rest_framework.decorators import api_view
 from django.core.serializers import serialize, json
 from django.forms.models import model_to_dict
@@ -65,3 +65,61 @@ class SavePoem(generics.CreateAPIView):
             return Response(status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class PoemView(views.APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request: Request, id):
+        try:
+            poem = Poem.objects.get(id=id)
+            poem.views += 1
+            poem.save()
+            return Response(model_to_dict(poem), status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class PoemListView(views.APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request: Request, style = None, sentiment = None, number = 10):
+        try:
+            poems = Poem.objects.all()
+            if style:
+                poems = poems.filter(input__style=style)
+            if sentiment:
+                poems = poems.filter(sentiment=sentiment)
+            result = {}
+            for poem in list(poems.order_by('views'))[:number]:
+                result[poem.id] = {"input": poem.input.first_line, "text": poem.text}
+            return Response(result, status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class CreateRate(generics.CreateAPIView):
+    serializer_class = RateSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request: Request, *args, **kwargs):
+        serializer = RateSerializer(data=request.data)
+        if serializer.is_valid():
+            created = serializer.create(serializer.validated_data)
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class CreateTuringTestVote(generics.CreateAPIView):
+    serializer_class = TuringTestVoteSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request: Request, *args, **kwargs):
+        serializer = TuringTestVoteSerializer(data=request.data)
+        if serializer.is_valid():
+            created = serializer.create(serializer.validated_data)
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
