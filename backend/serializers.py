@@ -68,7 +68,7 @@ class TuringTestVoteSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         try:
-            ttv, created = Rate.objects.create(
+            ttv, created = TuringTestVote.objects.create(
                 poem = validated_data["poem"],
                 fragment = validated_data["fragment"],
                 vote = validated_data["vote"],
