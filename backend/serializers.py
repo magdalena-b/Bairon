@@ -6,6 +6,7 @@ from .models import *
 
 
 class InputSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Input
         fields = ('style', 'first_line')
@@ -24,6 +25,8 @@ class InputSerializer(serializers.ModelSerializer):
 
 
 class PoemSerializer(serializers.ModelSerializer):
+    author = serializers.CharField(source='get_author_display')
+
     class Meta:
         model = Poem
         fields = '__all__'

@@ -1,2 +1,11 @@
 Django==3.1.7
 djangorestframework==3.12.2
+tensorflow==1.13.2
+regex
+requests
+tqdm
+numpy
+toposort
+transformers
+gpt_2_simple
+python-dotenv

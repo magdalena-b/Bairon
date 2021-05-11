@@ -14,3 +14,6 @@ venv/
 
 # migrations #
 migrations/*
+
+# NLP model #
+checkpoint
