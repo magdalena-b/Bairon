@@ -4,10 +4,8 @@ from django.db import models
 # Create your models here.
 
 POETS = [
-    ("Machine", "Machine"),
     ("Shakespeare", "Shakespeare"),
-    ("Cummings", "Cummings"),
-    ("Dickinson", "Dickinson"),
+    ("Ginsberg", "Ginsberg")
 ]
 
 class Input(models.Model):
