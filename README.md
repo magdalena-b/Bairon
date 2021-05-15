@@ -2,12 +2,11 @@
 
 ## NLP
 
-Jak narazie działa tylko z python3.7 i niższym, z powodu starej wersji tensorflow.
+Jak na razie działa tylko z python3.7 i niższym, z powodu starej wersji tensorflow.
 
 Do przełączenia się między wersjami polecam pyenv.
 
 ### TODO
-jak na razie w folderze NLP jest moduł z placeholderem generującym tylko "Lorem Ipsum..."
 
 ## frontend
 
