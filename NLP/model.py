@@ -8,24 +8,14 @@ length = 200
 graph = tensorflow.get_default_graph()
 sess = gpt2.start_tf_sess()
 
-def load_shakespeare():
+def load_model(run_name):
     global sess
     global graph
     gpt2.reset_session(sess)
     sess = gpt2.start_tf_sess()
     graph = tensorflow.get_default_graph()
     with graph.as_default():
-        gpt2.load_gpt2(sess, run_name='shakespeare')
-
-
-def load_ginsberg():
-    global sess
-    global graph
-    gpt2.reset_session(sess)
-    sess = gpt2.start_tf_sess()
-    graph = tensorflow.get_default_graph()
-    with graph.as_default():
-        gpt2.load_gpt2(sess, run_name='ginsberg')
+        gpt2.load_gpt2(sess, run_name=run_name)
 
 
 
@@ -42,7 +32,7 @@ class PoemGenerator:
 
         if style == "Shakespeare":
             
-            load_shakespeare()
+            load_model("shakespeare")
             start = time.time()
             with graph.as_default():
                 text = gpt2.generate(sess, run_name='shakespeare', prefix = first_line, length = length, return_as_list=True)[0]
@@ -51,13 +41,22 @@ class PoemGenerator:
         
         if style == "Ginsberg":
             
-            load_ginsberg()
+            load_model("ginsberg")
             start = time.time()
             with graph.as_default():
                 text = gpt2.generate(sess, run_name='ginsberg', prefix = first_line, length = length, return_as_list=True)[0]
                 sentiment = "normal"
             print("generating time:",time.time()-start,"s")
         
+
+        if style == "cummings":
+            
+            load_model("cummings")
+            start = time.time()
+            with graph.as_default():
+                text = gpt2.generate(sess, run_name='cummings', prefix = first_line, length = length, return_as_list=True)[0]
+                sentiment = "normal"
+            print("generating time:",time.time()-start,"s")
 
         
         

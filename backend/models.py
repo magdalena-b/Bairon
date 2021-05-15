@@ -6,7 +6,8 @@ from django.db import models
 POETS = [
     ("Machine", "Machine"),
     ("Shakespeare", "Shakespeare"),
-    ("Ginsberg", "Ginsberg")
+    ("Ginsberg", "Ginsberg"),
+    ("cummings", "cummings")
 ]
 
 class Input(models.Model):
