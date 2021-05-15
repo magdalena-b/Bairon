@@ -4,6 +4,7 @@ from django.db import models
 # Create your models here.
 
 POETS = [
+    ("Machine", "Machine"),
     ("Shakespeare", "Shakespeare"),
     ("Ginsberg", "Ginsberg")
 ]
