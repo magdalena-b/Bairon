@@ -21,6 +21,7 @@ Nie znam się ani na JSie, ani na frontendzie, więc nie wiem czy tak się robi:
 1. `cd frontend`
 2. `sudo npm install vue`
 3. `sudo npm install -g @vue/cli`
+3. `npm install`
 4. `npm run serve`
 
 Chyba tyle powinno wystarczyć, ale poprawcie jak jeszcze jakieś inne komendy są potrzebne, żeby odpalić projekt. 
