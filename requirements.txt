@@ -9,3 +9,4 @@ toposort
 transformers
 gpt_2_simple
 python-dotenv
+django-cors-headers>=3.7.0

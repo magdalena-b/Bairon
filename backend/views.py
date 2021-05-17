@@ -59,7 +59,10 @@ class SavePoem(generics.CreateAPIView):
     permission_classes = (AllowAny,)
 
     def post(self, request: Request, *args, **kwargs):
-        serializer = PoemSerializer(data=request.data)
+        data = request.data
+        data["author"] = "Machine"
+        data["sentiment"] = data.get("sentiment", "normal")
+        serializer = PoemSerializer(data=data)
         if serializer.is_valid():
             created = serializer.create(serializer.validated_data)
             return Response(status=status.HTTP_200_OK)
@@ -114,9 +117,9 @@ class PoemListView(views.APIView):
                 poems = poems.filter(input__style=style)
             if sentiment:
                 poems = poems.filter(sentiment=sentiment)
-            result = {}
+            result = {"all": []}
             for poem in list(poems.order_by('views'))[:number]:
-                result[poem.id] = {"input": poem.input.first_line, "text": poem.text}
+                result["all"].append({"id": poem.id, "input": poem.input.first_line, "text": poem.text, "style": poem.input.style})
             return Response(result, status=status.HTTP_200_OK)
         except Exception as e:
             print(e)

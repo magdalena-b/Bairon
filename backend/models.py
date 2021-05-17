@@ -7,7 +7,8 @@ POETS = [
     ("Machine", "Machine"),
     ("Shakespeare", "Shakespeare"),
     ("Ginsberg", "Ginsberg"),
-    ("cummings", "cummings")
+    ("Cummings", "Cummings"),
+    ("Lorem Ipsum", "Lorem Ipsum")
 ]
 
 class Input(models.Model):
