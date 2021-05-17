@@ -26,6 +26,7 @@ export default {
         align-items: center;
         height: 5vh;
         padding: 30px;
+        background-color: #eee;
     }
     #logo {
         height: 100%;

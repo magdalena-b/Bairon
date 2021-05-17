@@ -9,7 +9,6 @@
             <input type="text" v-model="first_line"/>
             <button @click="fetch_poem">generate</button>
             <div id="poem" v-if="poem != ''">
-                <p>{{ first_line }}</p>
                 <p v-for="line in poem.split('\n')" :key="line">{{ line }}</p>
                 <button @click="save_poem">save</button>
             </div>
@@ -39,6 +38,7 @@ export default {
             this.poet = poet
         },
         fetch_poem(){
+            this.poem = ""
             fetch(`${API_URL}/api/generate/`, {
                 method: 'POST',
                 headers: {
@@ -46,7 +46,7 @@ export default {
                 },
                 body: JSON.stringify({
                     "style": this.poet,
-                    "first_line": this.first_line
+                    "first_line": this.first_line,
                 })
             })
                 .then(res => res.json())
