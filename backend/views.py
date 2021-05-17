@@ -78,7 +78,13 @@ class PoemView(views.APIView):
             poem = Poem.objects.get(id=id)
             poem.views += 1
             poem.save()
-            return Response(model_to_dict(poem), status=status.HTTP_200_OK)
+            data = model_to_dict(poem)
+            try:
+                data["first_line"] = poem.input.first_line
+                data["style"] = poem.input.style
+            except:
+                pass
+            return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
             print(e)
             return Response(status=status.HTTP_400_BAD_REQUEST)
