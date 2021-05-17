@@ -1,21 +1,30 @@
 <template>
-  <div class="home">
-  </div>
-  <h1>Become world class artist and create your own masterpiece!</h1>
-  <Generator />
+    <main>
+        <div id="hero">
+            <h1>Become world class artist and create your own masterpiece!</h1>
+            <router-link to="/generate"><button>Check it out!</button></router-link>
+            <h2>... or just check others popular poems<router-link to="/poems">here</router-link></h2>
+        </div>
+        <Gallery />
+    </main>
 </template>
 
 <script>
-
-import Generator from '@/components/Generator.vue'
+import Gallery from '@/components/Gallery.vue'
 
 export default {
   name: 'Home',
   components: {
-    Generator,
-  }
+    Gallery
+  },
 }
 </script>
 
 <style scoped>
+    main {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
 </style>
