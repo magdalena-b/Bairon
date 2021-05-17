@@ -17,7 +17,7 @@ export default {
     props: ["current_author"],
     data() {
         return {
-            current_poet: "Shakespeare"
+            current_poet: "Ginsberg"
         }
     },
 

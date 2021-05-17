@@ -1,7 +1,7 @@
 <template>
     <div class="about">
         <h1>About this project</h1>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos ab esse accusamus quae possimus culpa nesciunt voluptatum recusandae odit tempore molestiae voluptatem sit assumenda dolor quas nihil, neque cumque illo!</p>
+        <p>Application for poetry generation using test generation and Style Transfer methods</p>
 
         <h2>rating</h2>
         <p>Average rating: {{score}}</p>

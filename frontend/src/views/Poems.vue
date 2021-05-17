@@ -24,7 +24,7 @@ export default {
     data() {
         return {
             poems: [],
-            avaible_styles: ["Shakespeare", "Ginsberg", "Lorem Ipsum"],
+            avaible_styles: ["Shakespeare", "Ginsberg", "cummings", "Lorem Ipsum"],
             style: "",
             // TODO filtering by sentiments
             avaible_sentiments: ["normal"],
