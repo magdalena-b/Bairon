@@ -42,8 +42,7 @@
             <h2> Allen Ginsberg </h2>
             <h3> American poet from 20th century, one of the beatniks - a literary countercultural movement. </h3>
             <p>
-                When forty winters shall besiege thy brow,
-                <br>trange now to think of you, gone without corsets & eyes, while I walk on the sunny pavement of Greenwich Village.
+                <br>Strange now to think of you, gone without corsets & eyes, while I walk on the sunny pavement of Greenwich Village.
                 <br>downtown Manhattan, clear winter noon, and I’ve been up all night, talking, talking, reading the Kaddish aloud, listening to Ray Charles blues shout blind on the phonograph
                 <br>the rhythm the rhythm—and your memory in my head three years after—And read Adonais’ last triumphant stanzas aloud—wept, realizing how we suffer—
                 <br>And how Death is that remedy all singers dream of, sing, remember, prophesy as in the Hebrew Anthem, or the Buddhist Book of Answers—and my own imagination of a withered leaf—at dawn—
@@ -56,10 +55,10 @@
             </p>    
         </div>
 
-        <div class="margin-right-20"  v-if="poet=='cummings'">
+        <div class="margin-right-20"  v-if="poet=='Cummings'">
             <img src="../assets/cummings.jpg" >  
             <h2> e.e. cummings </h2>
-            <h3> Amercian poet from 20th century, wrote modernist free-form poetry, known for his experiments with style and syntax. </h3>
+            <h3> American poet from 20th century, wrote modernist free-form poetry, known for his experiments with style and syntax. </h3>
             <p>
                 a wind has blown the rain away and blown
                 <br>the sky away and all the leaves away,
@@ -102,7 +101,7 @@ export default {
             first_line: "",
             poet: "Shakespeare",
             poem: "",
-            avaible_poets: ["Shakespeare", "Ginsberg", "cummings", "Lorem Ipsum"],
+            avaible_poets: ["Shakespeare", "Ginsberg", "Cummings", "Lorem Ipsum"],
             input_id: null,
         }
     },
