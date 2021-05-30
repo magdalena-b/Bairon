@@ -21,10 +21,4 @@ export default {
 </script>
 
 <style scoped>
-    main {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-    }
 </style>

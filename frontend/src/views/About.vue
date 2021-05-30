@@ -51,12 +51,4 @@ export default ({
 </script>
 
 <style scoped>
-    section{
-        height: 10vh;
-        display: flex;
-        justify-content: center;
-    }
-    img {
-        max-height: 100%;
-    }
 </style>

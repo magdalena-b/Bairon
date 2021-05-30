@@ -25,16 +25,4 @@ export default {
 </script>
 
 <style scoped>
-
-	img {
-		width: 80%;
-	}
-
-    .carousel {
-        width: 40vw;
-        height: 80vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
 </style>

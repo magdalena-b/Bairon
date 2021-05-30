@@ -58,33 +58,4 @@ export default {
 </script>
 
 <style scoped>
-    * {
-        text-align: left;
-    }
-    .highlight {
-        background-color: #42b983;
-    }
-    li {
-        background-color: #eee;
-        text-decoration: node;
-        display: flex;
-        flex-direction: column;
-        padding: 40px;
-        border-radius: 20px;
-    }
-    li > p {
-        font-weight: 100;
-        margin: 0;
-    }
-    li > * > p {
-        margin: 0;
-    }
-    li > h3{
-        color: rgb(84, 141, 84);
-        font-weight: 800;
-    }
-    ul{
-        list-style-type: none;
-        padding-left: 0;
-    }
 </style>

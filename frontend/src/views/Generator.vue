@@ -15,7 +15,7 @@
         </div>
         <!-- <Gallery v-model:current_poet="poet"/> -->
             
-        <div class="margin-right-20"  v-if="poet=='Shakespeare'">
+        <div class="poet margin-right-20"  v-if="poet=='Shakespeare'">
             <img src="../assets/Shakespeare.jpg" >  
             <h2> William Shakespeare </h2>
             <h3> English poet and dramatist from 16th/17th century, by some considered the greatest English writer of all time. </h3>
@@ -37,7 +37,7 @@
             </p>    
         </div>
 
-        <div class="margin-right-20"  v-if="poet=='Ginsberg'">
+        <div class="poet margin-right-20"  v-if="poet=='Ginsberg'">
             <img src="../assets/Ginsberg.jpg" >  
             <h2> Allen Ginsberg </h2>
             <h3> American poet from 20th century, one of the beatniks - a literary countercultural movement. </h3>
@@ -55,7 +55,7 @@
             </p>    
         </div>
 
-        <div class="margin-right-20"  v-if="poet=='Cummings'">
+        <div class="poet margin-right-20"  v-if="poet=='Cummings'">
             <img src="../assets/cummings.jpg" >  
             <h2> e.e. cummings </h2>
             <h3> American poet from 20th century, wrote modernist free-form poetry, known for his experiments with style and syntax. </h3>
@@ -143,25 +143,4 @@ export default {
 </script>
 
 <style scoped>
-    main {
-        /* TODO fix that shit */
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: baseline;
-    }
-
-    .poem {
-        width: 40vw;
-        height: 100%;
-        margin: auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: baseline;
-        align-content: center;
-    }
-
-    .highlight {
-        background-color: lightseagreen;
-    }
 </style>

@@ -72,22 +72,4 @@ export default {
 </script>
 
 <style>
-    #poem {
-        background-color: #eee;
-        padding: 50px;
-    }
-    #star {
-        width: 20px;
-        height: 20px;
-        border-radius: 10px;
-        background-color: gold;
-        margin: 5px
-    }
-    #star:hover {
-        background-color: rgb(214, 182, 0);
-    }
-    #stars {
-        display: flex;
-        justify-content: center;
-    }
 </style>

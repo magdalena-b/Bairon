@@ -22,20 +22,4 @@ export default {
 </script>
 
 <style scoped>
-    main {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        height: 5vh;
-        padding: 30px;
-        background-color: #eee;
-    }
-    #logo {
-        height: 100%;
-    }
-    img {
-        max-height: 100%;
-        border-radius: 10%;
-    }
 </style>
