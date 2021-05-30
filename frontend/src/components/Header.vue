@@ -25,20 +25,6 @@
         </div>
 
     </nav>
-    <!-- <main>
-        <div id="logo">
-            <router-link to="/"><img src="../assets/logo.png" alt="" ></router-link>
-        </div>
-        <div>
-            <h2> BAIron </h2>
-        </div>
-        <div id="nav">
-            <router-link to="/">Home</router-link>
-            <router-link to="/about">About</router-link>
-            <router-link to="/generate">Generator</router-link>
-            <router-link to="/poems">Poems</router-link>
-        </div>
-    </main> -->
 </template>
 
 <script>
@@ -46,22 +32,18 @@ export default {
     mounted() {
         const burgerIcon = document.querySelector('#burger')
         const navbarMenu = document.querySelector('#nav-links')
-        const navbarItems = document.getElementsByClassName('navbar-item')
 
-
-        burgerIcon.addEventListener('click', () => {
-            navbarMenu.classList.toggle('is-active');
-        });
-
-        for(let navbarItem of navbarItems){
-            console.log(navbarItem)
-            navbarItem.addEventListener('click', () => {
-                console.log("dupa")
-                navbarMenu.classList.remove('is-active');
-            })
+        document.addEventListener('click', function(e){   
+        if (navbarMenu.contains(e.target)){
+            navbarMenu.classList.add('is-active')
         }
-
-
+        else if(burgerIcon.contains(e.target)){
+            navbarMenu.classList.toggle('is-active')
+        }
+        else{
+            navbarMenu.classList.remove('is-active')
+        }
+        })
     }
 
 }
