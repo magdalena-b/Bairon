@@ -15,7 +15,7 @@
                 <span></span>
             </a>
         </div>
-        <div class="navbar-menu">
+        <div class="navbar-menu" id="nav-links">
             <div class="navbar-end">
                 <router-link class="navbar-item" to="/">Home</router-link>
                 <router-link class="navbar-item" to="/about">About</router-link>
@@ -43,6 +43,26 @@
 
 <script>
 export default {
+    mounted() {
+        const burgerIcon = document.querySelector('#burger')
+        const navbarMenu = document.querySelector('#nav-links')
+        const navbarItems = document.getElementsByClassName('navbar-item')
+
+
+        burgerIcon.addEventListener('click', () => {
+            navbarMenu.classList.toggle('is-active');
+        });
+
+        for(let navbarItem of navbarItems){
+            console.log(navbarItem)
+            navbarItem.addEventListener('click', () => {
+                console.log("dupa")
+                navbarMenu.classList.remove('is-active');
+            })
+        }
+
+
+    }
 
 }
 </script>

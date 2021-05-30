@@ -1,0 +1,7 @@
+a.router-link-exact-active {
+    color: hsl(171, 100%, 41%) !important;
+}
+
+a:hover {
+    color: hsl(171, 100%, 41%) !important;
+}
