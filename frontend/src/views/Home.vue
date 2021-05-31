@@ -1,12 +1,4 @@
 <template>
-    <!-- <main>
-        <div id="hero">
-            <h1>Become world class artist and create your own masterpiece!</h1>
-            <router-link to="/generate"><button>Check it out!</button></router-link>
-            <h2>... or just check others popular poems<router-link to="/poems">here</router-link></h2>
-        </div>
-        <Gallery />
-    </main> -->
     <div class="container">
         <div class="columns is-vcentered has-text-centered">
             <div class="column is-7-desktop is-12-tablet">
@@ -29,6 +21,7 @@
                 </div>
             </div>
             <div class="column is-5-desktop is-hidden-touch">
+                <!-- <Gallery :autoplay="false"/> -->
                 <Gallery />
             </div>
         </div>

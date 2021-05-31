@@ -38,7 +38,7 @@
         </div>
 
         <div class="poet margin-right-20"  v-if="poet=='Ginsberg'">
-            <img src="../assets/Ginsberg.jpg" >  
+            <img src="../assets/ginsberg.jpg" >  
             <h2> Allen Ginsberg </h2>
             <h3> American poet from 20th century, one of the beatniks - a literary countercultural movement. </h3>
             <p>
