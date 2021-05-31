@@ -1,5 +1,21 @@
 <template>
     <div>
+        
+        <!-- placeholder -->
+        <nav class="navbar" style="position: relative; z-index: -1;">
+            <div class="navbar-brand">
+                <div class="navbar-item">
+                    <figure class="image is-64x64 mx-4">
+                        <img src="../assets/logo.png" style="max-height: 128px; max-width: 128px;">
+                    </figure>
+                    <h1 class="title mx-4">
+                        BAIron
+                    </h1>
+                </div>
+            </div>
+        </nav>
+        <!-- end of placeholder -->
+
         <nav class="navbar is-light is-fixed-top">
             <div class="navbar-brand">
                 <router-link to="/" class="navbar-item">
@@ -24,7 +40,6 @@
                     <router-link class="navbar-item" to="/poems">Poems</router-link>
                 </div>
             </div>
-
         </nav>
     </div>
 </template>

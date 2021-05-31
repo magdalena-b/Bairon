@@ -1,21 +1,35 @@
 <template>
-    <main>
-        <div class="poem">
-            <h2>Select your favourite poet</h2>
-            <button v-for="p in avaible_poets" :key="p" @click="selectPoet(p)" v-bind:class="{highlight: p==poet}">
-                {{ p }}
-            </button>
-            <h2 >Type your first line</h2>
-            <input type="text" v-model="first_line"/>
-            <button @click="fetch_poem">generate</button>
-            <div id="poem" v-if="poem != ''">
-                <p v-for="line in poem.split('\n')" :key="line">{{ line }}</p>
-                <button @click="save_poem">save</button>
+    <div class="container">
+        <div class="columns is-vcentered has-text-centered">
+            <div class="column is-6">
+                <div class="poem">
+                    <h2 class="is-size-3-tablet is-size-4-mobile">Select your favourite poet</h2>
+                    <div class="buttons is-centered">
+                        <button class="button is-rounded" v-for="p in avaible_poets" :key="p" @click="selectPoet(p)" v-bind:class="{'is-primary': p==poet}">
+                            {{ p }}
+                        </button>
+                    </div>
+                    <h2 class="is-size-3-tablet is-size-4-mobile mt-5">Type your first line</h2>
+                    <div class="field is-grouped">
+                        <div class="control is-expanded">
+                            <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life"/>
+                        </div>
+                        <div class="control">
+                            <button class="button is-rounded is-primary" @click="fetch_poem">generate</button>
+                        </div>
+                    </div>
+                    <div id="poem" v-if="poem != ''">
+                        <p v-for="line in poem.split('\n')" :key="line">{{ line }}</p>
+                        <button @click="save_poem">save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-6">
+                <Gallery :autoplay="false"/>
             </div>
         </div>
-        <!-- <Gallery v-model:current_poet="poet"/> -->
             
-        <div class="poet margin-right-20"  v-if="poet=='Shakespeare'">
+        <!-- <div class="poet margin-right-20"  v-if="poet=='Shakespeare'">
             <img src="../assets/Shakespeare.jpg" >  
             <h2> William Shakespeare </h2>
             <h3> English poet and dramatist from 16th/17th century, by some considered the greatest English writer of all time. </h3>
@@ -82,11 +96,11 @@
                 <br>suddenly wait against the moon’s face.
             </p>
 
-        </div>
+        </div> -->
 
 
         
-    </main>
+    </div>
 </template>
 
 <script>
@@ -143,4 +157,7 @@ export default {
 </script>
 
 <style scoped>
+    .columns {
+        min-height: 100vh;
+    }
 </style>
