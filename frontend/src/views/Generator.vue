@@ -12,19 +12,29 @@
                     <h2 class="is-size-3-tablet is-size-4-mobile mt-5">Type your first line</h2>
                     <div class="field is-grouped">
                         <div class="control is-expanded">
-                            <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life"/>
+                            <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life" required/>
                         </div>
                         <div class="control">
-                            <button class="button is-rounded is-primary" @click="fetch_poem">generate</button>
+                            <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem">generate</button>
                         </div>
                     </div>
-                    <div id="poem" v-if="poem != ''">
-                        <p v-for="line in poem.split('\n')" :key="line">{{ line }}</p>
-                        <button @click="save_poem">save</button>
+                    <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( poem != '') ? '100vh' : '0px')}">
+                        <div id="poem" class="card">
+                            <div class="card-content">
+                                <div class="media-content">
+                                    <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3>
+                                </div>
+                                <p class="is-size-6 has-text-left" v-for="line in poem.split('\n')" :key="line">{{ line }}</p>
+                                <button class="button is-info is-rounded mt-3" @click="save_poem">save</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="column is-6">
+            <div class="column is-1">
+                <!-- placeholder -->
+            </div>
+            <div class="column is-5">
                 <Gallery :autoplay="false"/>
             </div>
         </div>
@@ -125,6 +135,10 @@ export default {
         },
         fetch_poem(){
             this.poem = ""
+            const generate_button = document.querySelector('#generate_button')
+
+            generate_button.classList.add('is-loading')
+
             fetch(`${API_URL}/api/generate/`, {
                 method: 'POST',
                 headers: {
@@ -136,7 +150,10 @@ export default {
                 })
             })
                 .then(res => res.json())
-                .then(data => ({text: this.poem, input: this.input_id} = data))
+                .then(data => {
+                    ({text: this.poem, input: this.input_id} = data)
+                    generate_button.classList.remove("is-loading")
+                })
                 .catch(err => console.log(err.message))
         },
         save_poem() {
@@ -150,6 +167,9 @@ export default {
                     "text": this.poem
                 })
             })
+                .then(() => {
+                    this.poem = ""
+                })
                 .catch(err => console.log(err.message))
         }
     }
@@ -159,5 +179,10 @@ export default {
 <style scoped>
     .columns {
         min-height: 100vh;
+    }
+
+    #poem_container {
+        overflow: hidden;
+        transition: max-height 1s ease-out;
     }
 </style>
