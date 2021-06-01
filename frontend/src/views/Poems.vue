@@ -1,6 +1,9 @@
 <template>
     <div class="container has-text-centered mt-4">
-        <h2 class="is-size-5">Filters</h2>
+        <h1 class="is-size-2">
+            discover the most popular poems
+        </h1>
+        <!-- <h2 class="is-size-5">Filters</h2> -->
         <div class="buttons is-centered mt-3">
             <button class="button is-rounded" v-for="p in avaible_styles" :key="p" @click="selectPoet(p)" v-bind:class="{'is-primary': p==style}"> {{ p }} </button>
             <button class="button is-rounded is-info" @click="fetch_poems">filter</button>
