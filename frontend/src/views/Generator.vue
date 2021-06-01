@@ -35,7 +35,7 @@
                 <!-- placeholder -->
             </div>
             <div class="column is-5">
-                <Gallery :autoplay="false"/>
+                <Gallery />
             </div>
         </div>
             

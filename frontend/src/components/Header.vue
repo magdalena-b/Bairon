@@ -16,7 +16,7 @@
         </nav>
         <!-- end of placeholder -->
 
-        <nav class="navbar is-light is-fixed-top">
+        <nav class="navbar is-light is-fixed-top px-2">
             <div class="navbar-brand">
                 <router-link to="/" class="navbar-item">
                     <figure class="image is-64x64 mx-4">

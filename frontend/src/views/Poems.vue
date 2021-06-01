@@ -1,12 +1,12 @@
 <template>
-    <div class="container has-text-centered mt-6">
+    <div class="container has-text-centered mt-4">
         <h2 class="is-size-5">Filters</h2>
         <div class="buttons is-centered mt-3">
             <button class="button is-rounded" v-for="p in avaible_styles" :key="p" @click="selectPoet(p)" v-bind:class="{'is-primary': p==style}"> {{ p }} </button>
             <button class="button is-rounded is-info" @click="fetch_poems">filter</button>
         </div>
-        <div class="columns scrollable">
-            <div class="column is-3-desktop is-6-tablet" v-for="{id, input, text, style} in poems" :key="id">
+        <div class="columns scrollable mt-4">
+            <div class="column is-4-desktop is-6-tablet" v-for="{id, input, text, style} in poems" :key="id">
                 <router-link  :to="'/poem/'+id">
                     <div id="poem_container" class="mt-5">
                         <div id="poem" class="card">

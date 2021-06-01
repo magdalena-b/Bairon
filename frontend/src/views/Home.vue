@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="columns is-vcentered has-text-centered">
+        <div class="columns is-vcentered has-text-centered is-centered is-multiline">
             <div class="column is-7-desktop is-12-tablet">
                 <div class="hero is-large">
                     <div class="hero-body">
@@ -20,9 +20,10 @@
                     </div>
                 </div>
             </div>
-            <div class="column is-5-desktop is-hidden-touch">
+            <div class="column is-5 is-4-tablet is-6-mobile">
                 <!-- <Gallery :autoplay="false"/> -->
-                <Gallery />
+                <!-- <Gallery /> -->
+                <HeroImage />
             </div>
         </div>
     </div>
@@ -30,11 +31,13 @@
 
 <script>
 import Gallery from '@/components/Gallery.vue'
+import HeroImage from '@/components/HeroImage.vue'
 
 export default {
   name: 'Home',
   components: {
-    Gallery
+    Gallery,
+    HeroImage
   },
 }
 </script>
