@@ -15,7 +15,7 @@
             <path d="M537.428 291L549 302.497L114.718 570.294L77 583L103.883 555.553L537.428 291Z" fill="#00CFB0" stroke="#2BC4A7" stroke-width="7.55906" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </div>
-</template>#2BC4A7
+</template>
 
 <script>
 export default {

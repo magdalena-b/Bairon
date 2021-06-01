@@ -124,7 +124,7 @@ class PoemListView(views.APIView):
             if sentiment:
                 poems = poems.filter(sentiment=sentiment)
             result = {"all": []}
-            for poem in list(poems.order_by('views'))[:number]:
+            for poem in list(poems.order_by('-views'))[:number]:
                 result["all"].append({"id": poem.id, "input": poem.input.first_line, "text": poem.text, "style": poem.input.style})
             return Response(result, status=status.HTTP_200_OK)
         except Exception as e:
