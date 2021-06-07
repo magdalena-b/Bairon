@@ -153,6 +153,7 @@ class CreateTuringTestVote(generics.CreateAPIView):
         serializer = TuringTestVoteSerializer(data=request.data)
         if serializer.is_valid():
             created = serializer.create(serializer.validated_data)
+            print(created)
             return Response(status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)

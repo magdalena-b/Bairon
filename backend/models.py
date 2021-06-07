@@ -23,14 +23,15 @@ class Input(models.Model):
 class Poem(models.Model):
     author = models.CharField(choices=POETS, default=POETS[0], max_length=100)
     input = models.ForeignKey(Input, on_delete=models.DO_NOTHING, null=True, blank=True)
-    text = models.CharField(max_length=1000, default="")
+    text = models.CharField(max_length=100000, default="")
     views = models.IntegerField(default=0)
     sentiment = models.CharField(max_length=100, null=True, blank=True)
 
     class Meta:
         ordering = ('views',)
     
-    def __str__(self) -> str: return self.input.first_line + "\n" + self.text
+    def __str__(self) -> str:
+        return str(self.id) + " | " + self.author
 
 
 class Rate(models.Model):
