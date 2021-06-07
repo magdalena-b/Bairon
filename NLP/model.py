@@ -25,6 +25,7 @@ class PoemGenerator:
 
     def generate(self, *args, **kwargs):
         global graph
+        global length
         try:
             style = kwargs["style"]
             first_line = kwargs["first_line"]
