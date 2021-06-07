@@ -170,9 +170,11 @@ class TuringTestFragmentView(views.APIView):
 
             if coin_toss == 0:
                 poems = Poem.objects.filter(author="Machine")
+                correct = "Machine"
 
             else:
                 poems = Poem.objects.filter(author="Shakespeare") | Poem.objects.filter(author="Ginsberg") | Poem.objects.filter(author="Cummings")
+                correct = "Human"
 
             coin_toss = random.randint(0, 1)
             result = {}
@@ -185,6 +187,9 @@ class TuringTestFragmentView(views.APIView):
 
             text = random.choice(lines_formatted).strip()
             result['text'] = text
+
+            result["correct"] = correct
+            
             return Response(result, status=status.HTTP_200_OK)
 
         except Exception as e:
