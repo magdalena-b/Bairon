@@ -15,13 +15,15 @@
 </template>
 
 <script>
+const {API_URL} = require('../settings.json')
+
 export default {
-name: 'TuringTest',
+    name: 'TuringTest',
     components: { },
     data() {
         return {
             poem_id: -1,
-            text: "Magna ipsum officia et dolore laboris fugiat esse non eu. Eu sunt ut laboris aute consequat ex.",
+            text: "",
             is_correct: 'none',
         }
     },
@@ -59,6 +61,9 @@ name: 'TuringTest',
                 })
                 .catch(err => console.log(err.message))
         }
+    },
+    mounted() {
+        this.fetch_text()
     }
 }
 </script>

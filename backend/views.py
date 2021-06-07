@@ -159,7 +159,7 @@ class CreateTuringTestVote(generics.CreateAPIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class TuringTestFragmentView(generics.CreateAPIView):
+class TuringTestFragmentView(views.APIView):
     
     permission_classes = (AllowAny,)
 
@@ -182,7 +182,8 @@ class TuringTestFragmentView(generics.CreateAPIView):
             result['id'] = poem.id
             lines = poem.text.split('\n')
             lines_formatted = [line for line in lines if not line.isspace()]
-            text = random.choice(lines_formatted)
+
+            text = random.choice(lines_formatted).strip()
             result['text'] = text
             return Response(result, status=status.HTTP_200_OK)
 
