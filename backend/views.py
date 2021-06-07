@@ -7,6 +7,8 @@ from rest_framework.decorators import api_view
 from django.core.serializers import serialize, json
 from django.forms.models import model_to_dict
 
+import random
+
 from .serializers import *
 
 import sys
@@ -154,4 +156,37 @@ class CreateTuringTestVote(generics.CreateAPIView):
             return Response(status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class TuringTestFragmentView(generics.CreateAPIView):
+    
+    permission_classes = (AllowAny,)
+
+    def get(self, request: Request, id = None):
+        try:
+            coin_toss = random.randint(0, 1)
+            result = {}
+
+            if coin_toss == 0:
+                poems = Poem.objects.filter(author="Machine")
+
+            else:
+                poems = Poem.objects.filter(author="Shakespeare") | Poem.objects.filter(author="Ginsberg") | Poem.objects.filter(author="Cummings")
+
+            coin_toss = random.randint(0, 1)
+            result = {}
+
+            poem = random.choice(poems)
+            
+            result['id'] = poem.id
+            lines = poem.text.split('\n')
+            lines_formatted = [line for line in lines if not line.isspace()]
+            text = random.choice(lines_formatted)
+            result['text'] = text
+            return Response(result, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
