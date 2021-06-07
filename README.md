@@ -2,9 +2,10 @@
 
 ## NLP
 
-Jak na razie działa tylko z python3.7 i niższym, z powodu starej wersji tensorflow.
-
-Do przełączenia się między wersjami polecam pyenv.
+Dotrenowane modele:
+- [x] William Shakespeare
+- [x] Allen Ginsberg
+- [x] e.e. cummings
 
 Styl `Lorem Ipsum` dodałem tylko tymczasowo, do testowania, żeby nie trzeba było za każdym razem czekać na response po 20s.
 
@@ -12,21 +13,9 @@ Styl `Lorem Ipsum` dodałem tylko tymczasowo, do testowania, żeby nie trzeba by
 
 Frontend napisany w Vue.js
 
-Jak na razie wygląda tak se, ale jeszcze nie ma tam zbyt wiele styli. Planowo myśle, że dokończymy to z użyciem Bootstrapa/Bulmy/...
+Style zrobione z pomocą Bulmy
 
 Na razie działa to jako osobna aplikacja, docelowo zrobimy tak, że Django będzie serwowało spreparowaną aplikację
-
-Jak uruchomić server do frontu?
-Nie znam się ani na JSie, ani na frontendzie, więc nie wiem czy tak się robi:
-1. `cd frontend`
-2. `sudo npm install vue`
-3. `sudo npm install -g @vue/cli`
-3. `npm install`
-4. `npm run serve`
-
-Chyba tyle powinno wystarczyć, ale poprawcie jak jeszcze jakieś inne komendy są potrzebne, żeby odpalić projekt. 
-
-Apka wygląda jak na razie słabo, ale są porobione już wszystkie widoki, które korzystają z całego API, które jest już napisane (i większość, która jest w mockupach)
 
 Podstrony:
 - [x] Home - strona główna (`/`) 
@@ -102,8 +91,17 @@ endpoint do dodawania opinii Human/Machine dla wiersza z konkretnym id
 
 ### model
 
+Jak na razie działa tylko z python3.7 i niższym, z powodu starej wersji tensorflow.
+
+Do przełączenia się między wersjami polecam pyenv.
+
 ### frontend
 
+1. `cd frontend`
+2. `sudo npm install vue`
+3. `sudo npm install -g @vue/cli`
+3. `npm install`
+4. `npm run serve`
 
 ### Django
 

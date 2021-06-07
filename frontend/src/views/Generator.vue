@@ -1,21 +1,45 @@
 <template>
-    <main>
-        <div class="poem">
-            <h2>Select your favourite poet</h2>
-            <button v-for="p in avaible_poets" :key="p" @click="selectPoet(p)" v-bind:class="{highlight: p==poet}">
-                {{ p }}
-            </button>
-            <h2 >Type your first line</h2>
-            <input type="text" v-model="first_line"/>
-            <button @click="fetch_poem">generate</button>
-            <div id="poem" v-if="poem != ''">
-                <p v-for="line in poem.split('\n')" :key="line">{{ line }}</p>
-                <button @click="save_poem">save</button>
+    <div class="container">
+        <div class="columns is-vcentered has-text-centered">
+            <div class="column is-6">
+                <div class="poem">
+                    <h2 class="is-size-3-tablet is-size-4-mobile">Select your favourite poet</h2>
+                    <div class="buttons is-centered">
+                        <button class="button is-rounded" v-for="p in avaible_poets" :key="p" @click="selectPoet(p)" v-bind:class="{'is-primary': p==poet}">
+                            {{ p }}
+                        </button>
+                    </div>
+                    <h2 class="is-size-3-tablet is-size-4-mobile mt-5">Type your first line</h2>
+                    <div class="field is-grouped">
+                        <div class="control is-expanded">
+                            <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life" required/>
+                        </div>
+                        <div class="control">
+                            <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem">generate</button>
+                        </div>
+                    </div>
+                    <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( poem != '') ? '100vh' : '0px')}">
+                        <div id="poem" class="card">
+                            <div class="card-content">
+                                <div class="media-content">
+                                    <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3>
+                                </div>
+                                <p class="is-size-6 has-text-left" v-for="line in poem.split('\n')" :key="line">{{ line }}</p>
+                                <button class="button is-info is-rounded mt-3" @click="save_poem">save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-1">
+                <!-- placeholder -->
+            </div>
+            <div class="column is-5">
+                <Gallery />
             </div>
         </div>
-        <!-- <Gallery v-model:current_poet="poet"/> -->
             
-        <div class="margin-right-20"  v-if="poet=='Shakespeare'">
+        <!-- <div class="poet margin-right-20"  v-if="poet=='Shakespeare'">
             <img src="../assets/Shakespeare.jpg" >  
             <h2> William Shakespeare </h2>
             <h3> English poet and dramatist from 16th/17th century, by some considered the greatest English writer of all time. </h3>
@@ -37,8 +61,8 @@
             </p>    
         </div>
 
-        <div class="margin-right-20"  v-if="poet=='Ginsberg'">
-            <img src="../assets/Ginsberg.jpg" >  
+        <div class="poet margin-right-20"  v-if="poet=='Ginsberg'">
+            <img src="../assets/ginsberg.jpg" >  
             <h2> Allen Ginsberg </h2>
             <h3> American poet from 20th century, one of the beatniks - a literary countercultural movement. </h3>
             <p>
@@ -55,7 +79,7 @@
             </p>    
         </div>
 
-        <div class="margin-right-20"  v-if="poet=='Cummings'">
+        <div class="poet margin-right-20"  v-if="poet=='Cummings'">
             <img src="../assets/cummings.jpg" >  
             <h2> e.e. cummings </h2>
             <h3> American poet from 20th century, wrote modernist free-form poetry, known for his experiments with style and syntax. </h3>
@@ -82,11 +106,11 @@
                 <br>suddenly wait against the moon’s face.
             </p>
 
-        </div>
+        </div> -->
 
 
         
-    </main>
+    </div>
 </template>
 
 <script>
@@ -111,6 +135,10 @@ export default {
         },
         fetch_poem(){
             this.poem = ""
+            const generate_button = document.querySelector('#generate_button')
+
+            generate_button.classList.add('is-loading')
+
             fetch(`${API_URL}/api/generate/`, {
                 method: 'POST',
                 headers: {
@@ -122,7 +150,10 @@ export default {
                 })
             })
                 .then(res => res.json())
-                .then(data => ({text: this.poem, input: this.input_id} = data))
+                .then(data => {
+                    ({text: this.poem, input: this.input_id} = data)
+                    generate_button.classList.remove("is-loading")
+                })
                 .catch(err => console.log(err.message))
         },
         save_poem() {
@@ -136,6 +167,9 @@ export default {
                     "text": this.poem
                 })
             })
+                .then(() => {
+                    this.poem = ""
+                })
                 .catch(err => console.log(err.message))
         }
     }
@@ -143,25 +177,12 @@ export default {
 </script>
 
 <style scoped>
-    main {
-        /* TODO fix that shit */
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: baseline;
+    .columns {
+        min-height: 100vh;
     }
 
-    .poem {
-        width: 40vw;
-        height: 100%;
-        margin: auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: baseline;
-        align-content: center;
-    }
-
-    .highlight {
-        background-color: lightseagreen;
+    #poem_container {
+        overflow: hidden;
+        transition: max-height 1s ease-out;
     }
 </style>
