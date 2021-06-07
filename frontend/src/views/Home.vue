@@ -2,7 +2,7 @@
     <div class="container">
         <div class="columns is-vcentered has-text-centered is-centered is-multiline">
             <div class="column is-7-desktop is-12-tablet">
-                <div class="hero is-large">
+                <div class="hero is-medium">
                     <div class="hero-body">
                         <div>
                             <h1 class="is-size-1-tablet is-size-2-mobile has-text-weight-bold">
@@ -44,6 +44,6 @@ export default {
 
 <style scoped>
 .columns {
-    /* min-height: 100vh; */
+    min-height: 90vh;
 }
 </style>
