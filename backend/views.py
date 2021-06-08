@@ -110,6 +110,10 @@ class RatingView(views.APIView):
                 result["rate-count"] = len(Rate.objects.all())
                 result["TT-human"] = len(TuringTestVote.objects.filter(vote="Human"))
                 result["TT-machine"] = len(TuringTestVote.objects.filter(vote="Machine"))
+                result["TT-TH"] = len(TuringTestVote.objects.filter(vote="Human").exclude(poem__author="Machine"))
+                result["TT-FH"] = len(TuringTestVote.objects.filter(vote="Human").filter(poem__author="Machine"))
+                result["TT-TM"] = len(TuringTestVote.objects.filter(vote="Machine").exclude(poem__author="Machine"))
+                result["TT-FM"] = len(TuringTestVote.objects.filter(vote="Machine").filter(poem__author="Machine"))
                 return Response(result, status=status.HTTP_200_OK)
         except Exception as e:
             print(e)
