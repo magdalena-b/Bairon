@@ -17,7 +17,7 @@
                                 ... or just check others popular <router-link to="/poems" class="has-text-primary has-text-weight-bold">poems</router-link>
                             </h2>
                             <h2 class="is-size-4-tablet is-size-5-mobile">
-                                either give us feedback via <router-link to="/turing-test" class="has-text-primary has-text-weight-bold"> Turing Test</router-link>
+                                Remember to give us feedback via <router-link to="/turing-test" class="has-text-primary has-text-weight-bold"> Turing Test</router-link>
                             </h2>
                         </div>
                     </div>

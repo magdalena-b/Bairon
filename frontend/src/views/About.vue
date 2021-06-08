@@ -2,12 +2,14 @@
     <div class="container mt-4">
         <h2 class="title">About this project</h2>
         <p class="is-size-5-desktop is-size-6-tablet">
-            Aplikacja służąca do generowania poezji, za pomocą pretrenowanych modeli językowych i z użyciem metod Style Transfer.
-            Umożliwia wygenerowanie tekstu na podstawie pierwszej linijki podanej przez użytkownika oraz stylu (jednego z kilku poetów), w jakim ma być wygenerowany teskt.
-            Oprócz samego generowania, aplikacja umożliwia przeglądanie, zapisywanie, ocenianie, oraz "badanie" jakości wygenerowanego tekstu.
+            An application for generating poetry using finetuned pretrained language models. For now we use GPT-2 model, but we plan to add other language models
+            and use Style Transfer methods.
+            You can generate text from an input line (or only a word, but the results are better if you write a full sentence).
+            Choose the poet whose style you want to emulate. If you like the generated text, save it. Check out other generated poems and rate them.
+            You can also take a Poetry Turing Test - it will help us evaluate our generator. 
         </p>
         <h3 class="is-size-4 mt-4">
-            Wykorzystane technologie:
+            Technologies:
         </h3>
         <div class="columns has-text-centered is-multiline">
             <div class="column is-4-desktop is-8-tablet">
@@ -32,7 +34,7 @@
             </div>
         </div>
         <h3 class="is-size-4 mt-4">
-            Wyniki testów
+            Tests results:
         </h3>
         <div class="columns is-centered mt-4">
             <div class="column is-6-desktop is-8-tablet has-text-centered">
