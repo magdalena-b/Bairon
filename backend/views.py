@@ -183,13 +183,13 @@ class TuringTestFragmentView(views.APIView):
             
             result['id'] = poem.id
             lines = poem.text.split('\n')
-            lines_formatted = [line for line in lines if not line.isspace()]
+            lines_formatted = [line for line in lines if len(line.strip()) > 10]
 
             text = random.choice(lines_formatted).strip()
             result['text'] = text
 
             result["correct"] = correct
-            
+
             return Response(result, status=status.HTTP_200_OK)
 
         except Exception as e:

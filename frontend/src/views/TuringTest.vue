@@ -1,6 +1,6 @@
 <template>
     <div id="wrapper">
-        <div class="container has-text-centered px-4 py-6" v-bind:class="{'has-background-light': is_correct=='none', 'has-background-danger-light': is_correct=='no', 'has-background-success-light': is_correct=='yes'}">
+        <div class="container has-text-centered px-4 py-6" v-bind:class="{'has-background-light': answer==null, 'has-background-danger-light': (answer && answer==correct_answer), 'has-background-success-light': (answer && answer!=correct_answer)}">
             <h2 class="is-size-3-desktop is-size-4 is-italic">
                 "{{text}}"
             </h2>
@@ -24,41 +24,39 @@ export default {
         return {
             poem_id: -1,
             text: "",
-            is_correct: 'none',
+            answer: null,
+            correct_answer: null
         }
     },
     methods: {
         fetch_text(){
             this.text = ""
+            this.answer = null
 
             fetch(`${API_URL}/api/get/tt-fragment/`)
                 .then(res => res.json())
                 .then(data => {
-                    ({text: this.text, poem_id: this.poem_id} = data)
+                    ({text: this.text, id: this.poem_id, correct: this.correct_answer} = data)
                 })
                 .catch(err => console.log(err.message))
         },
         save_vote(vote) {
+            this.answer = vote
+            setTimeout(() => {
+                this.fetch_text()
+            }, 1000)
+
             fetch(`${API_URL}/api/add/turing-test-vote/${this.poem_id}/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    "poem_id": this.poem_id,
+                    "poem": this.poem_id,
                     "fragment": this.text,
                     "vote": vote
                 })
             })
-                .then(res => res.json())
-                .then(data => {
-                    ({is_correct: this.is_correct} = data)
-                    this.is_correct = is_correct ? "yes" : "no"
-                    setTimeout(() => {
-                        this.is_correct = "none"
-                        this.fetch_text()
-                    }, 1000)
-                })
                 .catch(err => console.log(err.message))
         }
     },
