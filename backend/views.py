@@ -120,7 +120,7 @@ class PoemListView(views.APIView):
 
     def get(self, request: Request, style = None, sentiment = None, number = 10):
         try:
-            poems = Poem.objects.all()
+            poems = Poem.objects.all().filter(author="Machine")
             if style:
                 poems = poems.filter(input__style=style)
             if sentiment:
