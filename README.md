@@ -23,6 +23,7 @@ Podstrony:
 - [x] About - opis projektu, można zamiast prezentacji wykorzystać (`/about`)
 - [x] Poems - lista wszystkich wygenerowanych wierszy, można filtrować(`/poems`)
 - [x] Poem - wybrany wiersz, pokazuje statystyki i umożliwia głosowanie (`/poem/id`)
+- [x] Turing Test - umożliwia głosowanie w TT (`/turing-test`)
 
 ## backend
 
@@ -87,6 +88,10 @@ endpoint do dodawania z oceny [1-10] dla wiersza z konkretnym id
 
 endpoint do dodawania opinii Human/Machine dla wiersza z konkretnym id
 
+`/api/get/tt-fragment/` 
+
+endpoint odpytywania serwera o dane potrzebne do TT
+
 ## Uruchomienie
 
 ### model
@@ -96,6 +101,8 @@ Jak na razie działa tylko z python3.7 i niższym, z powodu starej wersji tensor
 Do przełączenia się między wersjami polecam pyenv.
 
 ### frontend
+
+##### wer. alfa
 
 1. `cd frontend`
 2. `sudo npm install vue`
@@ -107,10 +114,10 @@ Do przełączenia się między wersjami polecam pyenv.
 
 Pobieranie modułów do pythona: `pip install -r requirements.txt`
 
-Najlepiej chyba zdropować za każdym razem bazę po większych zmianach (`db.sqlite3`) i usunąć migracje, jak jakieś są (`*/migrations/*` - wszystko za wyjątkiem `init.py`)
-
 Migracje: `python manage.py makemigrations` i `python manage.py migrate`
 
-Żeby dodać admina automatycznie dodałem komendę `python manage.py create_admin`, nie trzeba wtedy wszystkiego wpisywać - tworzy się automatycznie - login: `admin`, password: `admin`
+Żeby dodać admina automatycznie `python manage.py create_admin`, nie trzeba wtedy wszystkiego wpisywać - tworzy się automatycznie - login: `admin`, password: `admin`
+
+Żeby załadować wiersze prawdziwych poetów do bazy (potrzebne do TT) `python manage.py save_poems`
 
 Uruchomienie `python manage.py runserver`

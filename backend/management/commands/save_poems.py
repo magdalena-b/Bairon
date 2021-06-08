@@ -9,10 +9,19 @@ import random
 class Command(BaseCommand):
     def handle(self, *args, **kwargs) -> None:
 
-        # f = open('ginsberg.txt','r')
-        # poems = f.read()
+        f = open('ginsberg.txt','r')
+        poems = f.read()
 
-        # poem = Poem(text=poems, author=POETS[2])
-        # poem.save()
+        poem = Poem.objects.get_or_create(text=poems, author=POETS[2][0])
+
+        f = open('shakespeare_sonnets.txt','r')
+        poems = f.read()
+
+        poem = Poem.objects.get_or_create(text=poems, author=POETS[1][0])
+
+        f = open('cummings.txt','r')
+        poems = f.read()
+
+        poem = Poem.objects.get_or_create(text=poems, author=POETS[3][0])
 
 

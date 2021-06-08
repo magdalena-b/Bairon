@@ -110,6 +110,10 @@ class RatingView(views.APIView):
                 result["rate-count"] = len(Rate.objects.all())
                 result["TT-human"] = len(TuringTestVote.objects.filter(vote="Human"))
                 result["TT-machine"] = len(TuringTestVote.objects.filter(vote="Machine"))
+                result["TT-TH"] = len(TuringTestVote.objects.filter(vote="Human").exclude(poem__author="Machine"))
+                result["TT-FH"] = len(TuringTestVote.objects.filter(vote="Human").filter(poem__author="Machine"))
+                result["TT-TM"] = len(TuringTestVote.objects.filter(vote="Machine").exclude(poem__author="Machine"))
+                result["TT-FM"] = len(TuringTestVote.objects.filter(vote="Machine").filter(poem__author="Machine"))
                 return Response(result, status=status.HTTP_200_OK)
         except Exception as e:
             print(e)
@@ -120,7 +124,7 @@ class PoemListView(views.APIView):
 
     def get(self, request: Request, style = None, sentiment = None, number = 10):
         try:
-            poems = Poem.objects.all()
+            poems = Poem.objects.all().filter(author="Machine")
             if style:
                 poems = poems.filter(input__style=style)
             if sentiment:
@@ -153,12 +157,13 @@ class CreateTuringTestVote(generics.CreateAPIView):
         serializer = TuringTestVoteSerializer(data=request.data)
         if serializer.is_valid():
             created = serializer.create(serializer.validated_data)
+            print(created)
             return Response(status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class TuringTestFragmentView(generics.CreateAPIView):
+class TuringTestFragmentView(views.APIView):
     
     permission_classes = (AllowAny,)
 
@@ -168,10 +173,12 @@ class TuringTestFragmentView(generics.CreateAPIView):
             result = {}
 
             if coin_toss == 0:
-                poems = Poem.objects.filter(author="Machine")
+                poems = Poem.objects.filter(author="Machine").exclude(input__style="Lorem Ipsum")
+                correct = "Machine"
 
             else:
                 poems = Poem.objects.filter(author="Shakespeare") | Poem.objects.filter(author="Ginsberg") | Poem.objects.filter(author="Cummings")
+                correct = "Human"
 
             coin_toss = random.randint(0, 1)
             result = {}
@@ -180,9 +187,13 @@ class TuringTestFragmentView(generics.CreateAPIView):
             
             result['id'] = poem.id
             lines = poem.text.split('\n')
-            lines_formatted = [line for line in lines if not line.isspace()]
-            text = random.choice(lines_formatted)
+            lines_formatted = [line for line in lines if len(line.strip()) > 10]
+
+            text = random.choice(lines_formatted).strip()
             result['text'] = text
+
+            result["correct"] = correct
+
             return Response(result, status=status.HTTP_200_OK)
 
         except Exception as e:

@@ -32,108 +32,108 @@ export default {
     @keyframes animation1 {
         0% { opacity: 0; }
         0% { opacity: 0; }
-        4% { opacity: 1; }
+        5% { opacity: 1; }
         88% { opacity: 1; }
         93% { opacity: 0; }
         100% { opacity: 0; }
     }
     #cell1 {
-        animation: animation1 13.5s infinite 1s both linear;
+        animation: animation1 12s infinite 1s both linear;
     }
     
     @keyframes animation2 {
         0% { opacity: 0; }
         3% { opacity: 0; }
-        7% { opacity: 1; }
+        8% { opacity: 1; }
         78% { opacity: 1; }
         83% { opacity: 0; }
         100% { opacity: 0; }
     }
     #cell2 {
-        animation: animation2 13.5s infinite 1s both linear;
+        animation: animation2 12s infinite 1s both linear;
     }
 
     @keyframes animation3 {
         0% { opacity: 0; }
         6% { opacity: 0; }
-        10% { opacity: 1; }
+        11% { opacity: 1; }
         58% { opacity: 1; }
         63% { opacity: 0; }
         100% { opacity: 0; }
     }
     #cell3 {
-        animation: animation3 13.5s infinite 1s both linear;
+        animation: animation3 12s infinite 1s both linear;
     }
 
     @keyframes animation4 {
         0% { opacity: 0; }
         9% { opacity: 0; }
-        13% { opacity: 1; }
+        14% { opacity: 1; }
         68% { opacity: 1; }
         73% { opacity: 0; }
         100% { opacity: 0; }
     }
     #cell4 {
-        animation: animation4 13.5s infinite 1s both linear;
+        animation: animation4 12s infinite 1s both linear;
     }
 
     @keyframes animation5 {
         0% { opacity: 0; }
         12% { opacity: 0; }
-        16% { opacity: 1; }
+        17% { opacity: 1; }
         48% { opacity: 1; }
         53% { opacity: 0; }
         100% { opacity: 0; }
     }
     #cell5 {
-        animation: animation5 13.5s infinite 1s both linear;
+        animation: animation5 12s infinite 1s both linear;
     }
 
     @keyframes animation6 {
         0% { opacity: 0; }
         15% { opacity: 0; }
-        19% { opacity: 1; }
+        20% { opacity: 1; }
         83% { opacity: 1; }
         88% { opacity: 0; }
         100% { opacity: 0; }
     }
     #cell6 {
-        animation: animation6 13.5s infinite 1s both linear;
+        animation: animation6 12s infinite 1s both linear;
     }
 
     @keyframes animation7 {
         0% { opacity: 0; }
         18% { opacity: 0; }
-        22% { opacity: 1; }
+        23% { opacity: 1; }
         73% { opacity: 1; }
         78% { opacity: 0; }
         100% { opacity: 0; }
     }
     #cell7 {
-        animation: animation7 13.5s infinite 1s both linear;
+        animation: animation7 12s infinite 1s both linear;
     }
 
     @keyframes animation8 {
         0% { opacity: 0; }
         21% { opacity: 0; }
-        25% { opacity: 1; }
+        26% { opacity: 1; }
         63% { opacity: 1; }
         68% { opacity: 0; }
         100% { opacity: 0; }
     }
     #cell8 {
-        animation: animation8 13.5s infinite 1s both linear;
+        animation: animation8 12s infinite 1s both linear;
     }
 
     @keyframes animation9 {
         0% { opacity: 0; }
         24% { opacity: 0; }
-        28% { opacity: 1; }
+        29% { opacity: 1; }
         53% { opacity: 1; }
         58% { opacity: 0; }
         100% { opacity: 0; }
     }
     #cell9 {
-        animation: animation9 13.5s infinite 1s both linear;
+        animation: animation9 12s infinite 1s both linear;
     }
 </style>

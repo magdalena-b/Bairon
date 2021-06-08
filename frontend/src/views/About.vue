@@ -9,7 +9,7 @@
         <h3 class="is-size-4 mt-4">
             Wykorzystane technologie:
         </h3>
-        <div class="columns has-text-centered">
+        <div class="columns has-text-centered is-multiline">
             <div class="column is-4-desktop is-8-tablet">
                 <p class="is-size-6">backend</p>
                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Django_logo.svg" alt="">
@@ -33,19 +33,23 @@
         </div>
         <h3 class="is-size-4 mt-4">
             Wyniki testów
-        </h3>    
-        <div class="message is-primary">
-            <div class="message-header">
-                <p>Average rating</p>
-            </div>
-            <div class="header-body">
-                <p>{{score}}</p>
-            </div>
-            <div class="message-header">
-                <p>Turing Test votes (M/H)</p>
-            </div>
-            <div class="header-body">
-                <p>{{TT_machine}} vs. {{TT_human}}</p>
+        </h3>
+        <div class="columns is-centered mt-4">
+            <div class="column is-6-desktop is-8-tablet has-text-centered">
+                <div class="message is-dark">
+                    <div class="message-header">
+                        <p>Average rating</p>
+                    </div>
+                    <div class="header-body py-4 px-4">
+                        <p>{{score}}</p>
+                    </div>
+                    <div class="message-header">
+                        <p>Turing Test votes</p>
+                    </div>
+                    <div class="header-body">
+                        <TTChart />
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -54,31 +58,53 @@
 
 <script>
 const {API_URL} = require('../settings.json')
+import TTChart from '@/components/TTChart.vue'
+
 
 export default ({
     name: "About",
+    components: {
+        TTChart,
+    },
     data() {
         return {
             score: 0,
             TT_machine: 0,
             TT_human: 0,
+            TT_TH: 0,
+            TT_FH: 0,
+            TT_TM: 0,
+            TT_TM: 0,
         }
     },
     methods: {
-        get_rating(){
+        get_rating(callback = () => "dupa"){
             fetch(`${API_URL}/api/rating/`)
                 .then(res => res.json())
                 .then(data => {
-                    ({"TT-human": this.TT_human, "TT-machine": this.TT_machine, "rate-average": this.score} = data)
+                    ({
+                        "TT-human": this.TT_human,
+                        "TT-machine": this.TT_machine,
+                        "rate-average": this.score,
+                        "TT-TH": this.TT_TH,
+                        "TT-FH": this.TT_FH,
+                        "TT-TM": this.TT_TM,
+                        "TT-FM": this.TT_FM,
+                    } = data)
+                    callback()
                 })
                 .catch(err => console.log(err.message))
         },
     },
     mounted() {
-        this.get_rating()
+        this.get_rating(this.get_chart)
     }
 })
 </script>
 
 <style scoped>
+    img {
+        max-width: 300px;
+        max-height: 200px;
+    }
 </style>

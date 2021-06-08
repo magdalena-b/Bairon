@@ -36,7 +36,7 @@ class PoemSerializer(serializers.ModelSerializer):
             input, created = Poem.objects.get_or_create(
                 author = validated_data.get("get_author_display", "Machine"),
                 input = validated_data["input"],
-                text = validated_data["text"],
+                text = validated_data["text"][:1000],
                 sentiment = validated_data.get("sentiment", "normal"),
             )
             input.save()

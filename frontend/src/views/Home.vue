@@ -2,7 +2,7 @@
     <div class="container">
         <div class="columns is-vcentered has-text-centered is-centered is-multiline">
             <div class="column is-7-desktop is-12-tablet">
-                <div class="hero is-large">
+                <div class="hero is-medium">
                     <div class="hero-body">
                         <div>
                             <h1 class="is-size-1-tablet is-size-2-mobile has-text-weight-bold">
@@ -14,7 +14,10 @@
                                 </button>
                             </router-link>
                             <h2 class="is-size-4-tablet is-size-5-mobile">
-                                ... or just check others popular poems <router-link to="/poems" class="has-text-primary has-text-weight-bold">here</router-link>
+                                ... or just check others popular <router-link to="/poems" class="has-text-primary has-text-weight-bold">poems</router-link>
+                            </h2>
+                            <h2 class="is-size-4-tablet is-size-5-mobile">
+                                either give us feedback via <router-link to="/turing-test" class="has-text-primary has-text-weight-bold"> Turing Test</router-link>
                             </h2>
                         </div>
                     </div>
@@ -44,6 +47,6 @@ export default {
 
 <style scoped>
 .columns {
-    /* min-height: 100vh; */
+    min-height: 90vh;
 }
 </style>
