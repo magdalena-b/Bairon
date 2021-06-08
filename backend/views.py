@@ -169,7 +169,7 @@ class TuringTestFragmentView(views.APIView):
             result = {}
 
             if coin_toss == 0:
-                poems = Poem.objects.filter(author="Machine")
+                poems = Poem.objects.filter(author="Machine").exclude(input__style="Lorem Ipsum")
                 correct = "Machine"
 
             else:

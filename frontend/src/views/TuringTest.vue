@@ -4,7 +4,7 @@
             <h2 class="is-size-3-desktop is-size-4 is-italic">
                 "{{text}}"
             </h2>
-            <p class="is-size-4-desktop is-size-5 mt-6 mb-4">Who do you think wrote this poem?</p>
+            <p class="is-size-4-desktop is-size-5 mt-6 mb-4">Who do you think wrote this line?</p>
             <div class="buttons is-centered">
                 <button class="button is-rounded is-medium is-primary" @click="save_vote('Human')">Human</button>
                 <p class="is-size-4-desktop is-size-5 mx-2">or</p>
