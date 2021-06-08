@@ -107,7 +107,7 @@ export default {
 
 <style scoped>
     .columns {
-        min-height: 100vh;
+        min-height: 90vh;
     }
 
     #poem_container {

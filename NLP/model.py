@@ -35,29 +35,29 @@ class PoemGenerator:
 
         if style == "Shakespeare":
             
-            load_model("shakespeare")
+            load_model("shakespeare2")
             start = time.time()
             with graph.as_default():
-                text = gpt2.generate(sess, run_name='shakespeare', prefix = first_line, length = length, return_as_list=True)[0]
+                text = gpt2.generate(sess, run_name='shakespeare2', prefix = first_line, length = length, return_as_list=True)[0]
                 sentiment = "normal"
             print("generating time:",time.time()-start,"s")
         
         if style == "Ginsberg":
             
-            load_model("ginsberg")
+            load_model("ginsberg2")
             start = time.time()
             with graph.as_default():
-                text = gpt2.generate(sess, run_name='ginsberg', prefix = first_line, length = length, return_as_list=True)[0]
+                text = gpt2.generate(sess, run_name='ginsberg2', prefix = first_line, length = length, return_as_list=True)[0]
                 sentiment = "normal"
             print("generating time:",time.time()-start,"s")
         
 
         if style == "Cummings":
             
-            load_model("cummings")
+            load_model("cummings2")
             start = time.time()
             with graph.as_default():
-                text = gpt2.generate(sess, run_name='cummings', prefix = first_line, length = length, return_as_list=True)[0]
+                text = gpt2.generate(sess, run_name='cummings2', prefix = first_line, length = length, return_as_list=True)[0]
                 sentiment = "normal"
             print("generating time:",time.time()-start,"s")
 
