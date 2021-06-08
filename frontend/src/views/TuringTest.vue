@@ -1,14 +1,28 @@
 <template>
     <div id="wrapper">
-        <div class="container has-text-centered px-4 py-6" v-bind:class="{'has-background-light': answer==null, 'has-background-danger-light': (answer && answer==correct_answer), 'has-background-success-light': (answer && answer!=correct_answer)}">
-            <h2 class="is-size-3-desktop is-size-4 is-italic">
-                "{{text}}"
-            </h2>
-            <p class="is-size-4-desktop is-size-5 mt-6 mb-4">Who do you think wrote this line?</p>
-            <div class="buttons is-centered">
-                <button class="button is-rounded is-medium is-primary" @click="save_vote('Human')">Human</button>
-                <p class="is-size-4-desktop is-size-5 mx-2">or</p>
-                <button class="button is-rounded is-medium is-info" @click="save_vote('Machine')">Machine</button>
+        <div class="container">
+            <div class="container has-text-centered px-4 py-6" v-bind:class="{'has-background-light': answer==null, 'has-background-danger-light': (answer && answer==correct_answer), 'has-background-success-light': (answer && answer!=correct_answer)}">
+                <h2 class="is-size-3-desktop is-size-4 is-italic">
+                    "{{text}}"
+                </h2>
+                <p class="is-size-4-desktop is-size-5 mt-6 mb-4">Who do you think wrote this line?</p>
+                <div class="buttons is-centered">
+                    <button class="button is-rounded is-medium is-primary" @click="save_vote('Human')">Human</button>
+                    <p class="is-size-4-desktop is-size-5 mx-2">or</p>
+                    <button class="button is-rounded is-medium is-info" @click="save_vote('Machine')">Machine</button>
+                </div>
+            </div>
+            <div class="columns is-centered mt-4">
+                <div class="column is-6-desktop is-8-tablet has-text-centered">
+                    <div class="message is-dark">
+                        <div class="message-header">
+                            <p>Turing Test votes</p>
+                        </div>
+                        <div class="header-body">   
+                            <TTChart />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -16,10 +30,11 @@
 
 <script>
 const {API_URL} = require('../settings.json')
+import TTChart from '@/components/TTChart.vue'
 
 export default {
     name: 'TuringTest',
-    components: { },
+    components: { TTChart },
     data() {
         return {
             poem_id: -1,

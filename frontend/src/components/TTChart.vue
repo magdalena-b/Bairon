@@ -46,8 +46,8 @@ export default {
                     datasets: [{
                         label: 'true',
                         backgroundColor: [
-                            'rgba(75, 192, 192, 0.6)',
-                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(75, 192, 192, 0.4)',
+                            'rgba(75, 192, 192, 0.4)',
                         ],
                         borderColor: [
                             'rgb(75, 192, 192)',
@@ -59,8 +59,8 @@ export default {
                     {
                         label: 'false',
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.6)',
-                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(255, 99, 132, 0.4)',
                         ],
                         borderColor: [
                             'rgb(255, 99, 132)',

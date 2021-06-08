@@ -33,25 +33,26 @@
         </div>
         <h3 class="is-size-4 mt-4">
             Wyniki testów
-        </h3>    
-        <div class="message is-dark">
-            <div class="message-header">
-                <p>Average rating</p>
-            </div>
-            <div class="header-body py-4 px-4">
-                <p>{{score}}</p>
-            </div>
-            <div class="message-header">
-                <p>Turing Test votes</p>
-            </div>
-            <div class="header-body">
-                <div class="columns is-centered">
-                    <div class="column is-6-desktop is-8-tablet has-text-centered">
+        </h3>
+        <div class="columns is-centered mt-4">
+            <div class="column is-6-desktop is-8-tablet has-text-centered">
+                <div class="message is-dark">
+                    <div class="message-header">
+                        <p>Average rating</p>
+                    </div>
+                    <div class="header-body py-4 px-4">
+                        <p>{{score}}</p>
+                    </div>
+                    <div class="message-header">
+                        <p>Turing Test votes</p>
+                    </div>
+                    <div class="header-body">
                         <TTChart />
                     </div>
                 </div>
             </div>
         </div>
+        
     </div>
 </template>
 
