@@ -5,11 +5,16 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - DEBUG=False
+      - CORS_ORIGIN_WHITELIST=http://localhost:8080,http://127.0.0.1:8080,http://0.0.0.0:8080
     ports:
       - "8000:8000"
   frontend:
     build:
       context: frontend/
       dockerfile: Dockerfile
+    environment:
+      - BACKEND_ADRESS=backend
     ports:
       - 8080:80
