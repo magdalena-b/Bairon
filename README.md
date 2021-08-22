@@ -134,3 +134,12 @@ Migracje: `python manage.py makemigrations` i `python manage.py migrate`
 Żeby załadować wiersze prawdziwych poetów do bazy (potrzebne do TT) `python manage.py save_poems`
 
 Uruchomienie `python manage.py runserver`
+
+### Docker
+
+Teraz nie trzeba uruchamiać wszystkigo osobno.
+
+Wystarczy pobrać `docker` i `docker-compose` i wpisać w katalogu z projektem:
+* `sudo docker-compose up` żeby uruchomić
+* `sudo docker-compose down` żeby zatrzymać wszystko
+* `sudo docker-compose build` żeby zbudować od nowa projekt (po każdej zmianie w django albo na froncie)
