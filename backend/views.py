@@ -56,6 +56,12 @@ class GeneratePoemView(generics.CreateAPIView):
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
+class GenerateStyleTransferView(generics.CreateAPIView):
+    serializer_class = InputSerializer
+    permission_classes = (AllowAny,)
+
+
 class SavePoem(generics.CreateAPIView):
     serializer_class = PoemSerializer
     permission_classes = (AllowAny,)
