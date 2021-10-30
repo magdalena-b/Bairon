@@ -125,6 +125,8 @@ Do przełączenia się między wersjami polecam pyenv.
 
 ### Django
 
+Aktywacja pyenv: `python3 -m venv .venv`
+
 Pobieranie modułów do pythona: `pip install -r requirements.txt`
 
 Migracje: `python manage.py makemigrations` i `python manage.py migrate`
