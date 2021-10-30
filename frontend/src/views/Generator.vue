@@ -9,10 +9,16 @@
                             {{ p }}
                         </button>
                     </div>
+
+                    <div v-if=" this.poet ==  'Shakespeare' ">
+                        <h2 class="is-size-3-tablet is-size-4-mobile mt-5">Translate your line to shakespearian language</h2>
+
+                    </div>
+
                     <h2 class="is-size-3-tablet is-size-4-mobile mt-5">Type your first line</h2>
                     <div class="field is-grouped">
                         <div class="control is-expanded">
-                            <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life" required/>
+                            <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life as it is" required/>
                         </div>
                         <div class="control">
                             <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem">generate</button>
