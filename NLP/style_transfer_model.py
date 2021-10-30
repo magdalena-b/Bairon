@@ -17,15 +17,16 @@ class StyleTransferGenerator():
             "num_return_sequences": 5,
         }
         
-        self.model_path = "./shakespeare_T5"
-        self.model = T5Model("t5", self.model_path, args = self.args)
+        # self.model_path = "./shakespeare_T5"
+        # self.model = T5Model("t5", self.model_path, args = self.args)
 
     
     def generate(self, *args, **kwargs):
-        prefix = "paraphrase"
-        line = kwargs["line"]
-        predictions = trained_model.predict([f'{prefix}: {line}'])
-        predicitions = predictions[0]
-        return predicitions[0]
+        # prefix = "paraphrase"
+        # line = kwargs["line"]
+        # predictions = trained_model.predict([f'{prefix}: {line}'])
+        # predicitions = predictions[0]
+        # return predicitions[0]
+        return "Translated to shakespearian"
 
 

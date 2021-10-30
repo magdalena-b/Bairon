@@ -43,6 +43,11 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/TuringTest.vue')
   },
+  {
+    path: '/statistics',
+    name: 'Statistics',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Statistics.vue')
+  },
 ]
 
 const router = createRouter({

@@ -6,6 +6,7 @@ from rest_framework import generics, status, views
 from rest_framework.decorators import api_view
 from django.core.serializers import serialize, json
 from django.forms.models import model_to_dict
+from rest_framework import serializers
 
 import random
 
@@ -206,4 +207,27 @@ class TuringTestFragmentView(views.APIView):
             print(e)
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
+
+class StatisticsView(views.APIView):
+    
+    permission_classes = (AllowAny,)
+
+    def get(self, request: Request):
+
+            cummings_words = [('thy', 63), ('whose', 60), ('like', 56), ('little', 55), ('eyes', 50), ('upon', 49), ('love', 43), ('one', 36), ('lips', 35), ('body', 33), ('thou', 30), ('day', 28), ('hands', 28), ('mouth', 27), ('spring', 26), ('flowers', 25), ('moon', 25), ('death', 25), ('world', 25), ('face', 25), ('dead', 25), ('shall', 24), ('flower', 24), ('head', 23), ('hair', 22), ('smile', 22), ('see', 22), ('silver', 21), ('silence', 21), ('suddenly', 21), ('night', 20), ('something', 20), ('rain', 20), ('feet', 20)]
+            result = {}
+
+            # result = CustomSerializer(data=cumming_words, many=True)
+            result['words'] = ['bla', 'obla']
+            result['counts'] = [2, 1]
+
+
+            try:
+                # result['cumming_words'] = cumming_words
+                # result = cumming_words
+                return Response(result, status=status.HTTP_200_OK)
+            except Exception as e:
+                print(e)
+                return Response(status=status.HTTP_400_BAD_REQUEST)
 

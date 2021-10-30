@@ -10,11 +10,6 @@
                         </button>
                     </div>
 
-                    <div v-if=" this.poet ==  'Shakespeare' ">
-                        <h2 class="is-size-3-tablet is-size-4-mobile mt-5">Translate your line to shakespearian language</h2>
-
-                    </div>
-
                     <h2 class="is-size-3-tablet is-size-4-mobile mt-5">Type your first line</h2>
                     <div class="field is-grouped">
                         <div class="control is-expanded">
@@ -23,6 +18,19 @@
                         <div class="control">
                             <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem">generate</button>
                         </div>
+                        <div class="control" v-if=" this.poet ==  'Shakespeare' ">
+                            <button id="generate_button" class="button is-rounded is-info" @click="fetch_style_transfer_line">translate to shakespearian</button>
+                        </div>
+                        <!-- <div id="style_transfer_line_container" class="mt-5" v-bind:style="{'max-height':(( poem != '') ? '100vh' : '0px')}">
+                        <div id="style_transfer_line" class="card">
+                            <div class="card-content">
+                                <div class="media-content">
+                                    <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3>
+                                </div>
+                                <p class="is-size-6 has-text-left" v-for="line in style_transfer_line.split('\n')" :key="line">{{ line }}</p>
+                            </div>
+                        </div>
+                    </div> -->
                     </div>
                     <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( poem != '') ? '100vh' : '0px')}">
                         <div id="poem" class="card">
@@ -90,6 +98,22 @@ export default {
                     generate_button.classList.remove("is-loading")
                 })
                 .catch(err => console.log(err.message))
+        },
+        fetch_style_transfer_line() {
+            fetch(`${API_URL}/api/generate-style-transfer/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "line": this.first_line,
+                })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    ({text: this.poem, input: this.input_id} = data)
+                    generate_button.classList.remove("is-loading")
+                })
         },
         save_poem() {
             fetch(`${API_URL}/api/save/`, {

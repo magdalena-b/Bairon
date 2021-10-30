@@ -18,5 +18,6 @@ urlpatterns = [
     path('rating/<int:id>/', RatingView.as_view(), name='rating'),
     path('add/rate/<int:id>/', CreateRate.as_view(), name='rate'),
     path('add/turing-test-vote/<int:id>/', CreateTuringTestVote.as_view(), name='TTvote'),
+    path('statistics/', StatisticsView.as_view(), name='statistics'),
     path('get/tt-fragment/', TuringTestFragmentView.as_view(), name='tt-fragment')
 ]
