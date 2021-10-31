@@ -1,22 +1,29 @@
-<template>    
-    <h2> {{this.words}} - {{this.counts}} </h2>
+<template>
+  <div class="container mt-5 text-center">
+    <WordCountCharts />
+  </div>
 </template>
 
+
 <script>
+import WordCountCharts from '@/components/WordCountCharts.vue'
 const {API_URL} = require('../settings.json')
 
     export default {
         name: 'Statistics',
+        components: { 
+            WordCountCharts
+        },
         data() {
             return {
-                words: [],
-                counts: []
+                words: null,
+                counts: null
             }
         },
         methods: {
             fetch_text(){
-                this.words = []
-                this.counts = []
+                this.words = null
+                this.counts = null
 
                 fetch(`${API_URL}/api/statistics/`)
                     .then(res => res.json())

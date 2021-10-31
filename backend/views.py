@@ -219,13 +219,17 @@ class StatisticsView(views.APIView):
             result = {}
 
             # result = CustomSerializer(data=cumming_words, many=True)
-            result['words'] = ['bla', 'obla']
-            result['counts'] = [2, 1]
+            result['cummings_words'] = ['bla', 'obla']
+            result['cummings_counts'] = [2, 1]
+
+            result['shakespeare_words'] = ['heyy']
+            result['shakespeare_counts'] = [27]
+
+            result['ginsberg_words'] = ['lol']
+            result['ginsberg_counts'] = [13]
 
 
             try:
-                # result['cumming_words'] = cumming_words
-                # result = cumming_words
                 return Response(result, status=status.HTTP_200_OK)
             except Exception as e:
                 print(e)
