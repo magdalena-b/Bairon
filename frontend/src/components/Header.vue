@@ -39,6 +39,7 @@
                     <router-link class="navbar-item" to="/generate">Generator</router-link>
                     <router-link class="navbar-item" to="/poems">Poems</router-link>
                     <router-link class="navbar-item" to="/turing-test">Vote!</router-link>
+                    <router-link class="navbar-item" to="/statistics">Statistics</router-link>
                 </div>
             </div>
         </nav>
