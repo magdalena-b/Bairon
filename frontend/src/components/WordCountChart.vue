@@ -11,23 +11,18 @@ export default {
     name: "WordCountChart",
     data() {
         return {
-            words: ['bla', 'obla'],
-            counts: [2, 1],
+            words: [],
+            counts: [],
         }
     },
     methods: {
-        get_rating(callback = () => "words"){
-            fetch(`${API_URL}/api/rating/`)
+        get_rating(callback = () => "lol"){
+            fetch(`${API_URL}/api/statistics/`)
                 .then(res => res.json())
                 .then(data => {
                     ({
-                        "TT-human": this.TT_human,
-                        "TT-machine": this.TT_machine,
-                        "rate-average": this.score,
-                        "TT-TH": this.TT_TH,
-                        "TT-FH": this.TT_FH,
-                        "TT-TM": this.TT_TM,
-                        "TT-FM": this.TT_FM,
+                        "words": this.words,
+                        "counts": this.counts,
                     } = data)
                     callback()
                 })
