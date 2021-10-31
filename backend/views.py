@@ -61,6 +61,25 @@ class GeneratePoemView(generics.CreateAPIView):
 class GenerateStyleTransferView(generics.CreateAPIView):
     serializer_class = InputSerializer
     permission_classes = (AllowAny,)
+    # result = {}
+    # def post(self, request: Request, *args, **kwargs):
+    #     result['line'] = "shakespearian"
+    #     print("Generate Style Transfer")
+    #     return Response(result, status=status.HTTP_200_OK)
+
+    def get(self, request: Request):
+
+        result = {}
+        result['line'] = 'lol'
+
+        try:
+            return Response(result, status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+        
 
 
 class SavePoem(generics.CreateAPIView):

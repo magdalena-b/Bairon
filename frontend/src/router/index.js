@@ -18,6 +18,12 @@ const routes = [
     name: 'Generate',
     component: () => import(/* webpackChunkName: "about" */ '../views/Generator.vue')
   },
+
+  {
+    path: '/generate-style-transfer',
+    name: 'GenerateStyleTransfer',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Generator.vue')
+  },
   {
     path: '/poems',
     name: 'Poems',

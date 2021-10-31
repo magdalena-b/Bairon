@@ -70,6 +70,7 @@ export default {
             poem: "",
             avaible_poets: ["Shakespeare", "Ginsberg", "Cummings", "Lorem Ipsum"],
             input_id: null,
+            line: ""
         }
     },
     methods: {
@@ -99,21 +100,29 @@ export default {
                 })
                 .catch(err => console.log(err.message))
         },
-        fetch_style_transfer_line() {
-            fetch(`${API_URL}/api/generate-style-transfer/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    "line": this.first_line,
-                })
-            })
+        // fetch_style_transfer_line() {
+        //     fetch(`${API_URL}/api/generate-style-transfer/`, {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             "line": this.first_line,
+        //         })
+        //     })
+        //         .then(res => res.json())
+        //         .then(data => {
+        //             ({text: this.poem, input: this.input_id} = data)
+        //             generate_button.classList.remove("is-loading")
+        //         })
+        // },
+        fetch_style_transfer_line(){
+            fetch(`${API_URL}/api/generate-style-transfer/`)
                 .then(res => res.json())
                 .then(data => {
-                    ({text: this.poem, input: this.input_id} = data)
-                    generate_button.classList.remove("is-loading")
+                    ({line: this.line} = data)
                 })
+                .catch(err => console.log(err.message))
         },
         save_poem() {
             fetch(`${API_URL}/api/save/`, {
