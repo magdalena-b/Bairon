@@ -46,7 +46,8 @@ class StatisticsHelper():
                 words.append(item[0])
                 counts.append(item[1] / all_words_count)
 
-            
+            print(words)
+            print(counts)
 
 
 

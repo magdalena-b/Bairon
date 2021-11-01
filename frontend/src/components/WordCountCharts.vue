@@ -5,10 +5,19 @@
                 <canvas id="cummingsWordCountChart"></canvas>
             </div>  
             <div>
-                <canvas id="shakespeareWordCountChart"></canvas>
+                <canvas id="generatedCummingsWordCountChart"></canvas>
             </div>  
+            <div>
+                <canvas id="shakespeareWordCountChart"></canvas>
+            </div> 
+            <div>
+                <canvas id="generatedShakespeareWordCountChart"></canvas>
+            </div>   
                 <div>
                 <canvas id="ginsbergWordCountChart"></canvas>
+            </div>  
+            <div>
+                <canvas id="generatedGinsbergWordCountChart"></canvas>
             </div>  
         </div>
     </div>        
@@ -33,10 +42,16 @@ export default {
                     ({
                         "cummings_words": this.cummings_words,
                         "cummings_counts": this.cummings_counts,
+                        "generated_cummings_words": this.generated_cummings_words,
+                        "generated_cummings_counts": this.generated_cummings_counts,
                         "shakespeare_words": this.shakespeare_words,
                         "shakespeare_counts": this.shakespeare_counts,
+                        "generated_shakespeare_words": this.generated_shakespeare_words,
+                        "generated_shakespeare_counts": this.generated_shakespeare_counts,
                         "ginsberg_words": this.ginsberg_words,
                         "ginsberg_counts": this.ginsberg_counts,
+                        "generated_ginsberg_words": this.generated_ginsberg_words,
+                        "generated_ginsberg_counts": this.generated_ginsberg_counts,
                     } = data)
                     callback()
                 })
@@ -69,6 +84,33 @@ export default {
                 config
             )
         },
+        get_generated_cummings_chart(){
+            let config = {
+                type: 'bar',
+                data: {
+                    labels: this.generated_cummings_words,
+                    datasets: [{
+                        label: 'counts',
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.4)',
+                            'rgba(75, 192, 192, 0.4)',
+                        ],
+                        borderColor: [
+                            'rgb(75, 192, 192)',
+                            'rgb(75, 192, 192)',
+                        ],
+                        borderWidth: 1,
+                        data: this.generated_cummings_counts,
+                    }]
+                },
+                options: {}
+            }
+
+            let generatedCummingsWordCountChart = new Chart(
+                document.getElementById('generatedCummingsWordCountChart'),
+                config
+            )
+        },
         get_shakespeare_chart(){
             let config = {
                 type: 'bar',
@@ -93,6 +135,33 @@ export default {
 
             let shakespeareWordCountChart = new Chart(
                 document.getElementById('shakespeareWordCountChart'),
+                config
+            )
+        },
+        get_generated_shakespeare_chart(){
+            let config = {
+                type: 'bar',
+                data: {
+                    labels: this.generated_shakespeare_words,
+                    datasets: [{
+                        label: 'counts',
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.4)',
+                            'rgba(75, 192, 192, 0.4)',
+                        ],
+                        borderColor: [
+                            'rgb(75, 192, 192)',
+                            'rgb(75, 192, 192)',
+                        ],
+                        borderWidth: 1,
+                        data: this.generated_shakespeare_counts,
+                    }]
+                },
+                options: {}
+            }
+
+            let generatedShakespeareWordCountChart = new Chart(
+                document.getElementById('generatedShakespeareWordCountChart'),
                 config
             )
         },
@@ -121,13 +190,44 @@ export default {
                 document.getElementById('ginsbergWordCountChart'),
                 config
             )
+        },
+        get_generated_ginsberg_chart(){
+            let config = {
+                type: 'bar',
+                data: {
+                    labels: this.generated_ginsberg_words,
+                    datasets: [{
+                        label: 'counts',
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.4)',
+                            'rgba(75, 192, 192, 0.4)',
+                        ],
+                        borderColor: [
+                            'rgb(75, 192, 192)',
+                            'rgb(75, 192, 192)',
+                        ],
+                        borderWidth: 1,
+                        data: this.generated_ginsberg_counts,
+                    }]
+                },
+                options: {}
+            }
+            let generatedGinsbergWordCountChart = new Chart(
+                document.getElementById('generatedGinsbergWordCountChart'),
+                config
+            )
         }
 
     },
+    
     mounted() {
         this.get_statistics(this.get_cummings_chart),
+        this.get_statistics(this.get_generated_cummings_chart),
         this.get_statistics(this.get_shakespeare_chart),
-        this.get_statistics(this.get_ginsberg_chart)
+        this.get_statistics(this.get_generated_shakespeare_chart),
+        this.get_statistics(this.get_ginsberg_chart),
+        this.get_statistics(this.get_generated_ginsberg_chart)
+
     }
 }
 </script>

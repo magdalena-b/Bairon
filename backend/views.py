@@ -260,8 +260,11 @@ class StatisticsView(views.APIView):
             result = {}
 
             result['cummings_words'], result['cummings_counts'] = statisticsHelper.generate_word_count_from_file('cummings.txt')
+            result['generated_cummings_words'], result['generated_cummings_counts'] = statisticsHelper.generate_word_count_from_file('generated_cummings.txt')
             result['shakespeare_words'], result['shakespeare_counts'] = statisticsHelper.generate_word_count_from_file('shakespeare_sonnets.txt')
+            result['generated_shakespeare_words'], result['generated_shakespeare_counts'] = statisticsHelper.generate_word_count_from_file('generated_shakespeare.txt')
             result['ginsberg_words'], result['ginsberg_counts'] = statisticsHelper.generate_word_count_from_file('ginsberg.txt')
+            result['generated_ginsberg_words'], result['generated_ginsberg_counts'] = statisticsHelper.generate_word_count_from_file('generated_ginsberg.txt')
 
             try:
                 return Response(result, status=status.HTTP_200_OK)
