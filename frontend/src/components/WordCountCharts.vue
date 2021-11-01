@@ -1,21 +1,30 @@
 <template>
     <div id="wrapper">
         <div class="container">
+            <h1 class="is-size-4"> e.e.cummings </h1>
+            <h2 class="is-size-5"> Original poems </h2>
             <div>
                 <canvas id="cummingsWordCountChart"></canvas>
             </div>  
+            <h2 class="is-size-5"> Generated poems </h2>
             <div>
                 <canvas id="generatedCummingsWordCountChart"></canvas>
             </div>  
+            <h1 class="is-size-4"> William Shakespare </h1>
+            <h2 class="is-size-5"> Original poems </h2>
             <div>
                 <canvas id="shakespeareWordCountChart"></canvas>
             </div> 
+            <h2 class="is-size-5"> Generated poems </h2>
             <div>
                 <canvas id="generatedShakespeareWordCountChart"></canvas>
-            </div>   
-                <div>
+            </div>
+            <h1 class="is-size-4"> Allen Ginsberg </h1>
+            <h2 class="is-size-5"> Original poems </h2> 
+            <div>
                 <canvas id="ginsbergWordCountChart"></canvas>
             </div>  
+            <h2 class="is-size-5"> Generated poems </h2>
             <div>
                 <canvas id="generatedGinsbergWordCountChart"></canvas>
             </div>  
@@ -65,12 +74,12 @@ export default {
                     datasets: [{
                         label: 'counts',
                         backgroundColor: [
-                            'rgba(75, 192, 192, 0.4)',
-                            'rgba(75, 192, 192, 0.4)',
+                            'rgba(19, 80, 93, 0.4)',
+                            'rgba(19, 80, 93, 0.4)',
                         ],
                         borderColor: [
-                            'rgb(75, 192, 192)',
-                            'rgb(75, 192, 192)',
+                            'rgb(19, 80, 93)',
+                            'rgb(19, 80, 93)',
                         ],
                         borderWidth: 1,
                         data: this.cummings_counts,
@@ -92,12 +101,12 @@ export default {
                     datasets: [{
                         label: 'counts',
                         backgroundColor: [
-                            'rgba(75, 192, 192, 0.4)',
-                            'rgba(75, 192, 192, 0.4)',
+                            'rgba(19, 80, 93, 0.8)',
+                            'rgba(19, 80, 93, 0.8)',
                         ],
                         borderColor: [
-                            'rgb(75, 192, 192)',
-                            'rgb(75, 192, 192)',
+                            'rgb(19, 80, 93)',
+                            'rgb(19, 80, 93)',
                         ],
                         borderWidth: 1,
                         data: this.generated_cummings_counts,
@@ -119,12 +128,12 @@ export default {
                     datasets: [{
                         label: 'counts',
                         backgroundColor: [
-                            'rgba(75, 192, 192, 0.4)',
-                            'rgba(75, 192, 192, 0.4)',
+                            'rgba(224, 206, 117, 0.4)',
+                            'rgba(224, 206, 117, 0.4)',
                         ],
                         borderColor: [
-                            'rgb(75, 192, 192)',
-                            'rgb(75, 192, 192)',
+                            'rgb(224, 206, 117)',
+                            'rgb(224, 206, 117)',
                         ],
                         borderWidth: 1,
                         data: this.shakespeare_counts,
@@ -146,12 +155,12 @@ export default {
                     datasets: [{
                         label: 'counts',
                         backgroundColor: [
-                            'rgba(75, 192, 192, 0.4)',
-                            'rgba(75, 192, 192, 0.4)',
+                            'rgba(224, 206, 117, 0.8)',
+                            'rgba(224, 206, 117, 0.8)',
                         ],
                         borderColor: [
-                            'rgb(75, 192, 192)',
-                            'rgb(75, 192, 192)',
+                            'rgb(224, 192, 117)',
+                            'rgb(224, 192, 117)',
                         ],
                         borderWidth: 1,
                         data: this.generated_shakespeare_counts,
@@ -173,12 +182,12 @@ export default {
                     datasets: [{
                         label: 'counts',
                         backgroundColor: [
-                            'rgba(75, 192, 192, 0.4)',
-                            'rgba(75, 192, 192, 0.4)',
+                            'rgba(181, 156, 192, 0.4)',
+                            'rgba(181, 156, 192, 0.4)',
                         ],
                         borderColor: [
-                            'rgb(75, 192, 192)',
-                            'rgb(75, 192, 192)',
+                            'rgb(181, 156, 192)',
+                            'rgb(181, 156, 192)',
                         ],
                         borderWidth: 1,
                         data: this.ginsberg_counts,
@@ -199,12 +208,12 @@ export default {
                     datasets: [{
                         label: 'counts',
                         backgroundColor: [
-                            'rgba(75, 192, 192, 0.4)',
-                            'rgba(75, 192, 192, 0.4)',
+                            'rgba(181, 156, 192, 0.8)',
+                            'rgba(181, 156, 192, 0.8)',
                         ],
                         borderColor: [
-                            'rgb(75, 192, 192)',
-                            'rgb(75, 192, 192)',
+                            'rgb(181, 156, 192)',
+                            'rgb(181, 156, 192)',
                         ],
                         borderWidth: 1,
                         data: this.generated_ginsberg_counts,
