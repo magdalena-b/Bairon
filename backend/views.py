@@ -65,6 +65,7 @@ class GenerateStyleTransferView(generics.CreateAPIView):
     def get(self, request: Request):
 
         try: 
+            from simpletransformers.t5 import T5Model
             args = {
                 "overwrite_output_dir": True,
                 "max_seq_length": 256,
