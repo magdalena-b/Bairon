@@ -16,15 +16,26 @@
                             <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life as it is" required/>
                         </div>
                         <div class="control">
-                            <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem">generate</button>
+                            <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem(this.first_line)">generate</button>
                         </div>
                         <div class="control" v-if=" this.poet ==  'Shakespeare' ">
                             <button id="generate_button" class="button is-rounded is-info" @click="fetch_style_transfer_line">translate to shakespearian</button>
                         </div>
                         <!-- if this.translated_line not empty, generte options for first line -->
+
+                        <!-- <p class="is-size-6 has-text-left" v-for="line in shakespeare_example.split('\n')" :key="line">{{ line }}</p> -->
                         
-                        <div v-if=" this.line != '' " class="button is-rounded is-info" @click="fetch_poem" > {{this.line}} </div>
+
                     </div>
+
+
+                        <div v-if=" this.translated_lines != null">
+                            <div class="button is_rounded is_info" @click="fetch_poem(translated_line)" v-for="translated_line in this.translated_lines" :key="translated_line">{{ translated_line }} </div>
+                            <!-- <div class="button is-rounded is-info" > {{this.line}} </div> -->
+                        </div>
+
+
+
                     <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( poem != '') ? '100vh' : '0px')}">
                         <div id="poem" class="card">
                             <div class="card-content">
@@ -63,14 +74,14 @@ export default {
             poem: "",
             avaible_poets: ["Shakespeare", "Ginsberg", "Cummings", "Lorem Ipsum"],
             input_id: null,
-            line: ""
+            translated_lines: null
         }
     },
     methods: {
         selectPoet(poet){
             this.poet = poet
         },
-        fetch_poem(){
+        fetch_poem(line){
             this.poem = ""
             const generate_button = document.querySelector('#generate_button')
 
@@ -83,7 +94,7 @@ export default {
                 },
                 body: JSON.stringify({
                     "style": this.poet,
-                    "first_line": this.first_line,
+                    "first_line": line,
                 })
             })
                 .then(res => res.json())
@@ -93,27 +104,12 @@ export default {
                 })
                 .catch(err => console.log(err.message))
         },
-        // fetch_style_transfer_line() {
-        //     fetch(`${API_URL}/api/generate-style-transfer/`, {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             "line": this.first_line,
-        //         })
-        //     })
-        //         .then(res => res.json())
-        //         .then(data => {
-        //             ({text: this.poem, input: this.input_id} = data)
-        //             generate_button.classList.remove("is-loading")
-        //         })
-        // },
+
         fetch_style_transfer_line(){
             fetch(`${API_URL}/api/generate-style-transfer/`)
                 .then(res => res.json())
                 .then(data => {
-                    ({line: this.line} = data)
+                    ({translated_lines: this.translated_lines} = data)
                 })
                 .catch(err => console.log(err.message))
         },

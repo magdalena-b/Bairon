@@ -81,14 +81,18 @@ class GenerateStyleTransferView(generics.CreateAPIView):
             prefix = "paraphrase"
             pred = trained_model.predict([f"{prefix}: you are actually wasting that beauty"])
             result_lines = pred[0]
-            result_line = result_lines[0]
+            # result_line = result_lines[0]
 
             result = {}
-            result['line'] = result_line
+            result['translated_lines'] = result_lines
 
         except:
             result = {}
-            result['line'] = 'When forty winters shall besiege thy brow'
+            result['translated_lines'] = [
+                'When forty winters shall besiege thy brow',
+                'Look in thy glass and tell the face thou viewest',
+                'Unthrifty loveliness, why dost thou spend'
+            ]
 
 
         try:
