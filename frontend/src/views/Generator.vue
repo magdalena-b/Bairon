@@ -21,17 +21,12 @@
                         <div class="control" v-if=" this.poet ==  'Shakespeare' ">
                             <button id="generate_button" class="button is-rounded is-info" @click="fetch_style_transfer_line">translate to shakespearian</button>
                         </div>
-                        <!-- if this.translated_line not empty, generte options for first line -->
-
-                        <!-- <p class="is-size-6 has-text-left" v-for="line in shakespeare_example.split('\n')" :key="line">{{ line }}</p> -->
-                        
 
                     </div>
 
 
                         <div v-if=" this.translated_lines != null">
                             <div class="button is_rounded is_info" @click="fetch_poem(translated_line)" v-for="translated_line in this.translated_lines" :key="translated_line">{{ translated_line }} </div>
-                            <!-- <div class="button is-rounded is-info" > {{this.line}} </div> -->
                         </div>
 
 
