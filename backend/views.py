@@ -12,6 +12,9 @@ import random
 
 from .serializers import *
 
+from simpletransformers.t5 import T5Model
+
+
 import sys
 sys.path.insert(0, '..')
 try:
@@ -69,8 +72,25 @@ class GenerateStyleTransferView(generics.CreateAPIView):
 
     def get(self, request: Request):
 
+        args = {
+            "overwrite_output_dir": True,
+            "max_seq_length": 256,
+            "max_length": 50,
+            "top_k": 50,
+            "top_p": 0.95,
+            "num_return_sequences": 5,
+        }
+
+        trained_model_path = "checkpoint/shakespeare_T5/shakespeare_T5"
+        trained_model = T5Model("t5",trained_model_path,args=args)
+
+        prefix = "paraphrase"
+        pred = trained_model.predict([f"{prefix}: you are actually wasting that beauty"])
+        result_lines = pred[0]
+        result_line = result_lines[0]
+
         result = {}
-        result['line'] = 'lol'
+        result['line'] = result_line
 
         try:
             return Response(result, status=status.HTTP_200_OK)
