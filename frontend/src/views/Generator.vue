@@ -21,16 +21,9 @@
                         <div class="control" v-if=" this.poet ==  'Shakespeare' ">
                             <button id="generate_button" class="button is-rounded is-info" @click="fetch_style_transfer_line">translate to shakespearian</button>
                         </div>
-                        <!-- <div id="style_transfer_line_container" class="mt-5" v-bind:style="{'max-height':(( poem != '') ? '100vh' : '0px')}">
-                        <div id="style_transfer_line" class="card">
-                            <div class="card-content">
-                                <div class="media-content">
-                                    <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3>
-                                </div>
-                                <p class="is-size-6 has-text-left" v-for="line in style_transfer_line.split('\n')" :key="line">{{ line }}</p>
-                            </div>
-                        </div>
-                    </div> -->
+                        <!-- if this.translated_line not empty, generte options for first line -->
+                        
+                        <div v-if=" this.line != '' " class="button is-rounded is-info" @click="fetch_poem" > {{this.line}} </div>
                     </div>
                     <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( poem != '') ? '100vh' : '0px')}">
                         <div id="poem" class="card">
