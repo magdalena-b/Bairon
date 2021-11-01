@@ -24,6 +24,8 @@ class StatisticsHelper():
             words_without_stops = [word for word in words if word not in self.stopwords]
             preprocessed_words = [word for word in words_without_stops if word != ""]
 
+            all_words_count = len(preprocessed_words)
+
             # word count
 
             wordcount = {}
@@ -42,7 +44,11 @@ class StatisticsHelper():
 
             for item in sorted_x_100:
                 words.append(item[0])
-                counts.append(item[1])
+                counts.append(item[1] / all_words_count)
+
+            
+
+
 
             return words, counts
         
