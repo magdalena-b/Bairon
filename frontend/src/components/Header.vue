@@ -14,7 +14,7 @@
                 </div>
             </div>
         </nav>
-        <!-- end of placeholder -->
+        <!-- end of placeh0lder -->
 
         <nav class="navbar is-light is-fixed-top px-5">
             <div class="navbar-brand">
