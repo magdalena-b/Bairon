@@ -7,6 +7,6 @@ tqdm
 numpy
 toposort
 transformers
-gpt_2_simple
+gpt_2_simple==0.7.2
 python-dotenv
 django-cors-headers>=3.7.0
