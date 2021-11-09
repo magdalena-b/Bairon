@@ -29,15 +29,15 @@ SECRET_KEY = SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'poetrygenerator-backend.herokuapp.com']
 
-CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = tuple(
-    os.environ.get(
-        "CORS_ORIGIN_WHITELIST",
-        'http://localhost:8080,http://127.0.0.1:8080'
-    ).split(",")
-)
+CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_WHITELIST = tuple(
+#     os.environ.get(
+#         "CORS_ORIGIN_WHITELIST",
+#         'http://localhost:8080,http://127.0.0.1:8080'
+#     ).split(",")
+# )
 
 # Application definition
 
