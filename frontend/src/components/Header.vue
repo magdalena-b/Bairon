@@ -23,7 +23,7 @@
                         <img src="../assets/logo.png" style="max-height: 128px; max-width: 128px;">
                     </figure>
                     <h1 class="title mx-4">
-                        BAIron
+                        Bairon
                     </h1>
                 </router-link>
                 <a class="navbar-burger" id="burger">

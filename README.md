@@ -1,4 +1,17 @@
-# BAIron
+# Bairon
+
+Generator:
+
+![Generator](img/generator.png)
+
+Saved poems:
+
+![Poems](img/poems.png)
+
+Poetry Turing Test:
+
+![Turing](img/turing.png)
+
 
 ## NLP
 
