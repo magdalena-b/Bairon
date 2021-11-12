@@ -19,7 +19,7 @@
                             <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem(this.first_line)">generate</button>
                         </div>
                         <div class="control" v-if=" this.poet ==  'Shakespeare' ">
-                            <button id="generate_button" class="button is-rounded is-info" @click="fetch_style_transfer_line">translate to shakespearian</button>
+                            <button id="generate_button" class="button is-rounded is-info" @click="fetch_style_transfer_line(this.first_line)">translate to shakespearian</button>
                         </div>
 
                     </div>
@@ -100,8 +100,16 @@ export default {
                 .catch(err => console.log(err.message))
         },
 
-        fetch_style_transfer_line(){
-            fetch(`${API_URL}/api/generate-style-transfer/`)
+        fetch_style_transfer_line(line){
+            fetch(`${API_URL}/api/generate-style-transfer/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "line": line
+                })
+            })
                 .then(res => res.json())
                 .then(data => {
                     ({translated_lines: this.translated_lines} = data)

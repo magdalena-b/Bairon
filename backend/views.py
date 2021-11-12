@@ -63,7 +63,7 @@ class GenerateStyleTransferView(generics.CreateAPIView):
     serializer_class = InputSerializer
     permission_classes = (AllowAny,)
 
-    def get(self, request: Request):
+    def post(self, request: Request, *args, **kwargs):
 
         try: 
             from simpletransformers.t5 import T5Model
@@ -74,20 +74,31 @@ class GenerateStyleTransferView(generics.CreateAPIView):
                 "top_k": 50,
                 "top_p": 0.95,
                 "num_return_sequences": 5,
+                "use_cuda": False,
+                "fp16": False
             }
+            
 
             trained_model_path = "checkpoint/shakespeare_T5/shakespeare_T5"
             trained_model = T5Model("t5",trained_model_path,args=args)
 
             prefix = "paraphrase"
-            pred = trained_model.predict([f"{prefix}: you are actually wasting that beauty"])
+
+            serializer = InputSerializer(data=request.data)
+            if serializer.is_valid():
+                input = serializer.create(serializer.validated_data)
+
+            # line = "When forty winters shall besiege thy brow"
+            line = input.line
+            pred = trained_model.predict([f"{prefix}: {line}"])
             result_lines = pred[0]
             # result_line = result_lines[0]
 
             result = {}
             result['translated_lines'] = result_lines
 
-        except:
+        except Exception as e:
+            print(e)
             result = {}
             result['translated_lines'] = [
                 'When forty winters shall besiege thy brow',
