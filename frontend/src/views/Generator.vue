@@ -31,7 +31,7 @@
                     </div>
 
 
-                        <div v-if=" this.translated_lines != null">
+                        <div v-if=" this.translated_lines != null & this.poet == 'Shakespeare'">
                             <div class="button is_rounded is_info" @click="fetch_poem(translated_line)" v-for="translated_line in this.translated_lines" :key="translated_line">{{ translated_line }} </div>
                         </div>
 
