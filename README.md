@@ -145,3 +145,10 @@ Wystarczy pobrać `docker` i `docker-compose` i wpisać w katalogu z projektem:
 * `sudo docker-compose up` żeby uruchomić
 * `sudo docker-compose down` żeby zatrzymać wszystko
 * `sudo docker-compose build` żeby zbudować od nowa projekt (po każdej zmianie w django albo na froncie)
+
+## Modele
+Do głównego katalogu należy dodać folder checkpoint i w dodać foldery z plikami modelu (checkpoint, counter, encoder.json...):
+- shakespeare2
+- cummings2
+- ginbsger2
+- shakespeare_T5
