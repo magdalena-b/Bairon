@@ -1,5 +1,11 @@
 <template>
     <div class="container">
+
+        <div id="about" v-bind:class="{'is-hidden': generator_type != 'full'}">
+            <h3>English poet and dramatist from 16th/17th century, by some considered the greatest English writer of all time.</h3>
+        </div>        
+
+
         <div class="columns is-vcentered has-text-centered">
             <div class="column is-6">
                 <div class="poem">
@@ -19,7 +25,7 @@
                             <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem(this.first_line)">generate</button>
                         </div>
                         <div class="control" v-if=" this.poet ==  'Shakespeare' ">
-                            <button id="generate_button" class="button is-rounded is-info" @click="fetch_style_transfer_line(this.first_line)">translate to shakespearian</button>
+                            <button id="generate_style_transfer_button" class="button is-rounded is-info" @click="fetch_style_transfer_line(this.first_line)">translate to shakespearian</button>
                         </div>
 
                     </div>
@@ -100,14 +106,15 @@ export default {
                 .catch(err => console.log(err.message))
         },
 
-        fetch_style_transfer_line(line){
+        fetch_style_transfer_line(first_line){
             fetch(`${API_URL}/api/generate-style-transfer/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    "line": line
+                    "style": this.poet,
+                    "first_line": this.first_line,
                 })
             })
                 .then(res => res.json())

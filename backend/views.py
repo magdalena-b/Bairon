@@ -36,6 +36,7 @@ class GeneratePoemView(generics.CreateAPIView):
         serializer = InputSerializer(data=request.data)
         if serializer.is_valid():
             input = serializer.create(serializer.validated_data)
+            print(input)
 
             try:
                 text, sentiment = poem_generator.generate(
@@ -64,57 +65,51 @@ class GenerateStyleTransferView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
 
     def post(self, request: Request, *args, **kwargs):
+        serializer = InputSerializer(data=request.data)
+        if serializer.is_valid():
+            input = serializer.create(serializer.validated_data)
+            print(input)
+            try:
+                from simpletransformers.t5 import T5Model
+                args = {
+                    "overwrite_output_dir": True,
+                    "max_seq_length": 256,
+                    "max_length": 50,
+                    "top_k": 50,
+                    "top_p": 0.95,
+                    "num_return_sequences": 5
+                }
 
-        try: 
-            from simpletransformers.t5 import T5Model
-            args = {
-                "overwrite_output_dir": True,
-                "max_seq_length": 256,
-                "max_length": 50,
-                "top_k": 50,
-                "top_p": 0.95,
-                "num_return_sequences": 5,
-                "use_cuda": False,
-                "fp16": False
-            }
-            
+                trained_model_path = "checkpoint/shakespeare_T5/shakespeare_T5"
+                trained_model = T5Model("t5",trained_model_path,args=args, use_cuda=False)
+                prefix = "paraphrase"
 
-            trained_model_path = "checkpoint/shakespeare_T5/shakespeare_T5"
-            trained_model = T5Model("t5",trained_model_path,args=args)
+                # line = "When forty winters shall besiege thy brow"
+                line = input.first_line
+                pred = trained_model.predict([f"{prefix}: {line}"])
+                result_lines = pred[0]
+                # result_line = result_lines[0]
 
-            prefix = "paraphrase"
+                result = {}
+                result['translated_lines'] = result_lines
 
-            serializer = InputSerializer(data=request.data)
-            if serializer.is_valid():
-                input = serializer.create(serializer.validated_data)
+                return Response(result, status=status.HTTP_200_OK)
 
-            # line = "When forty winters shall besiege thy brow"
-            line = input.line
-            pred = trained_model.predict([f"{prefix}: {line}"])
-            result_lines = pred[0]
-            # result_line = result_lines[0]
+            except Exception as e:
+                print(e)
+                result = {}
+                result['translated_lines'] = [
+                    'When forty winters shall besiege thy brow',
+                    'Look in thy glass and tell the face thou viewest',
+                    'Unthrifty loveliness, why dost thou spend'
+                ]
 
-            result = {}
-            result['translated_lines'] = result_lines
+                return Response(status=status.HTTP_403_FORBIDDEN)
 
-        except Exception as e:
-            print(e)
-            result = {}
-            result['translated_lines'] = [
-                'When forty winters shall besiege thy brow',
-                'Look in thy glass and tell the face thou viewest',
-                'Unthrifty loveliness, why dost thou spend'
-            ]
-
-
-        try:
-            return Response(result, status=status.HTTP_200_OK)
-        except Exception as e:
-            print(e)
+        else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         
-
 
 class SavePoem(generics.CreateAPIView):
     serializer_class = PoemSerializer
