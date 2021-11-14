@@ -1,10 +1,5 @@
 <template>
     <div class="container">
-
-        <!-- <div id="about" v-bind:class="{'is-hidden': generator_type != 'full'}">
-            <h3>English poet and dramatist from 16th/17th century, by some considered the greatest English writer of all time.</h3>
-        </div>         -->
-
             <button class="button is-rounded" @click="selectGenerator('full')">
                 Full
             </button>
@@ -12,6 +7,8 @@
             <button class="button is-rounded" @click="selectGenerator('collab')">
                 Collab
             </button>
+
+        <!-- COLLAB -->
 
         <div class="control" v-if=" this.generator_type ==  'collab' ">
             <div class="columns is-vcentered has-text-centered">
@@ -41,6 +38,15 @@
                                         <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3>
                                     </div>
                                     <p class="is-size-6 has-text-left" v-for="line in poem.split('\n')" :key="line">{{ line }}</p>
+                                <div class="control">
+
+                                <div class="control is-expanded">
+                                    <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life as it is" required/>
+                                </div>
+                                <div class="control">
+                                    <button v-if=" this.poem != null" id="generate_button" class="button is-rounded is-info"  @click="fetch_poem_line(this.first_line)">continue generating</button>
+                                </div>
+                                </div>
                                     <button class="button is-info is-rounded mt-3" @click="save_poem">save</button>
                                 </div>
                             </div>
@@ -50,6 +56,9 @@
             </div>
 
         </div>
+
+
+        <!-- FULL -->
 
         <div class="control" v-if=" this.generator_type ==  'full' ">
             <div class="columns is-vcentered has-text-centered">
@@ -73,15 +82,11 @@
                             <div class="control" v-if=" this.poet ==  'Shakespeare' ">
                                 <button id="generate_style_transfer_button" class="button is-rounded is-info" @click="fetch_style_transfer_line(this.first_line)">translate to shakespearian</button>
                             </div>
-
                         </div>
-
 
                             <div v-if=" this.translated_lines != null & this.poet == 'Shakespeare'">
                                 <div class="button is_rounded is_info" @click="fetch_poem(translated_line)" v-for="translated_line in this.translated_lines" :key="translated_line">{{ translated_line }} </div>
                             </div>
-
-
 
                         <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( poem != '') ? '100vh' : '0px')}">
                             <div id="poem" class="card">
@@ -125,7 +130,8 @@ export default {
             avaible_poets: ["Shakespeare", "Ginsberg", "Cummings", "Lorem Ipsum"],
             input_id: null,
             translated_lines: null,
-            generator_type: "full"
+            generator_type: "full",
+            collab_lines: null
         }
     },
     methods: {
