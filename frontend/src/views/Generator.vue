@@ -31,23 +31,25 @@
                             </div>
                         </div>
 
-                        <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( poem != '') ? '100vh' : '0px')}">
-                            <div id="poem" class="card">
+                        <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( collab_lines != null) ? '100vh' : '0px')}">
+                            <div id="poem" class="card" v-if="this.collab_lines != null" >
                                 <div class="card-content">
                                     <div class="media-content">
                                         <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3>
                                     </div>
-                                    <p class="is-size-6 has-text-left" v-for="line in poem.split('\n')" :key="line">{{ line }}</p>
+                                    <div v-if="this.collab_lines != null">
+                                        <p class="is-size-6 has-text-left" v-for="line in collab_lines.split('\n')" :key="line">{{ line }}</p>
+                                    </div>
                                 <div class="control">
 
                                 <div class="control is-expanded">
-                                    <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life as it is" required/>
+                                    <input class="input is-rounded" type="text" v-model="next_human_line" placeholder="eg. life as it is" required/>
                                 </div>
                                 <div class="control">
-                                    <button v-if=" this.poem != null" id="generate_button" class="button is-rounded is-info"  @click="fetch_poem_line(this.first_line)">continue generating</button>
+                                    <button v-if=" this.collab_lines != null" id="generate_button" class="button is-rounded is-info"  @click="fetch_poem_line(this.next_human_line)">continue generating</button>
                                 </div>
                                 </div>
-                                    <button class="button is-info is-rounded mt-3" @click="save_poem">save</button>
+
                                 </div>
                             </div>
                         </div>
@@ -131,7 +133,9 @@ export default {
             input_id: null,
             translated_lines: null,
             generator_type: "full",
-            collab_lines: null
+            collab_lines: null,
+            next_human_line: null,
+            next_machine_line: null
         }
     },
     methods: {
@@ -146,6 +150,8 @@ export default {
 
             fetch(`${API_URL}/api/generate/`, {
                 method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -162,9 +168,8 @@ export default {
                 .catch(err => console.log(err.message))
         },
         fetch_poem_line(line){
-            this.poem = ""
-            const generate_button = document.querySelector('#generate_button')
 
+            const generate_button = document.querySelector('#generate_button')
             generate_button.classList.add('is-loading')
 
             fetch(`${API_URL}/api/generate-line/`, {
@@ -179,8 +184,17 @@ export default {
             })
                 .then(res => res.json())
                 .then(data => {
-                    ({text: this.poem, input: this.input_id} = data)
+                    ({text: this.next_machine_line, input: this.input_id} = data)
                     generate_button.classList.remove("is-loading")
+                    if (this.collab_lines != null) {
+                        this.collab_lines = this.collab_lines + this.next_machine_line
+                    }
+                    else {
+                        this.collab_lines = this.next_machine_line
+                    }
+                
+                    // this.next_human_line = null
+                    // this.next_machine_line = null
                 })
                 .catch(err => console.log(err.message))
         },
