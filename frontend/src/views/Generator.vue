@@ -13,6 +13,43 @@
                 Collab
             </button>
 
+        <div class="control" v-if=" this.generator_type ==  'collab' ">
+            <div class="columns is-vcentered has-text-centered">
+                <div class="column is-6">
+                    <div class="poem">
+                        <h2 class="is-size-3-tablet is-size-4-mobile">Select your favourite poet</h2>
+                        <div class="buttons is-centered">
+                            <button class="button is-rounded" v-for="p in avaible_poets" :key="p" @click="selectPoet(p)" v-bind:class="{'is-primary': p==poet}">
+                                {{ p }}
+                            </button>
+                        </div>
+
+                        <h2 class="is-size-3-tablet is-size-4-mobile mt-5">Type your first line</h2>
+                        <div class="field is-grouped">
+                            <div class="control is-expanded">
+                                <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life as it is" required/>
+                            </div>
+                            <div class="control">
+                                <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem_line(this.first_line)">generate</button>
+                            </div>
+                        </div>
+
+                        <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( poem != '') ? '100vh' : '0px')}">
+                            <div id="poem" class="card">
+                                <div class="card-content">
+                                    <div class="media-content">
+                                        <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3>
+                                    </div>
+                                    <p class="is-size-6 has-text-left" v-for="line in poem.split('\n')" :key="line">{{ line }}</p>
+                                    <button class="button is-info is-rounded mt-3" @click="save_poem">save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
         <div class="control" v-if=" this.generator_type ==  'full' ">
             <div class="columns is-vcentered has-text-centered">
@@ -61,8 +98,6 @@
                 </div>
         </div>
 
-
-
     </div>
 
     <div class="column is-1">
@@ -104,6 +139,29 @@ export default {
             generate_button.classList.add('is-loading')
 
             fetch(`${API_URL}/api/generate/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "style": this.poet,
+                    "first_line": line,
+                })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    ({text: this.poem, input: this.input_id} = data)
+                    generate_button.classList.remove("is-loading")
+                })
+                .catch(err => console.log(err.message))
+        },
+        fetch_poem_line(line){
+            this.poem = ""
+            const generate_button = document.querySelector('#generate_button')
+
+            generate_button.classList.add('is-loading')
+
+            fetch(`${API_URL}/api/generate-line/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

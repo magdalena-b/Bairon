@@ -7,6 +7,7 @@ app_name = 'backend'
 urlpatterns = [
     path('', test, name='test'),
     path('generate/', GeneratePoemView.as_view(), name='generate'),
+    path('generate-line/', GeneratePoemLineView.as_view(), name='generate-line'),
     path('generate-style-transfer/', GenerateStyleTransferView.as_view(), name='generate-style-transfer'),
     path('save/', SavePoem.as_view(), name='save'),
     path('poems/<int:id>/', PoemView.as_view(), name='poem'),

@@ -59,6 +59,38 @@ class GeneratePoemView(generics.CreateAPIView):
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class GeneratePoemLineView(generics.CreateAPIView):
+    serializer_class = InputSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request: Request, *args, **kwargs):
+        serializer = InputSerializer(data=request.data)
+        if serializer.is_valid():
+            input = serializer.create(serializer.validated_data)
+            print(input)
+
+            try:
+                text, sentiment = poem_generator.generate_line(
+                        style = input.style,
+                        first_line=input.first_line
+                )
+                
+                poem = Poem(
+                    input = input,
+                    text = text,
+                    sentiment = sentiment
+                )
+
+                return Response(model_to_dict(poem), status=status.HTTP_200_OK)
+
+            except Exception as e:
+                print(e)
+                return Response(status=status.HTTP_403_FORBIDDEN)
+
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class GenerateStyleTransferView(generics.CreateAPIView):
     serializer_class = InputSerializer
