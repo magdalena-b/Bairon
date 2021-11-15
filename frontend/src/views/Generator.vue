@@ -24,7 +24,7 @@
                         <h2 class="is-size-3-tablet is-size-4-mobile mt-5">Type your first line</h2>
                         <div class="field is-grouped">
                             <div class="control is-expanded">
-                                <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life as it is" required/>
+                                <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life as it is" :maxlength="100" required/>
                             </div>
                             <div class="control">
                                 <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem_line(this.first_line)">generate</button>
@@ -43,7 +43,7 @@
                                 <div class="control">
 
                                 <div class="control is-expanded">
-                                    <input class="input is-rounded" type="text" v-model="next_human_line" placeholder="eg. life as it is" required/>
+                                    <input class="input is-rounded" type="text" v-model="next_human_line" placeholder="eg. life as it is" :maxlength="100" required/>
                                 </div>
                                 <div class="control">
                                     <button v-if=" this.collab_lines != null" id="generate_button" class="button is-rounded is-info"  @click="fetch_poem_line(this.next_human_line)">continue generating</button>
@@ -76,7 +76,7 @@
                         <h2 class="is-size-3-tablet is-size-4-mobile mt-5">Type your first line</h2>
                         <div class="field is-grouped">
                             <div class="control is-expanded">
-                                <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life as it is" required/>
+                                <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life as it is" :maxlength="100" required/>
                             </div>
                             <div class="control">
                                 <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem(this.first_line)">generate</button>
