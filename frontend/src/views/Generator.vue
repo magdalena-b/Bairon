@@ -1,121 +1,198 @@
 <template>
+
+<!-- container div - requeired -->
     <div class="container">
-            <button class="button is-rounded" @click="selectGenerator('full')">
-                Full
-            </button>
 
-            <button class="button is-rounded" @click="selectGenerator('collab')">
-                Collab
-            </button>
+        <div class="columns is-multiline is-mobile">
 
-        <!-- COLLAB -->
+            <!-- <div class="column is-6 is-half has-text-centered align-left"> -->
+            <div class = "column is-6 is-half">
+                <div>
+                    <button class="button is-rounded" @click="selectGenerator('full')">
+                        Full
+                    </button>
 
-        <div class="control" v-if=" this.generator_type ==  'collab' ">
-            <div class="columns is-vcentered has-text-centered">
-                <div class="column is-6">
-                    <div class="poem">
-                        <h2 class="is-size-3-tablet is-size-4-mobile">Select your favourite poet</h2>
-                        <div class="buttons is-centered">
-                            <button class="button is-rounded" v-for="p in avaible_poets" :key="p" @click="selectPoet(p)" v-bind:class="{'is-primary': p==poet}">
-                                {{ p }}
-                            </button>
-                        </div>
+                    <button class="button is-rounded" @click="selectGenerator('collab')">
+                        Collab
+                    </button>
+                </div>
 
-                        <h2 class="is-size-3-tablet is-size-4-mobile mt-5">Type your first line</h2>
-                        <div class="field is-grouped">
-                            <div class="control is-expanded">
-                                <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life as it is" :maxlength="100" required/>
-                            </div>
-                            <div class="control">
-                                <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem_line(this.first_line)">generate</button>
-                            </div>
-                        </div>
+                <!-- COLLAB -->
 
-                        <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( collab_lines != null) ? '100vh' : '0px')}">
-                            <div id="poem" class="card" v-if="this.collab_lines != null" >
-                                <div class="card-content">
-                                    <div class="media-content">
-                                        <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3>
+                <div class="control" v-if=" this.generator_type ==  'collab' ">
+                    <!-- <div class="columns has-text-centered align-left"> -->
+                    <div>
+                        <div>
+                            <div class="poem">
+                                <h2 class="is-size-3-tablet is-size-4-mobile">Select your favourite poet</h2>
+                                <div class="buttons is-centered">
+                                    <button class="button is-rounded" v-for="p in avaible_poets" :key="p" @click="selectPoet(p)" v-bind:class="{'is-primary': p==poet}">
+                                        {{ p }}
+                                    </button>
+                                </div>
+
+                                <h2 class="is-size-3-tablet is-size-4-mobile mt-5">Type your first line</h2>
+                                <div class="field is-grouped">
+                                    <div class="control is-expanded">
+                                        <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life as it is" :maxlength="100" required/>
                                     </div>
-                                    <div v-if="this.collab_lines != null">
-                                        <p class="is-size-6 has-text-left" v-for="line in collab_lines.split('\n')" :key="line">{{ line }}</p>
+                                    <div class="control">
+                                        <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem_line(this.first_line)">generate</button>
                                     </div>
-                                <div class="control">
-
-                                <div class="control is-expanded">
-                                    <input class="input is-rounded" type="text" v-model="next_human_line" placeholder="eg. life as it is" :maxlength="100" required/>
-                                </div>
-                                <div class="control">
-                                    <button v-if=" this.collab_lines != null" id="generate_button" class="button is-rounded is-info"  @click="fetch_poem_line(this.next_human_line)">continue generating</button>
-                                </div>
                                 </div>
 
+                                <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( collab_lines != null) ? '100vh' : '0px')}">
+                                    <div id="poem" class="card" v-if="this.collab_lines != null" >
+                                        <div class="card-content">
+                                            <div class="media-content">
+                                                <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3>
+                                            </div>
+                                            <div v-if="this.collab_lines != null">
+                                                <p class="is-size-6 has-text-left" v-for="line in collab_lines.split('\n')" :key="line">{{ line }}</p>
+                                            </div>
+                                        <div class="control">
+
+                                        <div class="control is-expanded">
+                                            <input class="input is-rounded" type="text" v-model="next_human_line" placeholder="eg. life as it is" :maxlength="100" required/>
+                                        </div>
+                                        <div class="control">
+                                            <button v-if=" this.collab_lines != null" id="generate_button" class="button is-rounded is-info"  @click="fetch_poem_line(this.next_human_line)">continue generating</button>
+                                        </div>
+                                        </div>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                </div>
+
+
+                <!-- FULL -->
+
+                <div class="control" v-if=" this.generator_type ==  'full' ">
+                    <!-- <div class="columns is-vcentered has-text-centered align-left"> -->
+                    <div>
+                        <div>
+                            <div class="poem">
+                                <h2 class="is-size-3-tablet is-size-4-mobile">Select your favourite poet</h2>
+                                <div class="buttons is-centered">
+                                    <button class="button is-rounded" v-for="p in avaible_poets" :key="p" @click="selectPoet(p)" v-bind:class="{'is-primary': p==poet}">
+                                        {{ p }}
+                                    </button>
+                                </div>
+
+                                <h2 class="is-size-3-tablet is-size-4-mobile mt-5">Type your first line</h2>
+                                <div class="field is-grouped">
+                                    <div class="control is-expanded">
+                                        <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life as it is" :maxlength="100" required/>
+                                    </div>
+                                    <div class="control">
+                                        <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem(this.first_line)">generate</button>
+                                    </div>
+                                    <div class="control" v-if=" this.poet ==  'Shakespeare' ">
+                                        <button id="generate_style_transfer_button" class="button is-rounded is-info" @click="fetch_style_transfer_line(this.first_line)">translate to shakespearian</button>
+                                    </div>
+                                </div>
+
+                                    <div v-if=" this.translated_lines != null & this.poet == 'Shakespeare'">
+                                        <div class="button is_rounded is_info" @click="fetch_poem(translated_line)" v-for="translated_line in this.translated_lines" :key="translated_line">{{ translated_line }} </div>
+                                    </div>
+
+                                <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( poem != '') ? '100vh' : '0px')}">
+                                    <div id="poem" class="card">
+                                        <div class="card-content">
+                                            <div class="media-content">
+                                                <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3>
+                                            </div>
+                                            <p class="is-size-6 has-text-left" v-for="line in poem.split('\n')" :key="line">{{ line }}</p>
+                                            <button class="button is-info is-rounded mt-3" @click="save_poem">save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
-
         </div>
 
-
-        <!-- FULL -->
-
-        <div class="control" v-if=" this.generator_type ==  'full' ">
-            <div class="columns is-vcentered has-text-centered">
-                <div class="column is-6">
-                    <div class="poem">
-                        <h2 class="is-size-3-tablet is-size-4-mobile">Select your favourite poet</h2>
-                        <div class="buttons is-centered">
-                            <button class="button is-rounded" v-for="p in avaible_poets" :key="p" @click="selectPoet(p)" v-bind:class="{'is-primary': p==poet}">
-                                {{ p }}
-                            </button>
-                        </div>
-
-                        <h2 class="is-size-3-tablet is-size-4-mobile mt-5">Type your first line</h2>
-                        <div class="field is-grouped">
-                            <div class="control is-expanded">
-                                <input class="input is-rounded" type="text" v-model="first_line" placeholder="eg. life as it is" :maxlength="100" required/>
-                            </div>
-                            <div class="control">
-                                <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem(this.first_line)">generate</button>
-                            </div>
-                            <div class="control" v-if=" this.poet ==  'Shakespeare' ">
-                                <button id="generate_style_transfer_button" class="button is-rounded is-info" @click="fetch_style_transfer_line(this.first_line)">translate to shakespearian</button>
-                            </div>
-                        </div>
-
-                            <div v-if=" this.translated_lines != null & this.poet == 'Shakespeare'">
-                                <div class="button is_rounded is_info" @click="fetch_poem(translated_line)" v-for="translated_line in this.translated_lines" :key="translated_line">{{ translated_line }} </div>
-                            </div>
-
-                        <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( poem != '') ? '100vh' : '0px')}">
-                            <div id="poem" class="card">
-                                <div class="card-content">
-                                    <div class="media-content">
-                                        <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3>
-                                    </div>
-                                    <p class="is-size-6 has-text-left" v-for="line in poem.split('\n')" :key="line">{{ line }}</p>
-                                    <button class="button is-info is-rounded mt-3" @click="save_poem">save</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </div>
-
-    </div>
-
-    <div class="column is-1">
-        <!-- placeholder -->
-    </div>
-    <div class="column is-5">
-        <Gallery />
-    </div>
+        <!-- <div class="column is-1"> -->
+            <!-- placeholder -->
+        <!-- </div> -->
         
+        <div class="column is-6 is-half">
+            <Gallery />
+        </div>
+
+    </div>
+
+
+
+
+
+
+        <!-- end of container div - required -->
     </div>
 </template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
 import Gallery from '@/components/Gallery.vue'
