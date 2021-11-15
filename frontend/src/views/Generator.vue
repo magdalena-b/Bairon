@@ -8,11 +8,11 @@
             <!-- <div class="column is-6 is-half has-text-centered align-left"> -->
             <div class = "column is-6 is-half">
                 <div>
-                    <button class="button is-rounded" @click="selectGenerator('full')">
+                    <button class="button is-rounded" @click="selectGenerator('full')" v-bind:class="{'is-primary': this.generator_type == 'full'}" >
                         Full
                     </button>
 
-                    <button class="button is-rounded" @click="selectGenerator('collab')">
+                    <button class="button is-rounded" @click="selectGenerator('collab')" v-bind:class="{'is-primary': this.generator_type == 'collab'}">
                         Collab
                     </button>
                 </div>
