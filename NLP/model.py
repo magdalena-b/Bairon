@@ -8,6 +8,7 @@ length = 200
 line_length = 10
 graph = tensorflow.get_default_graph()
 sess = gpt2.start_tf_sess()
+collab_lines_cache = ""
 
 def load_model(run_name):
     global sess
@@ -73,9 +74,12 @@ class PoemGenerator:
     def generate_line(self, *args, **kwargs):
         global graph
         global line_length
+        global collab_lines_cache
         try:
             style = kwargs["style"]
             first_line = kwargs["first_line"]
+            collab_lines_cache += " " + first_line
+            print("\n\n" + collab_lines_cache)
         except:
             first_line = ""
 
@@ -85,7 +89,7 @@ class PoemGenerator:
                 load_model("shakespeare2")
                 start = time.time()
                 with graph.as_default():
-                    text = gpt2.generate(sess, run_name='shakespeare2', prefix = first_line, length = line_length, return_as_list=True)[0]
+                    text = gpt2.generate(sess, run_name='shakespeare2', prefix = collab_lines_cache, length = line_length, return_as_list=True)[0]
                     sentiment = "normal"
                 print("generating time:",time.time()-start,"s")
             
@@ -94,7 +98,7 @@ class PoemGenerator:
                 load_model("ginsberg2")
                 start = time.time()
                 with graph.as_default():
-                    text = gpt2.generate(sess, run_name='ginsberg2', prefix = first_line, length = line_length, return_as_list=True)[0]
+                    text = gpt2.generate(sess, run_name='ginsberg2', prefix = collab_lines_cache, length = line_length, return_as_list=True)[0]
                     sentiment = "normal"
                 print("generating time:",time.time()-start,"s")
 
@@ -103,16 +107,23 @@ class PoemGenerator:
                 load_model("cummings2")
                 start = time.time()
                 with graph.as_default():
-                    text = gpt2.generate(sess, run_name='cummings2', prefix = first_line, length = line_length, return_as_list=True)[0]
+                    text = gpt2.generate(sess, run_name='cummings2', prefix = collab_lines_cache, length = line_length, return_as_list=True)[0]
                     sentiment = "normal"
                 print("generating time:",time.time()-start,"s")
                 
             else: raise Exception("Style not found")
 
-        except: # lorem ipsum request or models unvaible
+        except Exception as e: # lorem ipsum request or models unvaible
+            print(e)
             text = "Tempor eiusmod deserunt pariatur eu magna sit velit mollit cupidatat qui fugiat.\nLorem esse quis irure labore aliquip. Qui proident aliqua non voluptate deserunt id culpa velit. Pariatur duis minim esse est.\nEt commodo pariatur est exercitation duis. Id qui voluptate minim magna eiusmod.\nLaboris magna dolore sunt nisi fugiat proident irure magna ullamco et sint sit sint.\nIn cupidatat do commodo ex officia anim ad occaecat magna aliqua. Commodo labore aute ut ullamco mollit. Et pariatur aliqua velit sit nisi voluptate commodo sit officia labore eu nulla consectetur.\nLaborum dolore sint nulla voluptate in consequat.\nConsectetur anim laboris in ullamco ex sint laborum laborum non est ullamco occaecat mollit.\nEiusmod laboris est minim culpa aliquip deserunt nostrud nostrud ut. Excepteur mollit proident nisi duis pariatur. Est sint commodo velit enim dolor sit.\nSunt commodo anim dolor et. Deserunt consectetur incididunt do occaecat magna et laborum veniam exercitation minim."
             sentiment = "normal"
-        
+
+        collab_lines_cache = text        
         return text, sentiment
+
+
+    def clear_collab_lines_cache(self):
+        global collab_lines_cache
+        collab_lines_cache = ""
 
 poem_generator = PoemGenerator()
