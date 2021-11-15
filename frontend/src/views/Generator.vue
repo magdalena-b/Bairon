@@ -123,7 +123,7 @@
             <!-- placeholder -->
         <!-- </div> -->
         
-        <div class="column is-6 is-half">
+        <div class="column is-5 is-half">
             <Gallery />
         </div>
 
