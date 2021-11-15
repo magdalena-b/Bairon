@@ -57,6 +57,7 @@
                                         </div>
                                         <div class="control">
                                             <button v-if=" this.collab_lines != null" id="generate_button" class="button is-rounded is-info"  @click="fetch_poem_line(this.next_human_line)">continue generating</button>
+                                            <button class="button is-info is-rounded mt-3" @click="clear_collab_lines_cache">clear</button>
                                         </div>
                                         </div>
 
@@ -269,10 +270,17 @@ export default {
                     else {
                         this.collab_lines = this.next_machine_line
                     }
-                
-                    // this.next_human_line = null
-                    // this.next_machine_line = null
                 })
+                .catch(err => console.log(err.message))
+        },
+
+        clear_collab_lines_cache(){
+            fetch(`${API_URL}/api/generate-line/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
                 .catch(err => console.log(err.message))
         },
 

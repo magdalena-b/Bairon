@@ -39,6 +39,14 @@ CORS_ORIGIN_WHITELIST = tuple(
     ).split(",")
 )
 
+CORS_ALLOW_METHODS = [
+'GET',
+'OPTIONS',
+'PATCH',
+'POST',
+'PUT',
+]
+
 # Application definition
 
 INSTALLED_APPS = [

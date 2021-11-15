@@ -23,7 +23,7 @@ except Exception as e:
 
 # Create your views here.
 
-@api_view(['GET', 'POST', ])
+@api_view(['GET', 'POST', 'PUT'])
 def test(request: Request) -> Response:
     return Response({"status": "ok"}, status=status.HTTP_200_OK)
 
@@ -89,6 +89,15 @@ class GeneratePoemLineView(generics.CreateAPIView):
 
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request: Request):
+        try:
+            poem_generator.clear_collab_lines_cache()
+            return Response(status=status.HTTP_200_OK)
+        except:
+           return Response(status=status.HTTP_400_BAD_REQUEST) 
+
+
 
 
 

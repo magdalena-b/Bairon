@@ -125,5 +125,6 @@ class PoemGenerator:
     def clear_collab_lines_cache(self):
         global collab_lines_cache
         collab_lines_cache = ""
+        print("CACHE CLEARD")
 
 poem_generator = PoemGenerator()
