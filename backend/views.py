@@ -9,6 +9,7 @@ from django.forms.models import model_to_dict
 from rest_framework import serializers
 
 import random
+import json
 
 from .serializers import *
 from NLP.statistics_helper import statisticsHelper
@@ -43,13 +44,13 @@ class GeneratePoemView(generics.CreateAPIView):
                         style = input.style,
                         first_line=input.first_line
                 )
-                
+                print(sentiment)
                 poem = Poem(
                     input = input,
                     text = text,
                     sentiment = sentiment
                 )
-
+                print(poem.sentiment)
                 return Response(model_to_dict(poem), status=status.HTTP_200_OK)
 
             except Exception as e:
@@ -80,7 +81,8 @@ class GeneratePoemLineView(generics.CreateAPIView):
                     text = text,
                     sentiment = sentiment
                 )
-
+                print("NC1")
+                print(poem.sentiment)
                 return Response(model_to_dict(poem), status=status.HTTP_200_OK)
 
             except Exception as e:
@@ -180,6 +182,7 @@ class PoemView(views.APIView):
             try:
                 data["first_line"] = poem.input.first_line
                 data["style"] = poem.input.style
+                data["sentiment"] = poem.input.sentiment
             except:
                 pass
             return Response(data, status=status.HTTP_200_OK)
