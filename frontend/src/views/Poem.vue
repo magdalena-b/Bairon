@@ -31,17 +31,24 @@
                     <p class="is-size-6">Average rating: {{Math.round(score*10)/10}}</p>
                     <p class="message-header is-size-6">views: {{views}}</p>
                 </div>
+                <div class="control">
+                    <div class="header-body">
+                        <SentimentChart />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import SentimentChart from '@/components/SentimentChart.vue'
 const {API_URL} = require('../settings.json')
 
 export default {
     name: 'Poem',
     components: {
+        SentimentChart
     },
     props: ["id"],
     data() {
@@ -50,20 +57,24 @@ export default {
             author: "",
             first_line: "",
             text: "",
+            sentiment: "",
             views: 0,
             score: 0,
             TT_machine: 0,
             TT_human: 0,
+            keys: null,
+            values: null,
         }
     },
     mounted() {
         fetch(`${API_URL}/api/poems/${this.id}/`)
             .then(res => res.json())
             .then(data => {
-                ({author: this.author, first_line: this.first_line, style: this.style, text: this.text, views: this.views} = data)
+                ({author: this.author, first_line: this.first_line, style: this.style, text: this.text,sentiment: this.sentiment, views: this.views, keys: this.keys, values: this.values} = data)
             })
             .catch(err => console.log(err.message))
         this.get_rating()
+        this.fetch_text()
     },
     methods: {
         get_rating(){
@@ -88,7 +99,18 @@ export default {
                 .then(res => {this.get_rating()})
                 .catch(err => console.log(err.message))
             this.get_rating()
-        }
+        },
+        fetch_text(){
+            this.keys = null
+            this.values = null
+
+            fetch(`${API_URL}/api/poems/${this.id}`)
+                .then(res => res.json())
+                .then(data => {
+                    ({keys: this.keys, values: this.values})
+                })
+                .catch(err => console.log(err.message))
+        },
     }
 }
 </script>
