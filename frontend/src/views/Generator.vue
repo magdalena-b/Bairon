@@ -207,6 +207,7 @@ export default {
             first_line: "",
             poet: "Shakespeare",
             poem: "",
+            sentiment: "",
             avaible_poets: ["Shakespeare", "Ginsberg", "Cummings", "Lorem Ipsum"],
             input_id: null,
             translated_lines: null,
@@ -240,7 +241,7 @@ export default {
             })
                 .then(res => res.json())
                 .then(data => {
-                    ({text: this.poem, input: this.input_id} = data)
+                    ({text: this.poem, input: this.input_id, sentiment: this.sentiment} = data)
                     generate_button.classList.remove("is-loading")
                 })
                 .catch(err => console.log(err.message))
@@ -309,11 +310,13 @@ export default {
                 },
                 body: JSON.stringify({
                     "input": this.input_id,
-                    "text": this.poem
+                    "text": this.poem,
+                    "sentiment": this.sentiment
                 })
             })
                 .then(() => {
                     this.poem = ""
+                    this.sentiment = ""
                 })
                 .catch(err => console.log(err.message))
         },
