@@ -25,8 +25,8 @@ class Poem(models.Model):
     input = models.ForeignKey(Input, on_delete=models.DO_NOTHING, null=True, blank=True)
     text = models.CharField(max_length=100000, default="")
     views = models.IntegerField(default=0)
-    sentiment = models.CharField(max_length=100, null=True, blank=True)
-
+    sentiment = models.CharField(max_length=200, default="", null=True)
+    #, null=True, blank=True
     class Meta:
         ordering = ('views',)
     
