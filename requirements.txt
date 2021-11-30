@@ -10,3 +10,5 @@ transformers
 gpt_2_simple==0.7.2
 python-dotenv
 django-cors-headers>=3.7.0
+drf-yasg
+django-extensions 
