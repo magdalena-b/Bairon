@@ -42,6 +42,8 @@ Podstrony:
 
 ### model bazy danych
 
+![schemat](db_schema.png)
+
 #### Input:
 - style - styl tekstu w jaki ma być wygenerowany z dostępnej listy
 - first_line - pierwsza linia tekstu na podstawie której ma być generowany tekst
@@ -64,6 +66,8 @@ Podstrony:
 - vote - Human/Machine
 
 ## API
+
+**Wszystkie endpointy wraz z poprawnymi parametrami powinny się znajdować pod adresem** `/swagger`
 
 `/api/generate/`
 
