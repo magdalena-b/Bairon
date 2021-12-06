@@ -227,7 +227,6 @@ export default {
             const generate_button = document.querySelector('#generate_button')
 
             generate_button.classList.add('is-loading')
-            line += "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
 
             fetch(`${API_URL}/api/generate/`, {
                 method: 'POST',
