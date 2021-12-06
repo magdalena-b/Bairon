@@ -57,7 +57,7 @@
                                         </div>
                                         <div class="control">
                                             <button v-if=" this.collab_lines != null" id="generate_button" class="button is-rounded is-info"  @click="fetch_poem_line(this.next_human_line)">continue generating</button>
-                                            <button class="button is-info is-rounded mt-3" @click="clear_collab_lines_cache">clear</button>
+                                            <button class="button is-info is-rounded mt-3">clear</button>
                                         </div>
                                         </div>
 
@@ -214,7 +214,8 @@ export default {
             collab_lines: null,
             next_human_line: null,
             next_machine_line: null,
-            collab_lines: null
+            collab_lines: null,
+            input: null
         }
     },
     methods: {
@@ -226,6 +227,7 @@ export default {
             const generate_button = document.querySelector('#generate_button')
 
             generate_button.classList.add('is-loading')
+            line += "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
 
             fetch(`${API_URL}/api/generate/`, {
                 method: 'POST',
@@ -250,6 +252,14 @@ export default {
 
             const generate_button = document.querySelector('#generate_button')
             generate_button.classList.add('is-loading')
+            this.input = null
+
+            if (this.next_machine_line == null){
+                this.input = line
+            }
+            else {
+                this.input = this.next_machine_line + line
+            }
 
             fetch(`${API_URL}/api/generate-line/`, {
                 method: 'POST',
@@ -258,7 +268,7 @@ export default {
                 },
                 body: JSON.stringify({
                     "style": this.poet,
-                    "first_line": line,
+                    "first_line": this.input,
                 })
             })
                 .then(res => res.json())
@@ -273,18 +283,6 @@ export default {
                         this.collab_lines = this.next_machine_line
                     }
                 })
-                .catch(err => console.log(err.message))
-        },
-
-        clear_collab_lines_cache(){
-            this.first_line = null
-            this.collab_lines = null
-            fetch(`${API_URL}/api/generate-line/`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
                 .catch(err => console.log(err.message))
         },
 
