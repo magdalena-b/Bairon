@@ -213,7 +213,8 @@ export default {
             generator_type: "full",
             collab_lines: null,
             next_human_line: null,
-            next_machine_line: null
+            next_machine_line: null,
+            collab_lines: null
         }
     },
     methods: {
@@ -265,7 +266,8 @@ export default {
                     ({text: this.next_machine_line, input: this.input_id} = data)
                     generate_button.classList.remove("is-loading")
                     if (this.collab_lines != null) {
-                        this.collab_lines = this.collab_lines + this.next_machine_line
+                        // this.collab_lines = this.collab_lines + this.next_machine_line
+                        this.collab_lines = this.next_machine_line
                     }
                     else {
                         this.collab_lines = this.next_machine_line
@@ -275,6 +277,8 @@ export default {
         },
 
         clear_collab_lines_cache(){
+            this.first_line = null
+            this.collab_lines = null
             fetch(`${API_URL}/api/generate-line/`, {
                 method: 'PUT',
                 headers: {
