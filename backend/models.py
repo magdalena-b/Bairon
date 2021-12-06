@@ -18,7 +18,7 @@ GENERATOR_TYPES = [
 
 class Input(models.Model):
     style = models.CharField(choices=POETS, default=POETS[0], max_length=100)
-    first_line = models.CharField(max_length=100, null=True, blank=True)
+    first_line = models.CharField(max_length=1000, null=True, blank=True)
     # TODO another input options
     keywords = models.CharField(max_length=100, null=True, blank=True)
 
