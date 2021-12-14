@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view
 from django.core.serializers import serialize, json
 from django.forms.models import model_to_dict
 from rest_framework import serializers
+from rest_framework.throttling import AnonRateThrottle
 
 import random
 
@@ -29,6 +30,8 @@ def test(request: Request) -> Response:
 
 
 class GeneratePoemView(generics.CreateAPIView):
+    throttle_scope = 'generate'
+
     serializer_class = InputSerializer
     permission_classes = (AllowAny,)
 

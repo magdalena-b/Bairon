@@ -1,7 +1,6 @@
 <template>
 
     <div class="container">
-
         <div class="columns is-multiline is-mobile is-vcentered">
 
             <div class = "column is-6 is-half has-text-centered">
@@ -60,9 +59,9 @@
                                 <div class="control is-expanded">
                                     <input class="input is-rounded" type="text" v-model="next_human_line" placeholder="eg. life as it is" :maxlength="100" required/>
                                 </div>
-                                <div class="control">
+                                <div class="control buttons mt-3 is-centered">
                                     <button v-if=" collab_lines != null" id="generate_button" class="button is-rounded is-info"  @click="fetch_poem_line(next_human_line)">continue generating</button>
-                                    <button class="button is-info is-rounded mt-3" @click="clear_collab_lines_cache">clear</button>
+                                    <button class="button is-info is-rounded" @click="clear_collab_lines_cache">clear</button>
                                 </div>
                                 </div>
 
@@ -75,16 +74,21 @@
                             <div class="button is_rounded is_info" @click="fetch_poem(translated_line)" v-for="translated_line in translated_lines" :key="translated_line">{{ translated_line }} </div>
                         </div>
 
-                        <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( poem != '') ? '100vh' : '0px')}">
-                            <div id="poem" class="card">
+                        <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( poem != '' || show_notification) ? '100vh' : '0px')}">
+                            <div v-if="poem != ''" id="poem" class="card">
                                 <div class="card-content">
                                     <div class="media-content">
-                                        <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3>
+                                        <!-- <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3> -->
                                     </div>
                                     <p class="is-size-6 has-text-left" v-for="line in poem.split('\n')" :key="line">{{ line }}</p>
                                     <button class="button is-info is-rounded mt-3" @click="save_poem">save</button>
                                 </div>
                             </div>
+                            <template v-if="show_notification==true">
+                                <div class="notification is-warning is-light" @click="toggle_notification(false)">
+                                    You can only generate 3 poems per hour. Try again later :)
+                                </div>
+                            </template>
                         </div>
                     </template>
                 </div>
@@ -98,9 +102,9 @@
                 <Gallery />
             </div>
         </div>
-
-
     </div>
+
+    
 </template>
 
 <script>
@@ -121,12 +125,17 @@ export default {
             generator_type: "full",
             collab_lines: null,
             next_human_line: null,
-            next_machine_line: null
+            next_machine_line: null,
+            show_notification: false,
         }
     },
     methods: {
         selectPoet(poet){
             this.poet = poet
+        },
+        toggle_notification(bool){
+            console.log(bool)
+            this.show_notification = bool
         },
         fetch_poem(line){
             this.poem = ""
@@ -146,16 +155,21 @@ export default {
                     "first_line": line,
                 })
             })
-                .then(res => res.json())
+                .then(res => {
+                    if(res.ok){
+                        return res.json()
+                    }
+                    else{
+                        this.toggle_notification(true)
+                        generate_button.classList.remove("is-loading")  
+                        throw new Error("Requests limit exceeded")
+                    }
+                })
                 .then(data => {
                     ({text: this.poem, input: this.input_id} = data)
                     generate_button.classList.remove("is-loading")
                 })
-                .catch(err => {
-                    
-                    console.log(err.message)
-                    generate_button.classList.remove("is-loading")
-                })
+                .catch(err => console.log(err.message))
         },
         fetch_poem_line(line){
 

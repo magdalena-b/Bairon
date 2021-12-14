@@ -5,7 +5,7 @@
                 <div class="hero is-medium">
                     <div class="hero-body">
                         <div>
-                            <template v-if="count>-1">
+                            <template v-if="count>0">
                                 <h4 class="is-size-5-tablet is-size-6-mobile">So far we have helped out <span class="has-text-primary has-text-weight-bold">{{count}}</span> people!</h4>
                             </template>
 
