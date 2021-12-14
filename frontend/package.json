@@ -7,11 +7,13 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "bulma": "^0.9.3",
     "core-js": "^3.6.5",
-    "vue": "^3.0.11",
+    "vue": "^3.2.23",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
+    "@creativebulma/bulma-tooltip": "^1.2.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-service": "~4.5.0",

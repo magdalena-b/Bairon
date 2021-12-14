@@ -4,7 +4,7 @@
             meet our artists
         </h4>
         <div id="carousel-demo" class="carousel">
-            <div class="item-1 py-5 px-5">
+            <div class="item-1 py-5 px-5 has-text-centered">
                 <img alt="shakespeare" src="../assets/Shakespeare.jpg">
                 <h2 class="is-size-4"> William Shakespeare </h2>
                 <div class="tabs is-centered is-boxed">
@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <div class="item-2 py-5 px-5">
+            <div class="item-2 py-5 px-5 has-text-centered">
                 <img alt="shakespeare" src="../assets/ginsberg.jpg">
                 <h2 class="is-size-4"> Allen Ginsberg </h2>
                 <div class="tabs is-centered is-boxed">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class="item-3 py-5 px-5">
+            <div class="item-3 py-5 px-5 has-text-centered">
                 <img alt="shakespeare" src="../assets/cummings.jpg">
                 <h2 class="is-size-4"> e.e. cummings </h2>
                 <div class="tabs is-centered is-boxed">
