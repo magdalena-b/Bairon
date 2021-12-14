@@ -5,6 +5,8 @@
 
             <div class = "column is-6 is-half has-text-centered">
 
+                
+
                 <div class="poem">
                     <h2 class="is-size-3-tablet is-size-4-mobile">Select your favourite poet</h2>
                     <div class="buttons is-centered">
@@ -15,11 +17,11 @@
 
                     <h2 class="is-size-3-tablet is-size-4-mobile">Choose a generating mode</h2>
                     <div class="buttons is-centered">
-                        <button class="button is-rounded" @click="selectGenerator('full')" v-bind:class="{'is-primary': generator_type == 'full'}" data-tooltip="Tooltip Text">
+                        <button class="button is-rounded has-tooltip-arrow" @click="selectGenerator('full')" v-bind:class="{'is-primary': generator_type == 'full'}" data-tooltip="generate whole poem">
                             Full
                         </button>
 
-                        <button class="button is-rounded" @click="selectGenerator('collab')" v-bind:class="{'is-primary': generator_type == 'collab'}" data-tooltip="Tooltip Text">
+                        <button class="button is-rounded has-tooltip-arrow" @click="selectGenerator('collab')" v-bind:class="{'is-primary': generator_type == 'collab'}" data-tooltip="generate poem line by line alternately with the generator">
                             Collab
                         </button>
                     </div>
@@ -39,7 +41,7 @@
                                 <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem(first_line)">generate</button>
                             </div>
                             <div class="control" v-if=" poet ==  'Shakespeare' ">
-                                <button id="generate_style_transfer_button" class="button is-rounded is-info" @click="fetch_style_transfer_line(first_line)">translate to shakespearian</button>
+                                <button id="generate_style_transfer_button" class="button is-rounded is-info has-tooltip-arrow" @click="fetch_style_transfer_line(first_line)" data-tooltip="translate your line to shaespearian style. then you can use it as input to new poem">translate to shakespearian</button>
                             </div>
                         </template>
                     </div>
@@ -78,7 +80,7 @@
                             <div v-if="poem != ''" id="poem" class="card">
                                 <div class="card-content">
                                     <div class="media-content">
-                                        <!-- <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3> -->
+                                        <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3>
                                     </div>
                                     <p class="is-size-6 has-text-left" v-for="line in poem.split('\n')" :key="line">{{ line }}</p>
                                     <button class="button is-info is-rounded mt-3" @click="save_poem">save</button>
