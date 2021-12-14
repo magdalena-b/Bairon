@@ -5,6 +5,10 @@
                 <div class="hero is-medium">
                     <div class="hero-body">
                         <div>
+                            <template v-if="count>-1">
+                                <h4 class="is-size-5-tablet is-size-6-mobile">So far we have helped out <span class="has-text-primary has-text-weight-bold">{{count}}</span> people!</h4>
+                            </template>
+
                             <h1 class="is-size-1-tablet is-size-2-mobile has-text-weight-bold">
                                 Become world class artist and create your own masterpiece!
                             </h1>
@@ -36,12 +40,38 @@
 import Gallery from '@/components/Gallery.vue'
 import HeroImage from '@/components/HeroImage.vue'
 
+const {API_URL} = require('../settings.json')
+
 export default {
-  name: 'Home',
-  components: {
-    Gallery,
-    HeroImage
-  },
+    name: 'Home',
+    components: {
+        Gallery,
+        HeroImage
+    },
+    data() {
+            return {
+                count: 0,
+            }
+    },
+    methods: {
+        fetch_count(line){
+                this.count = 0
+                
+                fetch(`${API_URL}/api/generations-count/`, {
+                    method: 'GET',
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        ({count: this.count} = data)
+                    })
+                    .catch(err => {
+                        console.log(err.message)
+                    })
+            },
+    },
+    mounted() {
+        this.fetch_count()
+    }
 }
 </script>
 

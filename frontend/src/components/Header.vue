@@ -47,7 +47,7 @@
                                 Statistics
                             </div>
                             <div class="navbar-dropdown is-right">
-                                <router-link class="navbar-item" to="/statistics">Statistics</router-link>
+                                <router-link class="navbar-item" to="/statistics">Word Count</router-link>
                                 <router-link class="navbar-item" to="/sentimentanalysis">Sentiment Analysis</router-link>
                             </div>
                         </div>

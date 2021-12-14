@@ -151,7 +151,11 @@ export default {
                     ({text: this.poem, input: this.input_id} = data)
                     generate_button.classList.remove("is-loading")
                 })
-                .catch(err => console.log(err.message))
+                .catch(err => {
+                    
+                    console.log(err.message)
+                    generate_button.classList.remove("is-loading")
+                })
         },
         fetch_poem_line(line){
 

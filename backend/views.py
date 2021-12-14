@@ -319,3 +319,18 @@ class StatisticsView(views.APIView):
                 print(e)
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class GenerationsCount(views.APIView):
+    
+    permission_classes = (AllowAny,)
+
+    def get(self, request: Request):
+        try:
+            Input.objects.count()
+            coin_toss = random.randint(0, 1)
+            result = {"count": Input.objects.count()}
+
+            return Response(result, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
