@@ -9,6 +9,7 @@ from django.forms.models import model_to_dict
 from rest_framework import serializers
 
 import random
+from nltk.translate.bleu_score import sentence_bleu
 
 from .serializers import *
 from NLP.statistics_helper import statisticsHelper
@@ -90,15 +91,6 @@ class GeneratePoemLineView(generics.CreateAPIView):
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request: Request):
-        try:
-            poem_generator.clear_collab_lines_cache()
-            return Response(status=status.HTTP_200_OK)
-        except:
-           return Response(status=status.HTTP_400_BAD_REQUEST) 
-
-
-
 
 
 class GenerateStyleTransferView(generics.CreateAPIView):
@@ -134,6 +126,9 @@ class GenerateStyleTransferView(generics.CreateAPIView):
                 result = {}
                 result['translated_lines'] = result_lines
 
+                for result_line in result_lines:
+                    sentence_bleu(line.split(), result_line.split())
+        
                 return Response(result, status=status.HTTP_200_OK)
 
             except Exception as e:
@@ -160,6 +155,7 @@ class SavePoem(generics.CreateAPIView):
         data = request.data
         data["author"] = "Machine"
         data["sentiment"] = data.get("sentiment", "normal")
+        data["generator_type"] = "collab"
         serializer = PoemSerializer(data=data)
         if serializer.is_valid():
             created = serializer.create(serializer.validated_data)
@@ -218,7 +214,7 @@ class RatingView(views.APIView):
 class PoemListView(views.APIView):
     permission_classes = (AllowAny,)
 
-    def get(self, request: Request, style = None, sentiment = None, number = 10):
+    def get(self, request: Request, style = None, sentiment = None, number = 20):
         try:
             poems = Poem.objects.all().filter(author="Machine")
             if style:
@@ -227,11 +223,19 @@ class PoemListView(views.APIView):
                 poems = poems.filter(sentiment=sentiment)
             result = {"all": []}
             for poem in list(poems.order_by('-views'))[:number]:
-                result["all"].append({"id": poem.id, "input": poem.input.first_line, "text": poem.text, "style": poem.input.style})
+                # if poem.generator_type == "collab":
+                    # poem_text = get_deformatted_poem(poem.text)
+                    # result["all"].append({"id": poem.id, "input": poem.input.first_line, "text": poem_text, "style": poem.input.style})
+                # else:
+                result["all"].append({"id": poem.id, "input": poem.input.first_line, "text": poem.text, "style": poem.input.style, "generator_type": poem.generator_type})
             return Response(result, status=status.HTTP_200_OK)
         except Exception as e:
             print(e)
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+# def get_deformatted_poem(poem_text):
+#     return poem_text.replace("|", "")
+
 
 class CreateRate(generics.CreateAPIView):
     serializer_class = RateSerializer

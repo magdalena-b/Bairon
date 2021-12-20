@@ -11,10 +11,6 @@ POETS = [
     ("Lorem Ipsum", "Lorem Ipsum")
 ]
 
-GENERATOR_TYPES = [
-    ("Full", "Full"),
-    ("Collab", "Collab")
-]
 
 class Input(models.Model):
     style = models.CharField(choices=POETS, default=POETS[0], max_length=100)
@@ -31,7 +27,7 @@ class Poem(models.Model):
     text = models.CharField(max_length=100000, default="")
     views = models.IntegerField(default=0)
     sentiment = models.CharField(max_length=100, null=True, blank=True)
-    generator_type = models.CharField(choices=GENERATOR_TYPES, default=GENERATOR_TYPES[0], max_length=100)
+    generator_type = models.CharField(max_length=100, default="full")
 
     class Meta:
         ordering = ('views',)

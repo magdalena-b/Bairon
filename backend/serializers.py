@@ -38,6 +38,7 @@ class PoemSerializer(serializers.ModelSerializer):
                 input = validated_data["input"],
                 text = validated_data["text"][:1000],
                 sentiment = validated_data.get("sentiment", "normal"),
+                generator_type = validated_data["generator_type"],
             )
             input.save()
             return input

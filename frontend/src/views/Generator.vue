@@ -63,6 +63,7 @@
                                 <div class="control">
                                     <button v-if=" collab_lines != null" id="generate_button" class="button is-rounded is-info"  @click="fetch_poem_line(next_human_line)">continue generating</button>
                                     <button class="button is-info is-rounded mt-3" @click="clear_collab_lines_cache">clear</button>
+                                    <button class="button is-info is-rounded mt-3" @click="save_collab_poem">save</button>
                                 </div>
                                 </div>
 
@@ -121,7 +122,8 @@ export default {
             generator_type: "full",
             collab_lines: null,
             next_human_line: null,
-            next_machine_line: null
+            next_machine_line: null,
+            formatted_collab_lines: null
         }
     },
     methods: {
@@ -161,6 +163,17 @@ export default {
 
             const generate_button = document.querySelector('#generate_button')
             generate_button.classList.add('is-loading')
+            this.input = null
+
+
+            if (this.next_machine_line === null){
+                this.input = line
+                this.formatted_collab_lines = "|" + line + "|"
+            }
+            else {
+                this.input = this.next_machine_line + line
+                this.formatted_collab_lines += "|" + line + "|"
+            }
 
             fetch(`${API_URL}/api/generate-line/`, {
                 method: 'POST',
@@ -169,7 +182,7 @@ export default {
                 },
                 body: JSON.stringify({
                     "style": this.poet,
-                    "first_line": line,
+                    "first_line": this.input,
                 })
             })
                 .then(res => res.json())
@@ -177,23 +190,21 @@ export default {
                     ({text: this.next_machine_line, input: this.input_id} = data)
                     generate_button.classList.remove("is-loading")
                     if (this.collab_lines != null) {
-                        this.collab_lines = this.collab_lines + this.next_machine_line
+                        this.formatted_collab_lines += this.next_machine_line.substring(this.collab_lines.length + line.length, this.next_machine_line.length) + "|"
+                        this.collab_lines = this.next_machine_line
                     }
                     else {
+                        this.formatted_collab_lines += this.next_machine_line.substring(line.length, this.next_machine_line.length) + "|"
                         this.collab_lines = this.next_machine_line
+                        // this.formatted_collab_lines = this.collab_lines + "|"
                     }
                 })
                 .catch(err => console.log(err.message))
         },
 
         clear_collab_lines_cache(){
-            fetch(`${API_URL}/api/generate-line/`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-                .catch(err => console.log(err.message))
+            this.collab_lines = null
+            this.formatted_collab_lines = null
         },
 
         fetch_style_transfer_line(first_line){
@@ -222,6 +233,23 @@ export default {
                 body: JSON.stringify({
                     "input": this.input_id,
                     "text": this.poem
+                })
+            })
+                .then(() => {
+                    this.poem = ""
+                })
+                .catch(err => console.log(err.message))
+        },
+        save_collab_poem() {
+            // this.formatted_collab_lines = "AAAAAAAAAAAAAAa"
+            fetch(`${API_URL}/api/save/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "input": this.input_id,
+                    "text": this.formatted_collab_lines
                 })
             })
                 .then(() => {
