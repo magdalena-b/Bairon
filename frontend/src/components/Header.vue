@@ -84,4 +84,9 @@ export default {
     img {
         border-radius: 25%;
     }
+
+    #burger {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
 </style>

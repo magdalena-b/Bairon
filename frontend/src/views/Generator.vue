@@ -1,13 +1,11 @@
 <template>
 
     <div class="container">
-        <div class="columns is-multiline is-mobile is-vcentered">
+        <div class="columns is-multiline is-centered is-vcentered">
 
-            <div class = "column is-6 is-half has-text-centered">
+            <div class = "column is-6-desktop is-12-mobile has-text-centered">
 
-                
-
-                <div class="poem">
+                <div class="poem container is-fluid mt-6">
                     <h2 class="is-size-3-tablet is-size-4-mobile">Select your favourite poet</h2>
                     <div class="buttons is-centered">
                         <button class="button is-rounded" v-for="p in avaible_poets" :key="p" @click="selectPoet(p)" v-bind:class="{'is-primary': p==poet}">
@@ -96,12 +94,14 @@
                 </div>
 
             </div>
-            <div class="column is-1">
+            <div class="column is-1-dektop">
                 <!-- placeholder -->
             </div>
             
-            <div class="column is-5 is-half">
-                <Gallery />
+            <div class="column is-5-desktop is-12-mobile">
+                <div id="wrapper">
+                    <Gallery />
+                </div>
             </div>
         </div>
     </div>
@@ -260,5 +260,13 @@ export default {
     #poem_container {
         overflow: hidden;
         transition: max-height 1s ease-out;
+    }
+    
+    #wrapper {
+        display: block;
+    }
+
+    #wrapper > * {
+        max-width: 50vw;
     }
 </style>

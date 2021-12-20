@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="columns is-vcentered has-text-centered is-centered is-multiline">
-            <div class="column is-7-desktop is-12-tablet">
+            <div class="column is-7-desktop is-12-mobile">
                 <div class="hero is-medium">
                     <div class="hero-body">
                         <div>
@@ -9,7 +9,7 @@
                                 <h4 class="is-size-5-tablet is-size-6-mobile">So far we have helped out <span class="has-text-primary has-text-weight-bold">{{count}}</span> people!</h4>
                             </template>
 
-                            <h1 class="is-size-1-tablet is-size-2-mobile has-text-weight-bold">
+                            <h1 class="is-size-1-tablet is-size-3-mobile has-text-weight-bold">
                                 Become world class artist and create your own masterpiece!
                             </h1>
                             <router-link to="/generate">
@@ -27,9 +27,7 @@
                     </div>
                 </div>
             </div>
-            <div class="column is-5 is-4-tablet is-6-mobile">
-                <!-- <Gallery :autoplay="false"/> -->
-                <!-- <Gallery /> -->
+            <div class="column is-5 is-12-mobile">
                 <HeroImage />
             </div>
         </div>

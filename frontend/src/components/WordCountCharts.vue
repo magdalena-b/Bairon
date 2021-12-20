@@ -1,33 +1,58 @@
 <template>
     <div id="wrapper">
         <div class="container">
-            <h1 class="is-size-4"> e.e.cummings </h1>
-            <h2 class="is-size-5"> Original poems </h2>
-            <div>
-                <canvas id="cummingsWordCountChart"></canvas>
-            </div>  
-            <h2 class="is-size-5"> Generated poems </h2>
-            <div>
-                <canvas id="generatedCummingsWordCountChart"></canvas>
-            </div>  
-            <h1 class="is-size-4"> William Shakespare </h1>
-            <h2 class="is-size-5"> Original poems </h2>
-            <div>
-                <canvas id="shakespeareWordCountChart"></canvas>
-            </div> 
-            <h2 class="is-size-5"> Generated poems </h2>
-            <div>
-                <canvas id="generatedShakespeareWordCountChart"></canvas>
+            <h1 class="is-size-3">Word Count</h1>
+            <div class="container">
+                <h1 class="is-size-4"> e.e.cummings </h1>
+                <div class="columns is-centered is-vcentered">
+                    <div class="column is-6 is-12-mobile">
+                        <h2 class="is-size-5"> Original poems </h2>
+                        <div>
+                            <canvas id="cummingsWordCountChart"></canvas>
+                        </div>  
+                    </div>
+                    <div class="column is-6 is-12-mobile">
+                        <h2 class="is-size-5"> Generated poems </h2>
+                        <div>
+                            <canvas id="generatedCummingsWordCountChart"></canvas>
+                        </div>  
+                    </div>
+                </div>
             </div>
-            <h1 class="is-size-4"> Allen Ginsberg </h1>
-            <h2 class="is-size-5"> Original poems </h2> 
-            <div>
-                <canvas id="ginsbergWordCountChart"></canvas>
-            </div>  
-            <h2 class="is-size-5"> Generated poems </h2>
-            <div>
-                <canvas id="generatedGinsbergWordCountChart"></canvas>
-            </div>  
+            <div class="container">
+                <h1 class="is-size-4"> William Shakespare </h1>
+                <div class="columns is-centered is-vcentered">
+                    <div class="column is-6 is-12-mobile">
+                        <h2 class="is-size-5"> Original poems </h2>
+                        <div>
+                            <canvas id="shakespeareWordCountChart"></canvas>
+                        </div>  
+                    </div>
+                    <div class="column is-6 is-12-mobile">
+                        <h2 class="is-size-5"> Generated poems </h2>
+                        <div>
+                            <canvas id="generatedShakespeareWordCountChart"></canvas>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <h1 class="is-size-4"> Allen Ginsberg </h1>
+                <div class="columns is-centered is-vcentered">
+                    <div class="column is-6 is-12-mobile">
+                        <h2 class="is-size-5"> Original poems </h2>
+                        <div>
+                            <canvas id="ginsbergWordCountChart"></canvas>
+                        </div>  
+                    </div>
+                    <div class="column is-6 is-12-mobile">
+                        <h2 class="is-size-5"> Generated poems </h2>
+                        <div>
+                            <canvas id="generatedGinsbergWordCountChart"></canvas>
+                        </div>  
+                    </div>
+                </div>
+            </div>
         </div>
     </div>        
 </template>
