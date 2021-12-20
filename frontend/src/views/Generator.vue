@@ -184,11 +184,13 @@ export default {
 
             if (this.next_machine_line === null){
                 this.input = line
-                this.formatted_collab_lines = "|" + line + "|"
+                // this.formatted_collab_lines = "|" + line + "|"
+                this.formatted_collab_lines = line + "|"
             }
             else {
                 this.input = this.next_machine_line + line
-                this.formatted_collab_lines += "|" + line + "|"
+                // this.formatted_collab_lines += "|" + line + "|"
+                this.formatted_collab_lines += line + "|"
             }
 
             fetch(`${API_URL}/api/generate-line/`, {
