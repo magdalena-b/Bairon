@@ -112,7 +112,7 @@ export default {
     }
 
     img {
-        height: 20em;
+        height: 25vmin;
         max-width: 100%;
         overflow: hidden;
     }

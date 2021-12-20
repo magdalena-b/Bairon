@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="wrapper">
         <svg width="605" height="618" viewBox="0 0 605 618" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path  d="M168.763 614L4 101.278L293.532 36L592 378.22L168.763 614Z" fill="#F5F5F5" stroke="#E8E8E8" stroke-width="7.55906" stroke-linejoin="round"/>
             <path d="M14 45.0514L131.814 604L601 451.13L322.182 4L14 45.0514Z" fill="#F5F5F5" stroke="#E8E8E8" stroke-width="7.55906" stroke-linejoin="round"/>
@@ -135,5 +135,16 @@ export default {
     }
     #cell9 {
         animation: animation9 12s infinite 1s both linear;
+    }
+
+    #wrapper {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #wrapper > svg {
+        max-width: 50vw;
     }
 </style>

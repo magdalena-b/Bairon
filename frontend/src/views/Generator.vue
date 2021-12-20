@@ -1,12 +1,11 @@
 <template>
 
     <div class="container">
+        <div class="columns is-multiline is-centered is-vcentered">
 
-        <div class="columns is-multiline is-mobile is-vcentered">
+            <div class = "column is-6-desktop is-12-mobile has-text-centered">
 
-            <div class = "column is-6 is-half has-text-centered">
-
-                <div class="poem">
+                <div class="poem container is-fluid mt-6">
                     <h2 class="is-size-3-tablet is-size-4-mobile">Select your favourite poet</h2>
                     <div class="buttons is-centered">
                         <button class="button is-rounded" v-for="p in avaible_poets" :key="p" @click="selectPoet(p)" v-bind:class="{'is-primary': p==poet}">
@@ -16,11 +15,11 @@
 
                     <h2 class="is-size-3-tablet is-size-4-mobile">Choose a generating mode</h2>
                     <div class="buttons is-centered">
-                        <button class="button is-rounded" @click="selectGenerator('full')" v-bind:class="{'is-primary': generator_type == 'full'}" data-tooltip="Tooltip Text">
+                        <button class="button is-rounded has-tooltip-arrow" @click="selectGenerator('full')" v-bind:class="{'is-primary': generator_type == 'full'}" data-tooltip="generate whole poem">
                             Full
                         </button>
 
-                        <button class="button is-rounded" @click="selectGenerator('collab')" v-bind:class="{'is-primary': generator_type == 'collab'}" data-tooltip="Tooltip Text">
+                        <button class="button is-rounded has-tooltip-arrow" @click="selectGenerator('collab')" v-bind:class="{'is-primary': generator_type == 'collab'}" data-tooltip="generate poem line by line alternately with the generator">
                             Collab
                         </button>
                     </div>
@@ -40,7 +39,7 @@
                                 <button id="generate_button" class="button is-rounded is-info" @click="fetch_poem(first_line)">generate</button>
                             </div>
                             <div class="control" v-if=" poet ==  'Shakespeare' ">
-                                <button id="generate_style_transfer_button" class="button is-rounded is-info" @click="fetch_style_transfer_line(first_line)">translate to shakespearian</button>
+                                <button id="generate_style_transfer_button" class="button is-rounded is-info has-tooltip-arrow" @click="fetch_style_transfer_line(first_line)" data-tooltip="translate your line to shaespearian style. then you can use it as input to new poem">translate to shakespearian</button>
                             </div>
                         </template>
                     </div>
@@ -60,10 +59,10 @@
                                 <div class="control is-expanded">
                                     <input class="input is-rounded" type="text" v-model="next_human_line" placeholder="eg. life as it is" :maxlength="100" required/>
                                 </div>
-                                <div class="control">
+                                <div class="control buttons mt-3 is-centered">
                                     <button v-if=" collab_lines != null" id="generate_button" class="button is-rounded is-info"  @click="fetch_poem_line(next_human_line)">continue generating</button>
-                                    <button class="button is-info is-rounded mt-3" @click="clear_collab_lines_cache">clear</button>
-                                    <button class="button is-info is-rounded mt-3" @click="save_collab_poem">save</button>
+                                    <button class="button is-info is-rounded" @click="clear_collab_lines_cache">clear</button>
+                                    <button class="button is-info is-rounded" @click="save_collab_poem">save</button>
                                 </div>
                                 </div>
 
@@ -76,8 +75,8 @@
                             <div class="button is_rounded is_info" @click="fetch_poem(translated_line)" v-for="translated_line in translated_lines" :key="translated_line">{{ translated_line }} </div>
                         </div>
 
-                        <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( poem != '') ? '100vh' : '0px')}">
-                            <div id="poem" class="card">
+                        <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( poem != '' || show_notification) ? '100vh' : '0px')}">
+                            <div v-if="poem != ''" id="poem" class="card">
                                 <div class="card-content">
                                     <div class="media-content">
                                         <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3>
@@ -86,22 +85,29 @@
                                     <button class="button is-info is-rounded mt-3" @click="save_poem">save</button>
                                 </div>
                             </div>
+                            <template v-if="show_notification==true">
+                                <div class="notification is-warning is-light" @click="toggle_notification(false)">
+                                    You can only generate 3 poems per hour. Try again later :)
+                                </div>
+                            </template>
                         </div>
                     </template>
                 </div>
 
             </div>
-            <div class="column is-1">
+            <div class="column is-1-dektop">
                 <!-- placeholder -->
             </div>
             
-            <div class="column is-5 is-half">
-                <Gallery />
+            <div class="column is-5-desktop is-12-mobile">
+                <div id="wrapper">
+                    <Gallery />
+                </div>
             </div>
         </div>
-
-
     </div>
+
+    
 </template>
 
 <script>
@@ -123,12 +129,17 @@ export default {
             collab_lines: null,
             next_human_line: null,
             next_machine_line: null,
-            formatted_collab_lines: null
+            formatted_collab_lines: null,
+            show_notification: false,
         }
     },
     methods: {
         selectPoet(poet){
             this.poet = poet
+        },
+        toggle_notification(bool){
+            console.log(bool)
+            this.show_notification = bool
         },
         fetch_poem(line){
             this.poem = ""
@@ -148,16 +159,21 @@ export default {
                     "first_line": line,
                 })
             })
-                .then(res => res.json())
+                .then(res => {
+                    if(res.ok){
+                        return res.json()
+                    }
+                    else{
+                        this.toggle_notification(true)
+                        generate_button.classList.remove("is-loading")  
+                        throw new Error("Requests limit exceeded")
+                    }
+                })
                 .then(data => {
                     ({text: this.poem, input: this.input_id} = data)
                     generate_button.classList.remove("is-loading")
                 })
-                .catch(err => {
-                    
-                    console.log(err.message)
-                    generate_button.classList.remove("is-loading")
-                })
+                .catch(err => console.log(err.message))
         },
         fetch_poem_line(line){
 
@@ -272,5 +288,13 @@ export default {
     #poem_container {
         overflow: hidden;
         transition: max-height 1s ease-out;
+    }
+    
+    #wrapper {
+        display: block;
+    }
+
+    #wrapper > * {
+        max-width: 50vw;
     }
 </style>
