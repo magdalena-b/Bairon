@@ -60,6 +60,11 @@
                     </div>
                     <h1> <b> BLEU score </b> </h1>
                     <div> {{bleu_score}} </div>
+                    <div class="stars icon-text py-2">
+                        <span class="star icon is-size-3 is-medium" v-for="n in [1,2,3,4,5,6,7,8,9,10]" :key="n" @click="rate_style_transfer(n)">
+                            <i class="fas fa-star"></i>
+                        </span>
+                    </div>
 
                     
                 </div>
@@ -125,6 +130,21 @@ export default {
                 body: JSON.stringify({
                     "poem": this.id,
                     "rate": n,
+                })
+            })
+                .then(res => {this.get_rating()})
+                .catch(err => console.log(err.message))
+            this.get_rating()
+        },
+        rate_style_transfer(n) {
+            fetch(`${API_URL}/api/add/rate/${this.id}/`,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "poem": this.id,
+                    "style_transfer_rate": n,
                 })
             })
                 .then(res => {this.get_rating()})
