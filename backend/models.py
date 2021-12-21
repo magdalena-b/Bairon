@@ -28,6 +28,9 @@ class Poem(models.Model):
     views = models.IntegerField(default=0)
     sentiment = models.CharField(max_length=100, null=True, blank=True)
     generator_type = models.CharField(max_length=100, default="full")
+    style_transfer = models.IntegerField(default=0)
+    translations = models.CharField(max_length=100000, default="", blank=True)
+    bleu_score = models.IntegerField(null=True, blank=True)
 
     class Meta:
         ordering = ('views',)
@@ -39,6 +42,7 @@ class Poem(models.Model):
 class Rate(models.Model):
     poem = models.ForeignKey(Poem, on_delete=models.DO_NOTHING)
     rate = models.IntegerField()
+
 
 
 class TuringTestVote(models.Model):

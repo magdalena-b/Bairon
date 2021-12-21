@@ -8,12 +8,33 @@
                             <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{style}}</h3>
                             <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3>
                         </div>
-                        <div v-for="line in text.split('\n')" :key="line">
-                            <div v-if="line.length > 0">
-                                <p class="is-size-6 has-text-left">{{line}}</p>
+                        <div v-if='generator_type == "collab" '>
+                                    <div v-bind:class="{'is-hidden': counter = 0}">
+                                    </div>
+                                        <div v-for="line in text.split('|').slice(0, 20)" :key="line">
+
+                                            <div v-if="line.length > 0">
+                                                <div v-if="counter % 2 == 0">    
+                                                    <p class="is-size-6 has-text-left">{{line}} </p>
+                                                </div>
+                                                <div v-else>
+                                                    <p class="is-size-6 has-text-left"> <b> {{line}} </b> </p>
+                                                </div>
+                                            </div>
+                                            <div v-else><br/></div>
+                                            <div v-bind:class="{'is-hidden': counter += 1}">
+                                            </div>
+                                    </div>
+                                </div>
+                        <div v-else>
+                            <div v-for="line in text.split('\n')" :key="line">
+                                <div v-if="line.length > 0">
+                                    <p class="is-size-6 has-text-left">{{line}}</p>
+                                </div>
+                                <div v-else><br/></div>
                             </div>
-                            <div v-else><br/></div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -54,13 +75,14 @@ export default {
             score: 0,
             TT_machine: 0,
             TT_human: 0,
+            generator_type: "",
         }
     },
     mounted() {
         fetch(`${API_URL}/api/poems/${this.id}/`)
             .then(res => res.json())
             .then(data => {
-                ({author: this.author, first_line: this.first_line, style: this.style, text: this.text, views: this.views} = data)
+                ({author: this.author, first_line: this.first_line, style: this.style, text: this.text, views: this.views, generator_type: this.generator_type} = data)
             })
             .catch(err => console.log(err.message))
         this.get_rating()

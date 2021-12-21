@@ -11,11 +11,13 @@ from rest_framework.throttling import AnonRateThrottle
 
 import random
 from nltk.translate.bleu_score import sentence_bleu
+from nltk.translate.bleu_score import SmoothingFunction 
 
 from .serializers import *
 from NLP.statistics_helper import statisticsHelper
 
 import sys
+import re
 sys.path.insert(0, '..')
 try:
     from NLP.model import poem_generator
@@ -128,10 +130,22 @@ class GenerateStyleTransferView(generics.CreateAPIView):
 
                 result = {}
                 result['translated_lines'] = result_lines
-
+                
+                candidates = []
+                
                 for result_line in result_lines:
-                    sentence_bleu(line.split(), result_line.split())
+                    candidate = result_line.lower()
+                    candidate = re.sub(r"[^a-zA-Z]+\s\s+", "", candidate)
+                    candidate = candidate.split()
+                    reference = line.split()
+                    candidates.append(candidate)
+
+                chencherry = SmoothingFunction()
+                bleu_score = sentence_bleu(candidates, reference, smoothing_function=chencherry.method1, weights=(1, 0, 0, 0))     
         
+
+                result['bleu_score'] = bleu_score
+
                 return Response(result, status=status.HTTP_200_OK)
 
             except Exception as e:
@@ -158,7 +172,8 @@ class SavePoem(generics.CreateAPIView):
         data = request.data
         data["author"] = "Machine"
         data["sentiment"] = data.get("sentiment", "normal")
-        data["generator_type"] = "collab"
+        print(data["generator_type"])
+
         serializer = PoemSerializer(data=data)
         if serializer.is_valid():
             created = serializer.create(serializer.validated_data)

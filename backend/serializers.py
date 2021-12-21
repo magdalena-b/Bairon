@@ -39,11 +39,15 @@ class PoemSerializer(serializers.ModelSerializer):
                 text = validated_data["text"][:1000],
                 sentiment = validated_data.get("sentiment", "normal"),
                 generator_type = validated_data["generator_type"],
+                style_transfer = validated_data["style_transfer"],
+                translations = validated_data["translations"],
+                bleu_score = validated_data["bleu_score"],
             )
             input.save()
             return input
         except Exception as e:
             print(e)
+            pass
         return None
 
 
