@@ -126,7 +126,6 @@ class GenerateStyleTransferView(generics.CreateAPIView):
                 line = input.first_line
                 pred = trained_model.predict([f"{prefix}: {line}"])
                 result_lines = pred[0]
-                # result_line = result_lines[0]
 
                 result = {}
                 result['translated_lines'] = result_lines
@@ -243,18 +242,11 @@ class PoemListView(views.APIView):
                 poems = poems.filter(sentiment=sentiment)
             result = {"all": []}
             for poem in list(poems.order_by('-views'))[:number]:
-                # if poem.generator_type == "collab":
-                    # poem_text = get_deformatted_poem(poem.text)
-                    # result["all"].append({"id": poem.id, "input": poem.input.first_line, "text": poem_text, "style": poem.input.style})
-                # else:
                 result["all"].append({"id": poem.id, "input": poem.input.first_line, "text": poem.text, "style": poem.input.style, "generator_type": poem.generator_type})
             return Response(result, status=status.HTTP_200_OK)
         except Exception as e:
             print(e)
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
-# def get_deformatted_poem(poem_text):
-#     return poem_text.replace("|", "")
 
 
 class CreateRate(generics.CreateAPIView):
