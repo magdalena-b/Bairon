@@ -218,6 +218,7 @@ class RatingView(views.APIView):
             else:
                 result = {}
                 result["rate-average"] = Rate.objects.all().aggregate(models.Avg('rate'))["rate__avg"]
+                result["style-transfer-rate-average"] = Rate.objects.all().aggregate(models.Avg('style_transfer_rate'))["style_transfer_rate__avg"]
                 result["rate-count"] = len(Rate.objects.all())
                 result["TT-human"] = len(TuringTestVote.objects.filter(vote="Human"))
                 result["TT-machine"] = len(TuringTestVote.objects.filter(vote="Machine"))
