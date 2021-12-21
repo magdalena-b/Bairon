@@ -194,6 +194,7 @@ class PoemView(views.APIView):
             try:
                 data["first_line"] = poem.input.first_line
                 data["style"] = poem.input.style
+                data["translated_lines"] = poem.translations.split("|")
             except:
                 pass
             return Response(data, status=status.HTTP_200_OK)

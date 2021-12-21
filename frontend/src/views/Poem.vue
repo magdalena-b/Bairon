@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
                         <div v-else>
-                            <div v-for="line in text.split('\n')" :key="line">
+                            <div v-for="line in text.split('\n').slice(0, 20)" :key="line">
                                 <div v-if="line.length > 0">
                                     <p class="is-size-6 has-text-left">{{line}}</p>
                                 </div>
@@ -52,7 +52,19 @@
                     <p class="is-size-6">Average rating: {{Math.round(score*10)/10}}</p>
                     <p class="message-header is-size-6">views: {{views}}</p>
                 </div>
+                <div v-if='style_transfer == 1 '>
+                    <p class="message-header is-size-6 is-primary"> Style Transfer </p>
+                    <h1> <b> Translations </b> </h1>
+                    <div v-for="translated_line in translated_lines" :key="translated_line">
+                        {{translated_line}}
+                    </div>
+                    <h1> <b> BLEU score </b> </h1>
+                    <div> {{bleu_score}} </div>
+
+                    
+                </div>
             </div>
+
         </div>
     </div>
 </template>
@@ -76,16 +88,24 @@ export default {
             TT_machine: 0,
             TT_human: 0,
             generator_type: "",
+            style_transfer: 0,
+            translations: "",
+            bleu_score: 0,
+            translated_lines: "",
         }
     },
     mounted() {
         fetch(`${API_URL}/api/poems/${this.id}/`)
             .then(res => res.json())
             .then(data => {
-                ({author: this.author, first_line: this.first_line, style: this.style, text: this.text, views: this.views, generator_type: this.generator_type} = data)
+                ({author: this.author, first_line: this.first_line, style: this.style, text: this.text, views: this.views, generator_type: this.generator_type, style_transfer: this.style_transfer, translations: this.translations, bleu_score: this.bleu_score, translated_lines: this.translated_lines} = data)
             })
+            .then()
             .catch(err => console.log(err.message))
         this.get_rating()
+        
+        
+        
     },
     methods: {
         get_rating(){
