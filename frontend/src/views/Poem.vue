@@ -130,6 +130,7 @@ export default {
                 body: JSON.stringify({
                     "poem": this.id,
                     "rate": n,
+                    "style_transfer_rate": null,
                 })
             })
                 .then(res => {this.get_rating()})
@@ -144,6 +145,7 @@ export default {
                 },
                 body: JSON.stringify({
                     "poem": this.id,
+                    "rate": null,
                     "style_transfer_rate": n,
                 })
             })
