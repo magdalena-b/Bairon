@@ -189,40 +189,6 @@ export default {
                 .catch(err => console.log(err.message))
         },
 
-        // fetch_poem(line){
-        //     this.poem = ""
-        //     const generate_button = document.querySelector('#generate_button')
-
-        //     generate_button.classList.add('is-loading')
-
-        //     fetch(`${API_URL}/api/generate/`, {
-        //         method: 'POST',
-        //         mode: 'cors',
-        //         cache: 'no-cache',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             "style": this.poet,
-        //             "first_line": line,
-        //         })
-        //     })
-        //         .then(res => {
-        //             if(res.ok){
-        //                 return res.json()
-        //             }
-        //             else{
-        //                 this.toggle_notification(true)
-        //                 generate_button.classList.remove("is-loading")  
-        //                 throw new Error("Requests limit exceeded")
-        //             }
-        //         })
-        //         .then(data => {
-        //             ({text: this.poem, input: this.input_id} = data)
-        //             generate_button.classList.remove("is-loading")
-        //         })
-        //         .catch(err => console.log(err.message))
-        // },
         fetch_poem_line(line){
 
             const generate_button = document.querySelector('#generate_button')
@@ -232,12 +198,10 @@ export default {
 
             if (this.next_machine_line === null){
                 this.input = line
-                // this.formatted_collab_lines = "|" + line + "|"
                 this.formatted_collab_lines = line + "|"
             }
             else {
                 this.input = this.next_machine_line + line
-                // this.formatted_collab_lines += "|" + line + "|"
                 this.formatted_collab_lines += line + "|"
             }
 
@@ -268,7 +232,6 @@ export default {
                     else {
                         this.formatted_collab_lines += this.next_machine_line.substring(line.length, this.next_machine_line.length) + "|"
                         this.collab_lines = this.next_machine_line
-                        // this.formatted_collab_lines = this.collab_lines + "|"
                     }
                 })
                 .catch(err => console.log(err.message))
