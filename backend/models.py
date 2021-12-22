@@ -41,8 +41,8 @@ class Poem(models.Model):
 
 class Rate(models.Model):
     poem = models.ForeignKey(Poem, on_delete=models.DO_NOTHING)
-    rate = models.IntegerField(null=True, blank=True)
-    style_transfer_rate = models.IntegerField(null=True, blank=True)
+    rate = models.IntegerField()
+    category = models.CharField(default="overall", max_length=100)
 
 
 
