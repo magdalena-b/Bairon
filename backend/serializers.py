@@ -58,11 +58,11 @@ class RateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         try:
-            # if validated_data["rate"] < 0 or validated_data["rate"] > 10: raise Exception("rate not in range [0,10]")
+            if validated_data["rate"] < 0 or validated_data["rate"] > 10: raise Exception("rate not in range [0,10]")
             rate, created = Rate.objects.create(
                 poem = validated_data["poem"],
                 rate = validated_data["rate"],
-                style_transfer_rate = validated_data["style_transfer_rate"],
+                category = validated_data["category"],
             )
             rate.save()
             return rate

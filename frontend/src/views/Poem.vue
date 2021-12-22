@@ -130,7 +130,7 @@ export default {
                 body: JSON.stringify({
                     "poem": this.id,
                     "rate": n,
-                    "style_transfer_rate": null,
+                    "category": "overall",
                 })
             })
                 .then(res => {this.get_rating()})
@@ -145,8 +145,8 @@ export default {
                 },
                 body: JSON.stringify({
                     "poem": this.id,
-                    "rate": null,
-                    "style_transfer_rate": n,
+                    "rate": n,
+                    "category": "style_transfer",
                 })
             })
                 .then(res => {this.get_rating()})
