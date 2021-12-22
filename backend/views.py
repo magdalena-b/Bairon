@@ -140,7 +140,7 @@ class GenerateStyleTransferView(generics.CreateAPIView):
                     candidates.append(candidate)
 
                 chencherry = SmoothingFunction()
-                bleu_score = sentence_bleu(candidates, reference, smoothing_function=chencherry.method1, weights=(1, 0, 0, 0))     
+                bleu_score = sentence_bleu(candidates, reference, smoothing_function=chencherry.method1, weights=(0.25, 0.25, 0.25, 0.25))     
         
 
                 result['bleu_score'] = bleu_score
