@@ -209,15 +209,16 @@ class RatingView(views.APIView):
             if id:
                 poem = Poem.objects.get(id=id)
                 result = {}
-                result["rate-average"] = poem.rate_set.all().aggregate(models.Avg('rate'))["rate__avg"]
+                result["rate-average"] = poem.rate_set.filter(category="overall").aggregate(models.Avg('rate'))["rate__avg"]
+                result["style-transfer-rate-average"] = poem.rate_set.filter(category="style_transfer").aggregate(models.Avg('rate'))["rate__avg"]
                 result["rate-count"] = len(poem.rate_set.all())
                 result["TT-human"] = len(poem.turingtestvote_set.filter(vote="Human"))
                 result["TT-machine"] = len(poem.turingtestvote_set.filter(vote="Machine"))
                 return Response(result, status=status.HTTP_200_OK)
             else:
                 result = {}
-                result["rate-average"] = Rate.objects.all().aggregate(models.Avg('rate'))["rate__avg"]
-                result["style-transfer-rate-average"] = Rate.objects.all().aggregate(models.Avg('style_transfer_rate'))["style_transfer_rate__avg"]
+                result["rate-average"] = Rate.objects.filter(category="overall").aggregate(models.Avg('rate'))['rate__avg']
+                result["style-transfer-rate-average"] = Rate.objects.filter(category="style_transfer").aggregate(models.Avg('rate'))["rate__avg"]
                 result["rate-count"] = len(Rate.objects.all())
                 result["TT-human"] = len(TuringTestVote.objects.filter(vote="Human"))
                 result["TT-machine"] = len(TuringTestVote.objects.filter(vote="Machine"))
