@@ -313,19 +313,8 @@ class TuringTestFragmentView(views.APIView):
                 lines = poem.text.split('\n')
                 lines_formatted = [line for line in lines if len(line.strip()) > 10 and line and line.strip() and line != "\n" and line != " "]
 
-            if len(lines_formatted) == 0:
-                text = "LOL"
-                result['correct'] = correct
-                return Response(result, status=status.HTTP_200_OK)
-
-            if lines_formatted == []:
-                text = "LOL"
-                result['correct'] = correct
-                return Response(result, status=status.HTTP_200_OK)
-
 
             text = random.choice(lines_formatted).strip()
-            # while(text == "" or text == " " or not text):
             while (not (text and text.strip())):
                 text = random.choice(lines_formatted).strip()
             
