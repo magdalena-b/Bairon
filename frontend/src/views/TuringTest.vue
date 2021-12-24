@@ -1,7 +1,7 @@
 <template>
     <div id="wrapper">
         <div class="container">
-            <div class="container has-text-centered px-4 py-6" v-bind:class="{'has-background-light': answer==null, 'has-background-danger-light': (answer && answer==correct_answer), 'has-background-success-light': (answer && answer!=correct_answer)}">
+            <div class="container has-text-centered px-4 py-6" v-bind:class="{'has-background-light': answer==null, 'has-background-danger-light': (answer && answer!=correct_answer), 'has-background-success-light': (answer && answer==correct_answer)}">
                 <h2 class="is-size-3-desktop is-size-4 is-italic">
                     "{{text}}"
                 </h2>

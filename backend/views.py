@@ -224,8 +224,8 @@ class RatingView(views.APIView):
                 result["TT-machine"] = len(TuringTestVote.objects.filter(vote="Machine"))
                 result["TT-TH"] = len(TuringTestVote.objects.filter(vote="Human").exclude(poem__author="Machine"))
                 result["TT-FH"] = len(TuringTestVote.objects.filter(vote="Human").filter(poem__author="Machine"))
-                result["TT-TM"] = len(TuringTestVote.objects.filter(vote="Machine").exclude(poem__author="Machine"))
-                result["TT-FM"] = len(TuringTestVote.objects.filter(vote="Machine").filter(poem__author="Machine"))
+                result["TT-TM"] = len(TuringTestVote.objects.filter(vote="Machine").filter(poem__author="Machine"))
+                result["TT-FM"] = len(TuringTestVote.objects.filter(vote="Machine").exclude(poem__author="Machine"))
                 return Response(result, status=status.HTTP_200_OK)
         except Exception as e:
             print(e)
@@ -285,24 +285,50 @@ class TuringTestFragmentView(views.APIView):
             coin_toss = random.randint(0, 1)
             result = {}
 
-            if coin_toss == 0:
-                poems = Poem.objects.filter(author="Machine").exclude(input__style="Lorem Ipsum")
-                correct = "Machine"
+            poems = Poem.objects.none()
 
-            else:
-                poems = Poem.objects.filter(author="Shakespeare") | Poem.objects.filter(author="Ginsberg") | Poem.objects.filter(author="Cummings")
-                correct = "Human"
+            while poems.count() == 0:
+
+                coin_toss = random.randint(0, 1)
+
+                if coin_toss == 0:
+                    poems = Poem.objects.filter(author="Machine").exclude(input__style="Lorem Ipsum")
+                    correct = "Machine"
+
+                else:
+                    poems = Poem.objects.filter(author="Shakespeare") | Poem.objects.filter(author="Ginsberg") | Poem.objects.filter(author="Cummings")
+                    correct = "Human"
 
             coin_toss = random.randint(0, 1)
             result = {}
 
-            poem = random.choice(poems)
+            poems = [poem for poem in poems if (poem != "" and  poem != "\n")]
+
+
+            lines_formatted = []
             
-            result['id'] = poem.id
-            lines = poem.text.split('\n')
-            lines_formatted = [line for line in lines if len(line.strip()) > 10]
+            while lines_formatted == []:
+                poem = random.choice(poems)
+                result['id'] = poem.id
+                lines = poem.text.split('\n')
+                lines_formatted = [line for line in lines if len(line.strip()) > 10 and line and line.strip() and line != "\n" and line != " "]
+
+            if len(lines_formatted) == 0:
+                text = "LOL"
+                result['correct'] = correct
+                return Response(result, status=status.HTTP_200_OK)
+
+            if lines_formatted == []:
+                text = "LOL"
+                result['correct'] = correct
+                return Response(result, status=status.HTTP_200_OK)
+
 
             text = random.choice(lines_formatted).strip()
+            # while(text == "" or text == " " or not text):
+            while (not (text and text.strip())):
+                text = random.choice(lines_formatted).strip()
+            
             result['text'] = text
 
             result["correct"] = correct
