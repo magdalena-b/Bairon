@@ -210,6 +210,8 @@ class RatingView(views.APIView):
                 poem = Poem.objects.get(id=id)
                 result = {}
                 result["rate-average"] = poem.rate_set.filter(category="overall").aggregate(models.Avg('rate'))["rate__avg"]
+                result["grammar-rate-average"] = poem.rate_set.filter(category="grammar").aggregate(models.Avg('rate'))["rate__avg"]
+                result["style-rate-average"] = poem.rate_set.filter(category="style").aggregate(models.Avg('rate'))["rate__avg"]
                 result["style-transfer-rate-average"] = poem.rate_set.filter(category="style_transfer").aggregate(models.Avg('rate'))["rate__avg"]
                 result["rate-count"] = len(poem.rate_set.all())
                 result["TT-human"] = len(poem.turingtestvote_set.filter(vote="Human"))
