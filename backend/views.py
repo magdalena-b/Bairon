@@ -356,6 +356,68 @@ class StatisticsView(views.APIView):
                 print(e)
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
+class PoetryTuringTestStatisticsView(views.APIView):
+    
+    permission_classes = (AllowAny,)
+
+    def get(self, request: Request):
+
+            try:
+
+                result = {}
+                
+                # Whitman
+
+                result["TT-TM-gpt2-whitman"] = len(TuringTestVote.objects.filter(vote="Machine", poem__author="Machine", poem__input__model_type="gpt2", poem__input__style="Whitman"))
+                result["TT-TM-gpt-neo-whitman"] = len(TuringTestVote.objects.filter(vote="Machine").filter(poem__author="Machine").filter(poem__input__model_type="gpt-neo").filter(poem__input__style="Whitman"))
+
+                result["TT-FH-gpt2-whitman"] = len(TuringTestVote.objects.filter(vote="Human", poem__author="Machine", poem__input__model_type="gpt2", poem__input__style="Whitman"))
+                result["TT-FH-gpt-neo-whitman"] = len(TuringTestVote.objects.filter(vote="Human", poem__author="Machine", poem__input__model_type="gpt-neo", poem__input__style="Whitman"))
+
+                result["TT-TH-whitman"] = len(TuringTestVote.objects.filter(vote="Human").filter(poem__author="Whitman"))
+                result["TT-FM-whitman"] = len(TuringTestVote.objects.filter(vote="Machine").filter(poem__author="Whitman"))
+
+
+                # Cummings
+
+                result["TT-TM-gpt2-cummings"] = len(TuringTestVote.objects.filter(vote="Machine").filter(poem__author="Machine").filter(poem__input__model_type="gpt2").filter(poem__input__style="Cummings"))
+                result["TT-TM-gpt-neo-cummings"] = len(TuringTestVote.objects.filter(vote="Machine").filter(poem__author="Machine").filter(poem__input__model_type="gpt-neo").filter(poem__input__style="Cummings"))
+
+                result["TT-FH-gpt2-cummings"] = len(TuringTestVote.objects.filter(vote="Human").filter(poem__author="Machine").filter(poem__input__model_type="gpt2").filter(poem__input__style="Cummings"))
+                result["TT-FH-gpt-neo-cummings"] = len(TuringTestVote.objects.filter(vote="Human").filter(poem__author="Machine").filter(poem__input__model_type="gpt-neo").filter(poem__input__style="Cummings"))
+
+                result["TT-TH-cummings"] = len(TuringTestVote.objects.filter(vote="Human").filter(poem__author="Cummings"))
+                result["TT-FM-cummings"] = len(TuringTestVote.objects.filter(vote="Machine").filter(poem__author="Cummings"))
+
+                # Shakespeare
+
+                result["TT-TM-gpt2-shakespeare"] = len(TuringTestVote.objects.filter(vote="Machine").filter(poem__author="Machine").filter(poem__input__model_type="gpt2").filter(poem__input__style="Shakespeare"))
+                result["TT-TM-gpt-neo-shakespeare"] = len(TuringTestVote.objects.filter(vote="Machine").filter(poem__author="Machine").filter(poem__input__model_type="gpt-neo").filter(poem__input__style="Shakespeare"))
+
+                result["TT-FH-gpt2-shakespeare"] = len(TuringTestVote.objects.filter(vote="Human").filter(poem__author="Machine").filter(poem__input__model_type="gpt2").filter(poem__input__style="Shakespeare"))
+                result["TT-FH-gpt-neo-shakespeare"] = len(TuringTestVote.objects.filter(vote="Human").filter(poem__author="Machine").filter(poem__input__model_type="gpt-neo").filter(poem__input__style="Shakespeare"))
+                
+
+                result["TT-TH-shakespeare"] = len(TuringTestVote.objects.filter(vote="Human").filter(poem__author="Shakespeare"))
+                result["TT-FM-shakespeare"] = len(TuringTestVote.objects.filter(vote="Machine").filter(poem__author="Shakespeare"))
+
+                # Human
+
+                result["TT-TH"] = len(TuringTestVote.objects.filter(vote="Human").exclude(poem__author="Machine"))
+                result["TT-FM"] = len(TuringTestVote.objects.filter(vote="Machine").exclude(poem__author="Machine"))
+
+
+                return Response(result, status=status.HTTP_200_OK)
+
+            except Exception as e:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+
+            
+
+
+
+
 class GenerationsCount(views.APIView):
     
     permission_classes = (AllowAny,)
