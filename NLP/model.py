@@ -55,17 +55,6 @@ class PoemGenerator:
                     text = result.text
                     sentiment = "normal"
 
-            
-            elif style == "Ginsberg":
-
-                if model_type == "gpt2":
-                    load_model("ginsberg2")
-                    start = time.time()
-                    with graph.as_default():
-                        text = gpt2.generate(sess, run_name='ginsberg2', prefix = first_line, length = length, return_as_list=True)[0]
-                        sentiment = "normal"
-                    print("generating time:",time.time()-start,"s")
-
 
 
             elif style == "Cummings":
@@ -141,16 +130,6 @@ class PoemGenerator:
                     result = happy_gen_loaded.generate_text(first_line, args = args)
                     text = first_line + " " + result.text
                     sentiment = "normal"
-
-            
-            elif style == "Ginsberg":
-                
-                load_model("ginsberg2")
-                start = time.time()
-                with graph.as_default():
-                    text = gpt2.generate(sess, run_name='ginsberg2', prefix = first_line, length = line_length, return_as_list=True)[0]
-                    sentiment = "normal"
-                print("generating time:",time.time()-start,"s")
 
             elif style == "Cummings":
 

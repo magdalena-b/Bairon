@@ -11,11 +11,6 @@
                 </figure>
             </div>
             <div class="column">    
-                <figure class="image is-2500x2500 mx-4">
-                        <img src="../assets/ginsberg_sentiment_example.png" style="max-height: 1280px; max-width: 1280px;">
-                </figure>
-            </div>
-            <div class="column">    
                 <figure class="image is-2501x2500 mx-4">
                         <img src="../assets/cummings_sentiment_example.png" style="max-height: 1280px; max-width: 1280px;">
                 </figure>

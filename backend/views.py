@@ -300,7 +300,7 @@ class TuringTestFragmentView(views.APIView):
                     correct = "Machine"
 
                 else:
-                    poems = Poem.objects.filter(author="Shakespeare") | Poem.objects.filter(author="Ginsberg") | Poem.objects.filter(author="Cummings")
+                    poems = Poem.objects.filter(author="Shakespeare") | Poem.objects.filter(author="Whitman") | Poem.objects.filter(author="Cummings")
                     correct = "Human"
 
             coin_toss = random.randint(0, 1)
@@ -343,14 +343,11 @@ class StatisticsView(views.APIView):
             result = {}
 
             result['cummings_words'], result['cummings_counts'] = statisticsHelper.generate_word_count_from_file('cummings.txt')
-            # result['generated_cummings_words'], result['generated_cummings_counts'] = statisticsHelper.generate_word_count_from_file('generated_cummings.txt')
             result['generated_cummings_words'], result['generated_cummings_counts'] = statisticsHelper.generate_word_count_from_db("Cummings")
             result['shakespeare_words'], result['shakespeare_counts'] = statisticsHelper.generate_word_count_from_file('shakespeare_sonnets.txt')
-            # result['generated_shakespeare_words'], result['generated_shakespeare_counts'] = statisticsHelper.generate_word_count_from_file('generated_shakespeare.txt')
             result['generated_shakespeare_words'], result['generated_shakespeare_counts'] = statisticsHelper.generate_word_count_from_db("Shakespeare")
-            result['ginsberg_words'], result['ginsberg_counts'] = statisticsHelper.generate_word_count_from_file('ginsberg.txt')
-            # result['generated_ginsberg_words'], result['generated_ginsberg_counts'] = statisticsHelper.generate_word_count_from_file('generated_ginsberg.txt')
-            result['generated_ginsberg_words'], result['generated_ginsberg_counts'] = statisticsHelper.generate_word_count_from_db("Ginsberg")
+            result['whitman_words'], result['whitman_counts'] = statisticsHelper.generate_word_count_from_file('whitman.txt')
+            result['generated_whitman_words'], result['generated_whitman_counts'] = statisticsHelper.generate_word_count_from_db("Whitman")
             
 
             try:

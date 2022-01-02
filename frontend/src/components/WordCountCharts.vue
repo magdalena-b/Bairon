@@ -37,18 +37,18 @@
                 </div>
             </div>
             <div class="container">
-                <h1 class="is-size-4"> Allen Ginsberg </h1>
+                <h1 class="is-size-4"> Walt Whitman </h1>
                 <div class="columns is-centered is-vcentered">
                     <div class="column is-6 is-12-mobile">
                         <h2 class="is-size-5"> Original poems </h2>
                         <div>
-                            <canvas id="ginsbergWordCountChart"></canvas>
+                            <canvas id="whitmanWordCountChart"></canvas>
                         </div>  
                     </div>
                     <div class="column is-6 is-12-mobile">
                         <h2 class="is-size-5"> Generated poems </h2>
                         <div>
-                            <canvas id="generatedGinsbergWordCountChart"></canvas>
+                            <canvas id="generatedWhitmanWordCountChart"></canvas>
                         </div>  
                     </div>
                 </div>
@@ -82,10 +82,10 @@ export default {
                         "shakespeare_counts": this.shakespeare_counts,
                         "generated_shakespeare_words": this.generated_shakespeare_words,
                         "generated_shakespeare_counts": this.generated_shakespeare_counts,
-                        "ginsberg_words": this.ginsberg_words,
-                        "ginsberg_counts": this.ginsberg_counts,
-                        "generated_ginsberg_words": this.generated_ginsberg_words,
-                        "generated_ginsberg_counts": this.generated_ginsberg_counts,
+                        "whitman_words": this.whitman_words,
+                        "whitman_counts": this.whitman_counts,
+                        "generated_whitman_words": this.generated_whitman_words,
+                        "generated_whitman_counts": this.generated_whitman_counts,
                     } = data)
                     callback()
                 })
@@ -199,11 +199,11 @@ export default {
                 config
             )
         },
-        get_ginsberg_chart(){
+        get_whitman_chart(){
             let config = {
                 type: 'bar',
                 data: {
-                    labels: this.ginsberg_words,
+                    labels: this.whitman_words,
                     datasets: [{
                         label: 'counts',
                         backgroundColor: [
@@ -215,21 +215,21 @@ export default {
                             'rgb(181, 156, 192)',
                         ],
                         borderWidth: 1,
-                        data: this.ginsberg_counts,
+                        data: this.whitman_counts,
                     }]
                 },
                 options: {}
             }
-            let ginsbergWordCountChart = new Chart(
-                document.getElementById('ginsbergWordCountChart'),
+            let whitmanWordCountChart = new Chart(
+                document.getElementById('whitmanWordCountChart'),
                 config
             )
         },
-        get_generated_ginsberg_chart(){
+        get_generated_whitman_chart(){
             let config = {
                 type: 'bar',
                 data: {
-                    labels: this.generated_ginsberg_words,
+                    labels: this.generated_whitman_words,
                     datasets: [{
                         label: 'counts',
                         backgroundColor: [
@@ -241,13 +241,13 @@ export default {
                             'rgb(181, 156, 192)',
                         ],
                         borderWidth: 1,
-                        data: this.generated_ginsberg_counts,
+                        data: this.generated_whitman_counts,
                     }]
                 },
                 options: {}
             }
-            let generatedGinsbergWordCountChart = new Chart(
-                document.getElementById('generatedGinsbergWordCountChart'),
+            let generatedWhitmanWordCountChart = new Chart(
+                document.getElementById('generatedWhitmanWordCountChart'),
                 config
             )
         }
@@ -259,8 +259,8 @@ export default {
         this.get_statistics(this.get_generated_cummings_chart),
         this.get_statistics(this.get_shakespeare_chart),
         this.get_statistics(this.get_generated_shakespeare_chart),
-        this.get_statistics(this.get_ginsberg_chart),
-        this.get_statistics(this.get_generated_ginsberg_chart)
+        this.get_statistics(this.get_whitman_chart),
+        this.get_statistics(this.get_generated_whitman_chart)
 
     }
 }
