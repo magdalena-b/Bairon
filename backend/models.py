@@ -8,6 +8,7 @@ POETS = [
     ("Shakespeare", "Shakespeare"),
     ("Ginsberg", "Ginsberg"),
     ("Cummings", "Cummings"),
+    ("Whitman", "Whitman"),
     ("Lorem Ipsum", "Lorem Ipsum")
 ]
 

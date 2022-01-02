@@ -137,7 +137,7 @@ export default {
             first_line: "",
             poet: "Shakespeare",
             poem: "",
-            avaible_poets: ["Shakespeare", "Ginsberg", "Cummings", "Lorem Ipsum"],
+            avaible_poets: ["Shakespeare", "Ginsberg", "Cummings", "Whitman", "Lorem Ipsum"],
             input_id: null,
             translated_lines: null,
             generator_type: "full",

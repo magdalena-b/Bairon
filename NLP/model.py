@@ -85,6 +85,24 @@ class PoemGenerator:
                     text = result.text
                     sentiment = "normal"
 
+
+            elif style == "Whitman":
+
+                if model_type == "gpt2":         
+                    load_model("whitman2")
+                    start = time.time()
+                    with graph.as_default():
+                        text = gpt2.generate(sess, run_name='whitman2', prefix = first_line, length = length, return_as_list=True)[0]
+                        sentiment = "normal"
+                    print("generating time:",time.time()-start,"s")
+
+                if model_type == "gpt-neo":
+                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/whitman_gpt_neo_model/")
+                    args = GENSettings(no_repeat_ngram_size=2, num_beams=5, max_length=200)
+                    result = happy_gen_loaded.generate_text(first_line, args = args)
+                    text = result.text
+                    sentiment = "normal"
+
                 
             else: raise Exception("Style not found")
 
