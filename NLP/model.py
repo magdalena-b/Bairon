@@ -50,7 +50,7 @@ class PoemGenerator:
 
                 if model_type == "gpt-neo":
                     happy_gen_loaded = HappyGeneration(load_path="checkpoint/shakespeare_gpt_neo_model/")
-                    args = GENSettings(no_repeat_ngram_size=2, num_beams=5, max_length=200)
+                    args = GENSettings(no_repeat_ngram_size = 2, num_beams = 5, max_length = length)
                     result = happy_gen_loaded.generate_text(first_line, args = args)
                     text = result.text
                     sentiment = "normal"
@@ -80,7 +80,7 @@ class PoemGenerator:
 
                 if model_type == "gpt-neo":
                     happy_gen_loaded = HappyGeneration(load_path="checkpoint/cummings_gpt_neo_model/")
-                    args = GENSettings(no_repeat_ngram_size=2, num_beams=5, max_length=200)
+                    args = GENSettings(no_repeat_ngram_size=2, num_beams = 5, max_length = length)
                     result = happy_gen_loaded.generate_text(first_line, args = args)
                     text = result.text
                     sentiment = "normal"
@@ -98,7 +98,7 @@ class PoemGenerator:
 
                 if model_type == "gpt-neo":
                     happy_gen_loaded = HappyGeneration(load_path="checkpoint/whitman_gpt_neo_model/")
-                    args = GENSettings(no_repeat_ngram_size=2, num_beams=5, max_length=200)
+                    args = GENSettings(no_repeat_ngram_size = 2, num_beams = 5, max_length = length)
                     result = happy_gen_loaded.generate_text(first_line, args = args)
                     text = result.text
                     sentiment = "normal"
@@ -119,19 +119,29 @@ class PoemGenerator:
         try:
             style = kwargs["style"]
             first_line = kwargs["first_line"]
+            model_type = kwargs["model_type"]
 
         except:
             first_line = ""
 
         try:
             if style == "Shakespeare":
-                
-                load_model("shakespeare2")
-                start = time.time()
-                with graph.as_default():
-                    text = gpt2.generate(sess, run_name='shakespeare2', prefix = first_line, length = line_length, return_as_list=True)[0]
+
+                if model_type == "gpt2":         
+                    load_model("shakespeare2")
+                    start = time.time()
+                    with graph.as_default():
+                        text = gpt2.generate(sess, run_name='shakespeare2', prefix = first_line, length = line_length, return_as_list=True)[0]
+                        sentiment = "normal"
+                    print("generating time:",time.time()-start,"s")
+
+                if model_type == "gpt-neo":
+                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/shakespeare_gpt_neo_model/")
+                    args = GENSettings(no_repeat_ngram_size=2, num_beams=5, max_length=line_length)
+                    result = happy_gen_loaded.generate_text(first_line, args = args)
+                    text = first_line + " " + result.text
                     sentiment = "normal"
-                print("generating time:",time.time()-start,"s")
+
             
             elif style == "Ginsberg":
                 
@@ -143,13 +153,39 @@ class PoemGenerator:
                 print("generating time:",time.time()-start,"s")
 
             elif style == "Cummings":
-                
-                load_model("cummings2")
-                start = time.time()
-                with graph.as_default():
-                    text = gpt2.generate(sess, run_name='cummings2', prefix = first_line, length = line_length, return_as_list=True)[0]
+
+                if model_type == "gpt2":
+                    load_model("cummings2")
+                    start = time.time()
+                    with graph.as_default():
+                        text = gpt2.generate(sess, run_name='cummings2', prefix = first_line, length = line_length, return_as_list=True)[0]
+                        sentiment = "normal"
+                    print("generating time:",time.time()-start,"s")
+
+                if model_type == "gpt-neo":
+                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/cummings_gpt_neo_model/")
+                    args = GENSettings(no_repeat_ngram_size=2, num_beams=5, max_length=line_length)
+                    result = happy_gen_loaded.generate_text(first_line, args = args)
+                    text = result.text
                     sentiment = "normal"
-                print("generating time:",time.time()-start,"s")
+
+            elif style == "Whitman":
+
+                if model_type == "gpt2":
+                    load_model("whitman2")
+                    start = time.time()
+                    with graph.as_default():
+                        text = gpt2.generate(sess, run_name='whitman2', prefix = first_line, length = line_length, return_as_list=True)[0]
+                        sentiment = "normal"
+                    print("generating time:",time.time()-start,"s")
+
+                if model_type == "gpt-neo":
+                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/whitman_gpt_neo_model/")
+                    args = GENSettings(no_repeat_ngram_size=2, num_beams=5, max_length=line_length)
+                    result = happy_gen_loaded.generate_text(first_line, args = args)
+                    text = result.text
+                    sentiment = "normal"
+
                 
             else: raise Exception("Style not found")
 

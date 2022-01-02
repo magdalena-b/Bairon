@@ -232,6 +232,7 @@ export default {
                 body: JSON.stringify({
                     "style": this.poet,
                     "first_line": this.collab_lines,
+                    "model_type": this.model_type
                 })
             })
                 .then(res => res.json())
