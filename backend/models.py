@@ -15,6 +15,7 @@ POETS = [
 class Input(models.Model):
     style = models.CharField(choices=POETS, default=POETS[0], max_length=100)
     first_line = models.CharField(max_length=1000, null=True, blank=True)
+    model_type = models.CharField(max_length=100, default="gpt2")
     # TODO another input options
     keywords = models.CharField(max_length=100, null=True, blank=True)
 
@@ -28,7 +29,6 @@ class Poem(models.Model):
     views = models.IntegerField(default=0)
     sentiment = models.CharField(max_length=100, null=True, blank=True)
     generator_type = models.CharField(max_length=100, default="full")
-    model_type = models.CharField(max_length=100, default="gpt2")
     style_transfer = models.IntegerField(default=0)
     translations = models.CharField(max_length=100000, default="", blank=True)
     bleu_score = models.IntegerField(null=True, blank=True)

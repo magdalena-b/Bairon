@@ -24,6 +24,17 @@
                         </button>
                     </div>
 
+                    <h2 class="is-size-3-tablet is-size-4-mobile">Choose a language model</h2>
+                    <div class="buttons is-centered">
+                        <button class="button is-rounded has-tooltip-arrow" @click="selectModel('gpt2')" v-bind:class="{'is-primary': model_type == 'gpt2'}" data-tooltip="generate whole poem">
+                            GPT2
+                        </button>
+
+                        <button class="button is-rounded has-tooltip-arrow" @click="selectModel('gpt-neo')" v-bind:class="{'is-primary': model_type == 'gpt-neo'}" data-tooltip="generate poem line by line alternately with the generator">
+                            GPT-Neo
+                        </button>
+                    </div>
+
                     <h2 class="is-size-3-tablet is-size-4-mobile mt-5">Type your first line</h2>
                     <div class="field is-grouped">
                         <div class="control is-expanded">
@@ -130,6 +141,7 @@ export default {
             input_id: null,
             translated_lines: null,
             generator_type: "full",
+            model_type: "gpt2",
             collab_lines: null,
             next_human_line: null,
             next_machine_line: null,
@@ -170,6 +182,7 @@ export default {
                 body: JSON.stringify({
                     "style": this.poet,
                     "first_line": line,
+                    "model_type": this.model_type
                 })
             })
                 .then(res => {
@@ -328,7 +341,11 @@ export default {
         },
         selectGenerator(g) {
             this.generator_type = g
+        },
+        selectModel(m) {
+            this.model_type = m
         }
+
     },
 }
 </script>

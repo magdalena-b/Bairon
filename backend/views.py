@@ -47,7 +47,8 @@ class GeneratePoemView(generics.CreateAPIView):
             try:
                 text, sentiment = poem_generator.generate(
                         style = input.style,
-                        first_line=input.first_line
+                        first_line = input.first_line,
+                        model_type = input.model_type
                 )
                 
                 poem = Poem(
