@@ -109,6 +109,7 @@
     
 </template>
 
+
 <script>
 import Gallery from '@/components/Gallery.vue'
 const {API_URL} = require('../settings.json')
@@ -121,14 +122,14 @@ export default {
             first_line: "",
             poet: "Shakespeare",
             poem: "",
+            sentiment:"",
             avaible_poets: ["Shakespeare", "Ginsberg", "Cummings", "Lorem Ipsum"],
             input_id: null,
             translated_lines: null,
             generator_type: "full",
             collab_lines: null,
             next_human_line: null,
-            next_machine_line: null,
-            show_notification: false,
+            next_machine_line: null
         }
     },
     methods: {
@@ -168,7 +169,7 @@ export default {
                     }
                 })
                 .then(data => {
-                    ({text: this.poem, input: this.input_id} = data)
+                    ({text: this.poem, input: this.input_id, sentiment: this.sentiment} = data)
                     generate_button.classList.remove("is-loading")
                 })
                 .catch(err => console.log(err.message))
@@ -237,11 +238,13 @@ export default {
                 },
                 body: JSON.stringify({
                     "input": this.input_id,
-                    "text": this.poem
+                    "text": this.poem,
+                    "sentiment": this.sentiment
                 })
             })
                 .then(() => {
                     this.poem = ""
+                    this.sentiment = ""
                 })
                 .catch(err => console.log(err.message))
         },
@@ -261,11 +264,9 @@ export default {
         overflow: hidden;
         transition: max-height 1s ease-out;
     }
-    
     #wrapper {
         display: block;
     }
-
     #wrapper > * {
         max-width: 50vw;
     }
