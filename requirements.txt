@@ -13,3 +13,5 @@ django-cors-headers>=3.7.0
 drf-yasg
 django-extensions
 django-ratelimit
+text2emotion
+jsonfield
