@@ -16,6 +16,7 @@
                         </div>
                     </div>
                 </div>
+                <a href="https://twitter.com/intent/tweet" class="twitter-share-button" data-size="large" data-text="#poem #poetrygenerator" :data-url="fullUrl" data-dnt="true" data-show-count="false">Tweet #poem</a>
             </div>
             <div class="column is-2 is-desktop">
                 <!-- placeholder -->
@@ -54,9 +55,16 @@ export default {
             score: 0,
             TT_machine: 0,
             TT_human: 0,
+            fullUrl: "" + location.origin + this.$route.fullPath,
         }
     },
     mounted() {
+        let twitterScript = document.createElement('script')
+        twitterScript.setAttribute('async', '')
+        twitterScript.setAttribute('src', 'http://platform.twitter.com/widgets.js')
+        twitterScript.setAttribute('charset', 'utf-8')
+        document.head.appendChild(twitterScript)
+
         fetch(`${API_URL}/api/poems/${this.id}/`)
             .then(res => res.json())
             .then(data => {
@@ -64,6 +72,7 @@ export default {
             })
             .catch(err => console.log(err.message))
         this.get_rating()
+
     },
     methods: {
         get_rating(){

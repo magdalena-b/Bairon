@@ -30,7 +30,7 @@ def test(request: Request) -> Response:
 
 
 class GeneratePoemView(generics.CreateAPIView):
-    throttle_scope = 'generate'
+    # throttle_scope = 'generate'
 
     serializer_class = InputSerializer
     permission_classes = (AllowAny,)

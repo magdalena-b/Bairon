@@ -16,17 +16,22 @@ GENERATOR_TYPES = [
     ("Collab", "Collab")
 ]
 
+# class Poet(models.Model):
+#     name = models.CharField(choices=POETS, default=POETS[0], max_length=100)
+
 class Input(models.Model):
     style = models.CharField(choices=POETS, default=POETS[0], max_length=100)
+    # style = models.ForeignKey(Poet, on_delete=models.DO_NOTHING, null=True, blank=True)
     first_line = models.CharField(max_length=1000, null=True, blank=True)
     # TODO another input options
     keywords = models.CharField(max_length=100, null=True, blank=True)
 
-    def __str__(self) -> str: return self.style + " | " + self.first_line
+    def __str__(self) -> str: return str(self.style) + " | " + str(self.first_line)
 
 
 class Poem(models.Model):
     author = models.CharField(choices=POETS, default=POETS[0], max_length=100)
+    # author = models.ForeignKey(Poet, on_delete=models.DO_NOTHING, null=True, blank=True)
     input = models.ForeignKey(Input, on_delete=models.DO_NOTHING, null=True, blank=True)
     text = models.CharField(max_length=100000, default="")
     views = models.IntegerField(default=0)
@@ -37,7 +42,7 @@ class Poem(models.Model):
         ordering = ('views',)
     
     def __str__(self) -> str:
-        return str(self.id) + " | " + self.author
+        return str(self.id) + " | " + str(self.author)
 
 
 class Rate(models.Model):
