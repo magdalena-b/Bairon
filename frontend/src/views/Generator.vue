@@ -320,8 +320,9 @@ export default {
                 .then(() => {
                     this.poem = "",
                     this.used_style_transfer = 0,
-                    this.sentiment = ""
-                    this.$router.push(`/poem/${this.input_id}`)            
+                    this.sentiment = "",
+                    this.saved_poem_id = 2000 + this.input_id,
+                    this.$router.push(`/poem/${this.saved_poem_id}`)            
                 })
                 .catch(err => console.log(err.message))
         },
