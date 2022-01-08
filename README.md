@@ -126,6 +126,7 @@ Do przełączenia się między wersjami polecam pyenv.
 3. `sudo npm install -g @vue/cli`
 3. `npm install`
 4. `npm run serve`
+5. `npm install --save jspdf`
 
 ### Django
 
