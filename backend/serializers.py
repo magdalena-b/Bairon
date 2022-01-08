@@ -38,7 +38,7 @@ class PoemSerializer(serializers.ModelSerializer):
                 author = validated_data.get("get_author_display", "Machine"),
                 input = validated_data["input"],
                 text = validated_data["text"][:1000],
-                sentiment = validated_data.get("sentiment", "normal"),
+                sentiment = validated_data["sentiment"],
             )
             input.save()
             return input
@@ -54,7 +54,7 @@ class RateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         try:
-            if validated_data["rate"] < 0 or validated_data["rate"] > 10: raise Exception("rate not in range [0,10]")
+            if validated_data["rate"] < 0 or validated_data["rate"] > 10 : raise Exception("rate not in range [0,10]")
             rate, created = Rate.objects.create(
                 poem = validated_data["poem"],
                 rate = validated_data["rate"],

@@ -3,17 +3,18 @@ from django.shortcuts import render
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import generics, status, views
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from django.core.serializers import serialize, json
 from django.forms.models import model_to_dict
 from rest_framework import serializers
 from rest_framework.throttling import AnonRateThrottle
 
 import random
+import json
 
 from .serializers import *
 from NLP.statistics_helper import statisticsHelper
-
+from NLP.sentiment_helper import sentimentHelper
 import sys
 sys.path.insert(0, '..')
 try:
@@ -52,7 +53,7 @@ class GeneratePoemView(generics.CreateAPIView):
                     text = text,
                     sentiment = sentiment
                 )
-
+                
                 return Response(model_to_dict(poem), status=status.HTTP_200_OK)
 
             except Exception as e:
@@ -83,7 +84,7 @@ class GeneratePoemLineView(generics.CreateAPIView):
                     text = text,
                     sentiment = sentiment
                 )
-
+                
                 return Response(model_to_dict(poem), status=status.HTTP_200_OK)
 
             except Exception as e:
@@ -183,6 +184,7 @@ class PoemView(views.APIView):
             try:
                 data["first_line"] = poem.input.first_line
                 data["style"] = poem.input.style
+                data["sentiment"] = poem.input.sentiment
             except:
                 pass
             return Response(data, status=status.HTTP_200_OK)
@@ -262,6 +264,20 @@ class CreateTuringTestVote(generics.CreateAPIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+class JSONSentimentView(views.APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request: Request, id):
+        try:
+            poem = Poem.objects.get(id=id)
+            result = {}
+            result['json_sentiment'] = json.loads(poem.sentiment)
+            return Response(result, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
 class TuringTestFragmentView(views.APIView):
     
     permission_classes = (AllowAny,)
@@ -334,6 +350,29 @@ class GenerationsCount(views.APIView):
 
             return Response(result, status=status.HTTP_200_OK)
 
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class SentimentAnalysisView(views.APIView):
+
+    permission_classes = (AllowAny,)
+
+    def get(self, request: Request):
+
+        result = {}
+        f = open("sentiment.json")
+        file = json.load(f)
+        result['cummings_analysis'] = file['cummings']
+        result['shakespeare_analysis'] = file['shakespeare']
+        result['ginsberg_analysis'] = file['ginsberg']
+                    
+        result['generated_cummings_analysis'] = file['generated_cummings']
+        result['generated_shakespeare_analysis'] = file['generated_shakespeare']
+        result['generated_ginsberg_analysis'] = file['generated_ginsberg']
+        
+        try: 
+            return Response(result, status=status.HTTP_200_OK)
         except Exception as e:
             print(e)
             return Response(status=status.HTTP_400_BAD_REQUEST)

@@ -1,0 +1,53 @@
+{
+    "ginsberg":
+    {
+        "Happy": 0.081517,
+        "Angry": 0.077422,
+        "Surprise": 0.238941,
+        "Sad": 0.268637,
+        "Fear": 0.332879
+    },
+    "shakespeare":
+    {
+        "Happy": 0.203436,
+        "Angry": 0.080727, 
+        "Surprise": 0.170295, 
+        "Sad": 0.289964, 
+        "Fear": 0.255613
+    },
+    "cummings":
+    {
+        "Happy": 0.136828,
+        "Angry": 0.099582,
+        "Surprise": 0.249034,
+        "Sad": 0.239104,
+        "Fear": 0.267655
+    },
+    "generated_ginsberg":
+    {
+        "Happy": 0.121517,
+        "Angry": 0.087422,
+        "Surprise": 0.248941,
+        "Sad": 0.258637,
+        "Fear": 0.282879
+    },
+    "generated_shakespeare":
+    {
+        "Happy": 0.123436,
+        "Angry": 0.100727, 
+        "Surprise": 0.180295, 
+        "Sad": 0.349964, 
+        "Fear": 0.245613
+    },
+    "generated_cummings":
+    {
+        "Happy": 0.06828,
+        "Angry": 0.209582,
+        "Surprise": 0.219034,
+        "Sad": 0.269104,
+        "Fear": 0.227655
+    },
+    "generated_cummings_counter": 1,
+    "generated_ginsberg_counter": 1,
+    "generated_shakespeare_counter": 1
+}

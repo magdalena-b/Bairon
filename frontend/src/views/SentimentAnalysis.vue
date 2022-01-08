@@ -1,26 +1,37 @@
 <template>
-    <div class="container has-text-centered mt-4">
-        <!--TODO!-->
-        <h1 class="is-size-2">
-            sentiment analysis of your poems
-        </h1>
-        <div class="columns scrollable mt-4">
-            <div class="column">
-                <figure class="image is-2500x2500 mx-4">
-                        <img src="../assets/shakespeare_sentiment_example.png" style="max-height: 1280px; max-width: 1280px;">
-                </figure>
-            </div>
-            <div class="column">    
-                <figure class="image is-2500x2500 mx-4">
-                        <img src="../assets/ginsberg_sentiment_example.png" style="max-height: 1280px; max-width: 1280px;">
-                </figure>
-            </div>
-            <div class="column">    
-                <figure class="image is-2501x2500 mx-4">
-                        <img src="../assets/cummings_sentiment_example.png" style="max-height: 1280px; max-width: 1280px;">
-                </figure>
-            </div>
-        </div>
-    </div>
-    
+    <div class="container mt-5 text-center">
+        <AvgSentimentCharts />
+    </div> 
 </template>
+
+<script>
+import AvgSentimentCharts from '@/components/AvgSentimentCharts.vue'
+const {API_URL} = require('../settings.json')
+    export default {
+        name: 'SentimentAnalysis',
+        components: {
+            AvgSentimentCharts
+        },
+        data() {
+            return {
+                keys: null,
+                values: null
+            }
+        },
+        methods:{
+            fetch_text(){
+                this.keys = null
+                this.values = null
+                fetch(`${API_URL}/api/sentiment-analysis`)
+                    .then(res => res.json())
+                    .then(data => {
+                        ({keys: this.keys, values: this.values} = data)
+                    })
+                    .catch(err => console.log(err.message))
+            },
+        },
+        mounted() {
+            this.fetch_text()
+        }
+    }
+</script>
