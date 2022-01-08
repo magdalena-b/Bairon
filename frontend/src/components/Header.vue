@@ -38,9 +38,7 @@
                     <router-link class="navbar-item" to="/about">About</router-link>
                     <router-link class="navbar-item" to="/generate">Generator</router-link>
                     <router-link class="navbar-item" to="/poems">Poems</router-link>
-                    <!-- <router-link class="navbar-item" to="/sentimentanalysis">Sentiment Analysis</router-link> -->
                     <router-link class="navbar-item" to="/turing-test">Vote!</router-link>
-                    <!-- <router-link class="navbar-item" to="/statistics">Statistics</router-link> -->
                     <a class="navbar is-light" role="navigation" aria-label="dropdown navigation">
                         <div class="navbar-item has-dropdown is-hoverable">
                             <div class="navbar-link">
@@ -48,7 +46,7 @@
                             </div>
                             <div class="navbar-dropdown is-right">
                                 <router-link class="navbar-item" to="/statistics">Word Count</router-link>
-                                <router-link class="navbar-item" to="/sentimentanalysis">Emotion Analysis</router-link>
+                                <router-link class="navbar-item" to="/sentiment-analysis">Emotion Analysis</router-link>
                                 <router-link class="navbar-item" to="/poetry-turing-test-statistics">Poetry Turing Test Statistics</router-link>
                                 <router-link class="navbar-item" to="/ratings-statistics">Rating Statistics</router-link>
                             </div>

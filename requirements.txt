@@ -14,3 +14,5 @@ drf-yasg
 django-extensions
 django-ratelimit
 nltk
+text2emotion
+jsonfield
