@@ -38,7 +38,6 @@ class PoemSerializer(serializers.ModelSerializer):
                 author = validated_data.get("get_author_display", "Machine"),
                 input = validated_data["input"],
                 text = validated_data["text"][:1000],
-                sentiment = validated_data.get("sentiment", "normal"),
                 generator_type = validated_data["generator_type"],
                 style_transfer = validated_data["style_transfer"],
                 translations = validated_data["translations"],
