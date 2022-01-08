@@ -173,7 +173,7 @@ class SavePoem(generics.CreateAPIView):
     def post(self, request: Request, *args, **kwargs):
         data = request.data
         data["author"] = "Machine"
-        data["sentiment"] = data.get("sentiment", "normal")
+        # data["sentiment"] = data.get("sentiment", "normal")
         print(data["generator_type"])
 
         serializer = PoemSerializer(data=data)
@@ -197,7 +197,7 @@ class PoemView(views.APIView):
                 data["first_line"] = poem.input.first_line
                 data["style"] = poem.input.style
                 data["translated_lines"] = poem.translations.split("|")
-                data["sentiment"] = poem.input.sentiment
+                data["sentiment"] = poem.sentiment
             except:
                 pass
             return Response(data, status=status.HTTP_200_OK)
