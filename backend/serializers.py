@@ -34,6 +34,7 @@ class PoemSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         try:
             input, created = Poem.objects.get_or_create(
+                id = validated_data["input"].id,
                 author = validated_data.get("get_author_display", "Machine"),
                 input = validated_data["input"],
                 text = validated_data["text"][:1000],

@@ -245,6 +245,7 @@ export default {
                 .then(() => {
                     this.poem = ""
                     this.sentiment = ""
+                    this.$router.push(`/poem/${this.input_id}`)
                 })
                 .catch(err => console.log(err.message))
         },
