@@ -1,9 +1,7 @@
 <template>
     <div id="wrapper">
-        <div class="container">
-            <h1 class="is-size-3">Word Count</h1>
             <div class="container">
-                <h1 class="is-size-4"> e.e.cummings </h1>
+                <h1 class="is-size-4"> e. e. cummings </h1>
                 <div class="columns is-centered is-vcentered">
                     <div class="column is-6 is-12-mobile">
                         <h2 class="is-size-5"> Original poems </h2>
@@ -11,16 +9,24 @@
                             <canvas id="cummingsWordCountChart"></canvas>
                         </div>  
                     </div>
+                </div>
+                <div class="columns is-centered is-vcentered">
                     <div class="column is-6 is-12-mobile">
-                        <h2 class="is-size-5"> Generated poems </h2>
+                        <h2 class="is-size-5"> Generated poems - GPT2 </h2>
                         <div>
-                            <canvas id="generatedCummingsWordCountChart"></canvas>
+                            <canvas id="generatedcummingsGPT2WordCountChart"></canvas>
+                        </div>  
+                    </div>
+                    <div class="column is-6 is-12-mobile">
+                        <h2 class="is-size-5"> Generated poems - GPT-Neo </h2>
+                        <div>
+                            <canvas id="generatedcummingsGPTNeoWordCountChart"></canvas>
                         </div>  
                     </div>
                 </div>
             </div>
             <div class="container">
-                <h1 class="is-size-4"> William Shakespare </h1>
+                <h1 class="is-size-4"> William Shakespeare </h1>
                 <div class="columns is-centered is-vcentered">
                     <div class="column is-6 is-12-mobile">
                         <h2 class="is-size-5"> Original poems </h2>
@@ -28,10 +34,18 @@
                             <canvas id="shakespeareWordCountChart"></canvas>
                         </div>  
                     </div>
+                </div>
+                <div class="columns is-centered is-vcentered">
                     <div class="column is-6 is-12-mobile">
-                        <h2 class="is-size-5"> Generated poems </h2>
+                        <h2 class="is-size-5"> Generated poems - GPT2 </h2>
                         <div>
-                            <canvas id="generatedShakespeareWordCountChart"></canvas>
+                            <canvas id="generatedshakespeareGPT2WordCountChart"></canvas>
+                        </div>  
+                    </div>
+                    <div class="column is-6 is-12-mobile">
+                        <h2 class="is-size-5"> Generated poems - GPT-Neo </h2>
+                        <div>
+                            <canvas id="generatedshakespeareGPTNeoWordCountChart"></canvas>
                         </div>  
                     </div>
                 </div>
@@ -45,16 +59,23 @@
                             <canvas id="whitmanWordCountChart"></canvas>
                         </div>  
                     </div>
+                </div>
+                <div class="columns is-centered is-vcentered">
                     <div class="column is-6 is-12-mobile">
-                        <h2 class="is-size-5"> Generated poems </h2>
+                        <h2 class="is-size-5"> Generated poems - GPT2 </h2>
                         <div>
-                            <canvas id="generatedWhitmanWordCountChart"></canvas>
+                            <canvas id="generatedwhitmanGPT2WordCountChart"></canvas>
+                        </div>  
+                    </div>
+                    <div class="column is-6 is-12-mobile">
+                        <h2 class="is-size-5"> Generated poems - GPT-Neo </h2>
+                        <div>
+                            <canvas id="generatedwhitmanGPTNeoWordCountChart"></canvas>
                         </div>  
                     </div>
                 </div>
             </div>
-        </div>
-    </div>        
+        </div>       
 </template>
 
 <script>
@@ -76,16 +97,25 @@ export default {
                     ({
                         "cummings_words": this.cummings_words,
                         "cummings_counts": this.cummings_counts,
-                        "generated_cummings_words": this.generated_cummings_words,
-                        "generated_cummings_counts": this.generated_cummings_counts,
+                        "generated_cummings_gpt2_words": this.generated_cummings_gpt2_words,
+                        "generated_cummings_gpt2_counts": this.generated_cummings_gpt2_counts,
+                        "generated_cummings_gpt_neo_words": this.generated_cummings_gpt_neo_words,
+                        "generated_cummings_gpt_neo_counts": this.generated_cummings_gpt_neo_counts,
+
                         "shakespeare_words": this.shakespeare_words,
                         "shakespeare_counts": this.shakespeare_counts,
-                        "generated_shakespeare_words": this.generated_shakespeare_words,
-                        "generated_shakespeare_counts": this.generated_shakespeare_counts,
+                        "generated_shakespeare_gpt2_words": this.generated_shakespeare_gpt2_words,
+                        "generated_shakespeare_gpt2_counts": this.generated_shakespeare_gpt2_counts,
+                        "generated_shakespeare_gpt_neo_words": this.generated_shakespeare_gpt_neo_words,
+                        "generated_shakespeare_gpt_neo_counts": this.generated_shakespeare_gpt_neo_counts,
+
                         "whitman_words": this.whitman_words,
                         "whitman_counts": this.whitman_counts,
-                        "generated_whitman_words": this.generated_whitman_words,
-                        "generated_whitman_counts": this.generated_whitman_counts,
+                        "generated_whitman_gpt2_words": this.generated_whitman_gpt2_words,
+                        "generated_whitman_gpt2_counts": this.generated_whitman_gpt2_counts,
+                        "generated_whitman_gpt_neo_words": this.generated_whitman_gpt_neo_words,
+                        "generated_whitman_gpt_neo_counts": this.generated_whitman_gpt_neo_counts,
+
                     } = data)
                     callback()
                 })
@@ -113,16 +143,16 @@ export default {
                 options: {}
             }
 
-            let cummingsWordCountChart = new Chart(
+            let cummingsGWordCountChart = new Chart(
                 document.getElementById('cummingsWordCountChart'),
                 config
             )
         },
-        get_generated_cummings_chart(){
+        get_generated_cummings_gpt2_chart(){
             let config = {
                 type: 'bar',
                 data: {
-                    labels: this.generated_cummings_words,
+                    labels: this.generated_cummings_gpt2_words,
                     datasets: [{
                         label: 'counts',
                         backgroundColor: [
@@ -134,14 +164,41 @@ export default {
                             'rgb(19, 80, 93)',
                         ],
                         borderWidth: 1,
-                        data: this.generated_cummings_counts,
+                        data: this.generated_cummings_gpt2_counts,
                     }]
                 },
                 options: {}
             }
 
-            let generatedCummingsWordCountChart = new Chart(
-                document.getElementById('generatedCummingsWordCountChart'),
+            let generatedcummingsGPT2WordCountChart = new Chart(
+                document.getElementById('generatedcummingsGPT2WordCountChart'),
+                config
+            )
+        },
+        get_generated_cummings_gpt_neo_chart(){
+            let config = {
+                type: 'bar',
+                data: {
+                    labels: this.generated_cummings_gpt_neo_words,
+                    datasets: [{
+                        label: 'counts',
+                        backgroundColor: [
+                            'rgba(19, 80, 93, 0.8)',
+                            'rgba(19, 80, 93, 0.8)',
+                        ],
+                        borderColor: [
+                            'rgb(19, 80, 93)',
+                            'rgb(19, 80, 93)',
+                        ],
+                        borderWidth: 1,
+                        data: this.generated_cummings_gpt_neo_counts,
+                    }]
+                },
+                options: {}
+            }
+
+            let generatedcummingsGPTNeoWordCountChart = new Chart(
+                document.getElementById('generatedcummingsGPTNeoWordCountChart'),
                 config
             )
         },
@@ -172,11 +229,11 @@ export default {
                 config
             )
         },
-        get_generated_shakespeare_chart(){
+        get_generated_shakespeare_gpt2_chart(){
             let config = {
                 type: 'bar',
                 data: {
-                    labels: this.generated_shakespeare_words,
+                    labels: this.generated_shakespeare_gpt2_words,
                     datasets: [{
                         label: 'counts',
                         backgroundColor: [
@@ -188,14 +245,41 @@ export default {
                             'rgb(224, 192, 117)',
                         ],
                         borderWidth: 1,
-                        data: this.generated_shakespeare_counts,
+                        data: this.generated_shakespeare_gpt2_counts,
                     }]
                 },
                 options: {}
             }
 
-            let generatedShakespeareWordCountChart = new Chart(
-                document.getElementById('generatedShakespeareWordCountChart'),
+            let generatedshakespeareGPT2WordCountChart = new Chart(
+                document.getElementById('generatedshakespeareGPT2WordCountChart'),
+                config
+            )
+        },
+        get_generated_shakespeare_gpt_neo_chart(){
+            let config = {
+                type: 'bar',
+                data: {
+                    labels: this.generated_shakespeare_gpt_neo_words,
+                    datasets: [{
+                        label: 'counts',
+                        backgroundColor: [
+                            'rgba(224, 206, 117, 0.8)',
+                            'rgba(224, 206, 117, 0.8)',
+                        ],
+                        borderColor: [
+                            'rgb(224, 192, 117)',
+                            'rgb(224, 192, 117)',
+                        ],
+                        borderWidth: 1,
+                        data: this.generated_shakespeare_gpt_neo_counts,
+                    }]
+                },
+                options: {}
+            }
+
+            let generatedshakespeareGPTNeoWordCountChart = new Chart(
+                document.getElementById('generatedshakespeareGPTNeoWordCountChart'),
                 config
             )
         },
@@ -225,11 +309,11 @@ export default {
                 config
             )
         },
-        get_generated_whitman_chart(){
+        get_generated_whitman_gpt2_chart(){
             let config = {
                 type: 'bar',
                 data: {
-                    labels: this.generated_whitman_words,
+                    labels: this.generated_whitman_gpt2_words,
                     datasets: [{
                         label: 'counts',
                         backgroundColor: [
@@ -241,13 +325,39 @@ export default {
                             'rgb(181, 156, 192)',
                         ],
                         borderWidth: 1,
-                        data: this.generated_whitman_counts,
+                        data: this.generated_whitman_gpt2_counts,
                     }]
                 },
                 options: {}
             }
-            let generatedWhitmanWordCountChart = new Chart(
-                document.getElementById('generatedWhitmanWordCountChart'),
+            let generatedwhitmanGPT2WordCountChart = new Chart(
+                document.getElementById('generatedwhitmanGPT2WordCountChart'),
+                config
+            )
+        },
+        get_generated_whitman_gpt_neo_chart(){
+            let config = {
+                type: 'bar',
+                data: {
+                    labels: this.generated_whitman_gpt_neo_words,
+                    datasets: [{
+                        label: 'counts',
+                        backgroundColor: [
+                            'rgba(181, 156, 192, 0.8)',
+                            'rgba(181, 156, 192, 0.8)',
+                        ],
+                        borderColor: [
+                            'rgb(181, 156, 192)',
+                            'rgb(181, 156, 192)',
+                        ],
+                        borderWidth: 1,
+                        data: this.generated_whitman_gpt_neo_counts,
+                    }]
+                },
+                options: {}
+            }
+            let generatedwhitmanGPTNeoWordCountChart = new Chart(
+                document.getElementById('generatedwhitmanGPTNeoWordCountChart'),
                 config
             )
         }
@@ -256,11 +366,14 @@ export default {
     
     mounted() {
         this.get_statistics(this.get_cummings_chart),
-        this.get_statistics(this.get_generated_cummings_chart),
+        this.get_statistics(this.get_generated_cummings_gpt2_chart),
+        this.get_statistics(this.get_generated_cummings_gpt_neo_chart),
         this.get_statistics(this.get_shakespeare_chart),
-        this.get_statistics(this.get_generated_shakespeare_chart),
+        this.get_statistics(this.get_generated_shakespeare_gpt2_chart),
+        this.get_statistics(this.get_generated_shakespeare_gpt_neo_chart),
         this.get_statistics(this.get_whitman_chart),
-        this.get_statistics(this.get_generated_whitman_chart)
+        this.get_statistics(this.get_generated_whitman_gpt2_chart),
+        this.get_statistics(this.get_generated_whitman_gpt_neo_chart)
 
     }
 }

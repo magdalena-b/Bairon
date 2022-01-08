@@ -343,11 +343,16 @@ class StatisticsView(views.APIView):
             result = {}
 
             result['cummings_words'], result['cummings_counts'] = statisticsHelper.generate_word_count_from_file('cummings.txt')
-            result['generated_cummings_words'], result['generated_cummings_counts'] = statisticsHelper.generate_word_count_from_db("Cummings")
+            result['generated_cummings_gpt2_words'], result['generated_cummings_gpt2_counts'] = statisticsHelper.generate_word_count_from_db("Cummings", "gpt2")
+            result['generated_cummings_gpt_neo_words'], result['generated_cummings_gpt_neo_counts'] = statisticsHelper.generate_word_count_from_db("Cummings", "gpt-neo")
+
             result['shakespeare_words'], result['shakespeare_counts'] = statisticsHelper.generate_word_count_from_file('shakespeare_sonnets.txt')
-            result['generated_shakespeare_words'], result['generated_shakespeare_counts'] = statisticsHelper.generate_word_count_from_db("Shakespeare")
+            result['generated_shakespeare_gpt2_words'], result['generated_shakespeare_gpt2_counts'] = statisticsHelper.generate_word_count_from_db("Shakespeare", "gpt2")
+            result['generated_shakespeare_gpt_neo_words'], result['generated_shakespeare_gpt_neo_counts'] = statisticsHelper.generate_word_count_from_db("Shakespeare", "gpt-neo")
+
             result['whitman_words'], result['whitman_counts'] = statisticsHelper.generate_word_count_from_file('whitman.txt')
-            result['generated_whitman_words'], result['generated_whitman_counts'] = statisticsHelper.generate_word_count_from_db("Whitman")
+            result['generated_whitman_gpt2_words'], result['generated_whitman_gpt2_counts'] = statisticsHelper.generate_word_count_from_db("Whitman", "gpt2")
+            result['generated_whitman_gpt_neo_words'], result['generated_whitman_gpt_neo_counts'] = statisticsHelper.generate_word_count_from_db("Whitman", "gpt-neo")
             
 
             try:

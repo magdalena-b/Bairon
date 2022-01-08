@@ -39,12 +39,12 @@ class StatisticsHelper():
 
 
             sorted_x = sorted(wordcount.items(), key=lambda kv: kv[1], reverse=True)
-            sorted_x_100 = sorted_x[0:100]
+            sorted_x_20 = sorted_x[0:20]
 
             words = []
             counts = []
 
-            for item in sorted_x_100:
+            for item in sorted_x_20:
                 words.append(item[0])
                 counts.append(item[1] / all_words_count)
 
@@ -54,11 +54,11 @@ class StatisticsHelper():
             print(e)
             return None, None
 
-    def generate_word_count_from_db(self, style):
+    def generate_word_count_from_db(self, style, model_type):
         
         try:
 
-            machine_poems = Poem.objects.filter(author="Machine").filter(input__style=style)
+            machine_poems = Poem.objects.filter(author="Machine").filter(input__style=style).filter(input__model_type=model_type)
 
             text = ""
             
@@ -91,12 +91,12 @@ class StatisticsHelper():
 
 
             sorted_x = sorted(wordcount.items(), key=lambda kv: kv[1], reverse=True)
-            sorted_x_100 = sorted_x[0:100]
+            sorted_x_20 = sorted_x[0:20]
 
             words = []
             counts = []
 
-            for item in sorted_x_100:
+            for item in sorted_x_20:
                 words.append(item[0])
                 counts.append(item[1] / all_words_count)
 
