@@ -413,6 +413,59 @@ class PoetryTuringTestStatisticsView(views.APIView):
             except Exception as e:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
+class RatingStatisticsView(views.APIView):
+    
+    permission_classes = (AllowAny,)
+
+    def get(self, request: Request):
+
+            try:
+
+                result = {}
+
+                # cummings
+
+                result["overall-cummings-gpt2"] = Rate.objects.filter(category="overall").filter(poem__input__style="Cummings").filter(poem__input__model_type="gpt2").aggregate(models.Avg('rate'))["rate__avg"]
+                result["grammar-cummings-gpt2"] = Rate.objects.filter(category="grammar").filter(poem__input__style="Cummings").filter(poem__input__model_type="gpt2").aggregate(models.Avg('rate'))["rate__avg"]
+                result["style-cummings-gpt2"] = Rate.objects.filter(category="style").filter(poem__input__style="Cummings").filter(poem__input__model_type="gpt2").aggregate(models.Avg('rate'))["rate__avg"]
+
+                result["overall-cummings-gpt-neo"] = Rate.objects.filter(category="overall").filter(poem__input__style="Cummings").filter(poem__input__model_type="gpt-neo").aggregate(models.Avg('rate'))["rate__avg"]
+                result["grammar-cummings-gpt-neo"] = Rate.objects.filter(category="grammar").filter(poem__input__style="Cummings").filter(poem__input__model_type="gpt-neo").aggregate(models.Avg('rate'))["rate__avg"]
+                result["style-cummings-gpt-neo"] = Rate.objects.filter(category="style").filter(poem__input__style="Cummings").filter(poem__input__model_type="gpt-neo").aggregate(models.Avg('rate'))["rate__avg"]
+
+
+                # shakespeare
+
+                result["overall-shakespeare-gpt2"] = Rate.objects.filter(category="overall").filter(poem__input__style="Shakespeare").filter(poem__input__model_type="gpt2").aggregate(models.Avg('rate'))["rate__avg"]
+                result["grammar-shakespeare-gpt2"] = Rate.objects.filter(category="grammar").filter(poem__input__style="Shakespeare").filter(poem__input__model_type="gpt2").aggregate(models.Avg('rate'))["rate__avg"]
+                result["style-shakespeare-gpt2"] = Rate.objects.filter(category="style").filter(poem__input__style="Shakespeare").filter(poem__input__model_type="gpt2").aggregate(models.Avg('rate'))["rate__avg"]
+
+                result["overall-shakespeare-gpt-neo"] = Rate.objects.filter(category="overall").filter(poem__input__style="Shakespeare").filter(poem__input__model_type="gpt-neo").aggregate(models.Avg('rate'))["rate__avg"]
+                result["grammar-shakespeare-gpt-neo"] = Rate.objects.filter(category="grammar").filter(poem__input__style="Shakespeare").filter(poem__input__model_type="gpt-neo").aggregate(models.Avg('rate'))["rate__avg"]
+                result["style-shakespeare-gpt-neo"] = Rate.objects.filter(category="style").filter(poem__input__style="Shakespeare").filter(poem__input__model_type="gpt-neo").aggregate(models.Avg('rate'))["rate__avg"]
+
+
+                # whitman
+
+                result["overall-whitman-gpt2"] = Rate.objects.filter(category="overall").filter(poem__input__style="Whitman").filter(poem__input__model_type="gpt2").aggregate(models.Avg('rate'))["rate__avg"]
+                result["grammar-whitman-gpt2"] = Rate.objects.filter(category="grammar").filter(poem__input__style="Whitman").filter(poem__input__model_type="gpt2").aggregate(models.Avg('rate'))["rate__avg"]
+                result["style-whitman-gpt2"] = Rate.objects.filter(category="style").filter(poem__input__style="Whitman").filter(poem__input__model_type="gpt2").aggregate(models.Avg('rate'))["rate__avg"]
+
+                result["overall-whitman-gpt-neo"] = Rate.objects.filter(category="overall").filter(poem__input__style="Whitman").filter(poem__input__model_type="gpt-neo").aggregate(models.Avg('rate'))["rate__avg"]
+                result["grammar-whitman-gpt-neo"] = Rate.objects.filter(category="grammar").filter(poem__input__style="Whitman").filter(poem__input__model_type="gpt-neo").aggregate(models.Avg('rate'))["rate__avg"]
+                result["style-whitman-gpt-neo"] = Rate.objects.filter(category="style").filter(poem__input__style="Whitman").filter(poem__input__model_type="gpt-neo").aggregate(models.Avg('rate'))["rate__avg"]
+
+
+
+
+
+                return Response(result, status=status.HTTP_200_OK)
+
+            except Exception as e:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
             
 
 
