@@ -19,7 +19,13 @@ class Input(models.Model):
     # TODO another input options
     keywords = models.CharField(max_length=100, null=True, blank=True)
 
-    def __str__(self) -> str: return self.style + " | " + self.first_line
+    # def __str__(self) -> str: return self.style + " | " + self.first_line
+
+    def __str__(self):
+        if self.style != None and self.first_line != None:
+            return self.style + " | " + self.first_line
+        else:
+            return ""
 
 
 class Poem(models.Model):
@@ -41,7 +47,7 @@ class Poem(models.Model):
 
 
 class Rate(models.Model):
-    poem = models.ForeignKey(Poem, on_delete=models.DO_NOTHING)
+    poem = models.ForeignKey(Poem, on_delete=models.CASCADE)
     rate = models.IntegerField()
     category = models.CharField(default="overall", max_length=100)
 
@@ -53,7 +59,7 @@ class TuringTestVote(models.Model):
         ("Machine", "Machine")
     ]
 
-    poem = models.ForeignKey(Poem, on_delete=models.DO_NOTHING)
+    poem = models.ForeignKey(Poem, on_delete=models.CASCADE)
     fragment = models.CharField(max_length=200, null=True, blank=True)
     vote = models.CharField(choices=VOTES, default="Machine", max_length=100)
 
