@@ -13,7 +13,7 @@
                         </button>
                     </div>
 
-                    <h2 class="is-size-3-tablet is-size-4-mobile">Choose a generating mode</h2>
+                    <h2 class="is-size-4-tablet is-size-5-mobile">Choose a generating mode</h2>
                     <div class="buttons is-centered">
                         <button class="button is-rounded has-tooltip-arrow" @click="selectGenerator('full')" v-bind:class="{'is-primary': generator_type == 'full'}" data-tooltip="generate whole poem">
                             Full
@@ -24,13 +24,13 @@
                         </button>
                     </div>
 
-                    <h2 class="is-size-3-tablet is-size-4-mobile">Choose a language model</h2>
+                    <h2 class="is-size-4-tablet is-size-5-mobile">Choose a language model</h2>
                     <div class="buttons is-centered">
-                        <button class="button is-rounded has-tooltip-arrow" @click="selectModel('gpt2')" v-bind:class="{'is-primary': model_type == 'gpt2'}" data-tooltip="generate whole poem">
+                        <button class="button is-rounded has-tooltip-arrow" @click="selectModel('gpt2')" v-bind:class="{'is-primary': model_type == 'gpt2'}">
                             GPT2
                         </button>
 
-                        <button class="button is-rounded has-tooltip-arrow" @click="selectModel('gpt-neo')" v-bind:class="{'is-primary': model_type == 'gpt-neo'}" data-tooltip="generate poem line by line alternately with the generator">
+                        <button class="button is-rounded has-tooltip-arrow" @click="selectModel('gpt-neo')" v-bind:class="{'is-primary': model_type == 'gpt-neo'}">
                             GPT-Neo
                         </button>
                     </div>

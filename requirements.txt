@@ -16,3 +16,4 @@ django-ratelimit
 nltk
 text2emotion
 jsonfield
+happytransformer

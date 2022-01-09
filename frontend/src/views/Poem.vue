@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="columns is-vcentered is-centered is-multiline  has-text-centered">
+        <div class="columns is-vcentered is-centered is-multiline  has-text-centered" id="wrapper">
             <div class="column is-6-desktop is-10-tablet">
                 <div class="card">
                     <div class="card-content">
@@ -48,36 +48,30 @@
                     <p class="message-header is-size-6">How much do you like this poem?</p>
                     <p class="is-size-6"></p>
                     <div class="stars icon-text py-2">
-                        <span class="star icon is-size-3 is-medium" v-for="n in [1,2,3,4,5,6,7,8,9,10]" :key="n" @click="rate(n)">
+                        <span class="star icon is-size-4 is-medium" v-for="n in [1,2,3,4,5,6,7,8,9,10]" :key="n" @click="rate(n)">
                             <i class="fas fa-star"></i>
                         </span>
                     </div>
 
-                    <p class="is-size-6">Average rating: {{Math.round(score*10)/10}}</p>
-                </div>
+                    <p class="is-size-7">Average rating: {{Math.round(score*10)/10}}</p>
 
-                <div class="message has-text-centered is-primary" id="rating">
                     <p class="message-header is-size-6">How good is the grammar?</p>
                     <div class="stars icon-text py-2">
-                        <span class="star icon is-size-3 is-medium" v-for="n in [1,2,3,4,5,6,7,8,9,10]" :key="n" @click="rate_grammar(n)">
+                        <span class="star icon is-size-4 is-medium" v-for="n in [1,2,3,4,5,6,7,8,9,10]" :key="n" @click="rate_grammar(n)">
                             <i class="fas fa-star"></i>
                         </span>
                     </div>
 
-                    <p class="is-size-6">Average rating: {{Math.round(grammar_score*10)/10}}</p>
-                </div>
-
-
-
-                    <div class="message has-text-centered is-primary" id="rating">
+                    <p class="is-size-7">Average rating: {{Math.round(grammar_score*10)/10}}</p>
+                    
                     <p class="message-header is-size-6">How much is it similar to the poet's style?</p>
                     <div class="stars icon-text py-2">
-                        <span class="star icon is-size-3 is-medium" v-for="n in [1,2,3,4,5,6,7,8,9,10]" :key="n" @click="rate_style(n)">
+                        <span class="star icon is-size-4 is-medium" v-for="n in [1,2,3,4,5,6,7,8,9,10]" :key="n" @click="rate_style(n)">
                             <i class="fas fa-star"></i>
                         </span>
                     </div>
 
-                    <p class="is-size-6">Average rating: {{Math.round(style_score*10)/10}}</p>
+                    <p class="is-size-7">Average rating: {{Math.round(style_score*10)/10}}</p>
                     <p class="message-header is-size-6">views: {{views}}</p>
                 </div>
 
@@ -98,24 +92,29 @@
                     <p class="is-size-6">Average rating: {{Math.round(style_transfer_score*10)/10}}</p>
                 </div>
                 <div align="center">
-                    <h3 class=" is-size-4  has-text-centered has-text-weight-bold" >Emotion analysis of your poem!</h3>
-                    <table>
-                        <tr>
-                            <th style="text-align: center">Feeling</th>
-                            <th style="text-align: center">Value (in %)</th>
-                        </tr>
-                        <tr v-for="(item, key, index) in json_sentiment" :key="index">
-                            <th>{{key}}</th>
-                            <th>{{item}}</th>
-                        </tr>
+                    <h3 class=" is-size-5 has-text-centered has-text-weight-bold" >Emotion analysis of your poem!</h3>
+                    <table class="table is-fullwidth is-striped  is-narrow">
+                        <thead>
+                            <th style="text-align: center"><p class="is-size-6">Feeling</p></th>
+                            <th style="text-align: center"><p class="is-size-6">Value (in %)</p></th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item, key, index) in json_sentiment" :key="index">
+                                <th><p class="is-size-6 has-text-centered">{{key}}</p></th>
+                                <th><p class="is-size-6 has-text-centered">{{item}}</p></th>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
-                <div align="center">
-                    <h3 class=" is-size-4  has-text-centered has-text-weight-bold" >What is emotion analysis?</h3>
-                    <p>Also known as emotion AI, emotion analysis is a use of natural language processing, text analysis, 
+                <div align="center" class="mt-3 has-text-centered">
+                    <h3 class="button is-rounded is-light is-inactive is-size-6 has-text-centered has-text-weight-bold dropdown-trigger" data-tooltip="Also known as emotion AI, emotion analysis is a use of natural language processing, text analysis, 
+computational linguistics, and biometrics to systematically identify, extract, quantify, 
+and study affective states and subjective information. In our analysis we divide it into five feelings: 
+happiness, anger, surprise, sadness and fear.">What is emotion analysis?</h3>
+                    <!-- <p class="is-size-6 has-text-justified dropdown-menu"> Also known as emotion AI, emotion analysis is a use of natural language processing, text analysis, 
                         computational linguistics, and biometrics to systematically identify, extract, quantify, 
                         and study affective states and subjective information. In our analysis we divide it into five feelings: 
-                        happiness, anger, surprise, sadness and fear. </p>
+                        happiness, anger, surprise, sadness and fear. </p> -->
                 </div>
                 
             </div>
@@ -305,10 +304,10 @@ export default {
         transform: scale(1.5,1.5);
         cursor: pointer;
     }
-    .columns {
+    #wrapper {
         min-height: 90vh;
     }
-    table {
+    /* table {
         font-family: arial, sans-serif;
         border-collapse: collapse;
         width: 100%;
@@ -317,14 +316,18 @@ export default {
         border: 1px solid #acd4ce;
         text-align: left;
         padding: 8px;
-    }
+    } */
     
     
-    tr:nth-child(even) {
+    /* tr:nth-child(even) {
     background-color: #7cb3f7;
     color: white
     }
     tr:nth-child(odd) {
     background-color: #edf5ff;
+    } */
+
+    .dropdown {
+        width: 100%;
     }
 </style>
