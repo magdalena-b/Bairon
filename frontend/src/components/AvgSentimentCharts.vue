@@ -34,18 +34,18 @@
                     </div>
                 </div>
             </div>
-            <h1 class="is-size-4"> Allen Ginsberg </h1>
+            <h1 class="is-size-4"> Walt Whitman </h1>
             <div class="columns is-vcentered is-centered is-multiline  has-text-centered">    
                 <div class="column is-6-desktop is-10-tablet">   
                     <h2 class="is-size-5"> Original poems </h2> 
                     <div>
-                        <canvas id="ginsbergAvgSentimentChart"></canvas>
+                        <canvas id="whitmanAvgSentimentChart"></canvas>
                     </div>
                 </div>  
                 <div class="column is-6-desktop is-10-tablet">    
                     <h2 class="is-size-5"> Generated poems </h2>
                     <div>
-                        <canvas id="generatedGinsbergAvgSentimentChart"></canvas>
+                        <canvas id="generatedWhitmanAvgSentimentChart"></canvas>
                     </div>  
                 </div>
             </div>
@@ -55,6 +55,7 @@
 
 <script>
 const {API_URL} = require('../settings.json')
+
 export default {
     name: "AvgSentimentCharts",
     data() {
@@ -71,10 +72,11 @@ export default {
                     ({
                         "generated_cummings_analysis": this.generated_cummings_analysis,
                         "generated_shakespeare_analysis": this.generated_shakespeare_analysis,
-                        "generated_ginsberg_analysis": this.generated_ginsberg_analysis,
+                        "generated_whitman_analysis": this.generated_whitman_analysis,
                         "cummings_analysis": this.cummings_analysis,
                         "shakespeare_analysis": this.shakespeare_analysis,
-                        "ginsberg_analysis": this.ginsberg_analysis,
+                        "whitman_analysis": this.whitman_analysis,
+
                     } = data)
                     callback()
                 })
@@ -101,6 +103,7 @@ export default {
                 },
                 options: {}
             }
+
             let cummingsWordCountChart = new Chart(
                 document.getElementById('cummingsAvgSentimentChart'),
                 config
@@ -127,6 +130,7 @@ export default {
                 },
                 options: {}
             }
+
             let generatedCummingsAvgSentimentChart = new Chart(
                 document.getElementById('generatedCummingsAvgSentimentChart'),
                 config
@@ -153,6 +157,7 @@ export default {
                 },
                 options: {}
             }
+
             let shakespeareAvgSentimentChart = new Chart(
                 document.getElementById('shakespeareAvgSentimentChart'),
                 config
@@ -179,16 +184,17 @@ export default {
                 },
                 options: {}
             }
+
             let generatedShakespeareAvgSentimentChart = new Chart(
                 document.getElementById('generatedShakespeareAvgSentimentChart'),
                 config
             )
         },
-        get_ginsberg_chart(){
+        get_whitman_chart(){
             let config = {
                 type: 'bar',
                 data: {
-                    labels: Object.keys(this.ginsberg_analysis),
+                    labels: Object.keys(this.whitman_analysis),
                     datasets: [{
                         label:'values',
                         backgroundColor: [
@@ -200,21 +206,21 @@ export default {
                             'rgb(181, 156, 192)',
                         ],
                         borderWidth: 1,
-                        data: Object.values(this.ginsberg_analysis),
+                        data: Object.values(this.whitman_analysis),
                     }]
                 },
                 options: {}
             }
-            let ginsbergAvgSentimentChart = new Chart(
-                document.getElementById('ginsbergAvgSentimentChart'),
+            let whitmanAvgSentimentChart = new Chart(
+                document.getElementById('whitmanAvgSentimentChart'),
                 config
             )
         },
-        get_generated_ginsberg_chart(){
+        get_generated_whitman_chart(){
             let config = {
                 type: 'bar',
                 data: {
-                    labels: Object.keys(this.generated_ginsberg_analysis),
+                    labels: Object.keys(this.generated_whitman_analysis),
                     datasets: [{
                         label:'values',
                         backgroundColor: [
@@ -226,27 +232,30 @@ export default {
                             'rgb(181, 156, 192)',
                         ],
                         borderWidth: 1,
-                        data: Object.values(this.generated_ginsberg_analysis),
+                        data: Object.values(this.generated_whitman_analysis),
                     }]
                 },
                 options: {}
             }
-            let generatedGinsbergAvgSentimentChart = new Chart(
-                document.getElementById('generatedGinsbergAvgSentimentChart'),
+            let generatedWhitmanAvgSentimentChart = new Chart(
+                document.getElementById('generatedWhitmanAvgSentimentChart'),
                 config
             )
         }
     },
+
     mounted() {
         this.get_avg_sentiment(this.get_cummings_chart),
         this.get_avg_sentiment(this.get_shakespeare_chart),
-        this.get_avg_sentiment(this.get_ginsberg_chart),
+        this.get_avg_sentiment(this.get_whitman_chart),
         this.get_avg_sentiment(this.get_generated_cummings_chart),
         this.get_avg_sentiment(this.get_generated_shakespeare_chart),
-        this.get_avg_sentiment(this.get_generated_ginsberg_chart)
+        this.get_avg_sentiment(this.get_generated_whitman_chart)
+
     }
 }
 </script>
 
 <style>
+
 </style>
