@@ -37,8 +37,10 @@
                         
                     </div>
                 </div>
-                <button class="button is-rounded is-info" @click="download_PDF">Download PDF</button>
-                <a href="https://twitter.com/intent/tweet" class="twitter-share-button" data-size="large" data-text="#poem #poetrygenerator" :data-url="fullUrl" data-dnt="true" data-show-count="false">Tweet #poem</a>
+                <div class="mt-3" id="buttons">
+                    <button class="button is-rounded is-info is-small mb-1" @click="download_PDF">Download PDF</button>
+                    <a href="https://twitter.com/intent/tweet" class="twitter-share-button" data-size="large" data-text="#poem #poetrygenerator" :data-url="fullUrl" data-dnt="true" data-show-count="false">Tweet</a>
+                </div>
             </div>
             <div class="column is-2 is-desktop">
                 <!-- placeholder -->
@@ -100,8 +102,8 @@
                         </thead>
                         <tbody>
                             <tr v-for="(item, key, index) in json_sentiment" :key="index">
-                                <th><p class="is-size-6 has-text-centered">{{key}}</p></th>
-                                <th><p class="is-size-6 has-text-centered">{{item}}</p></th>
+                                <td><p class="is-size-6 has-text-centered">{{key}}</p></td>
+                                <td><p class="is-size-6 has-text-centered">{{item}}</p></td>
                             </tr>
                         </tbody>
                     </table>
@@ -329,5 +331,11 @@ export default {
 
     .dropdown {
         width: 100%;
+    }
+
+    #buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 </style>
