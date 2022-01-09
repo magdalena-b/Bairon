@@ -519,11 +519,11 @@ class SentimentAnalysisView(views.APIView):
         file = json.load(f)
         result['cummings_analysis'] = file['cummings']
         result['shakespeare_analysis'] = file['shakespeare']
-        result['ginsberg_analysis'] = file['ginsberg']
+        result['whitman_analysis'] = file['whitman']
                     
         result['generated_cummings_analysis'] = file['generated_cummings']
         result['generated_shakespeare_analysis'] = file['generated_shakespeare']
-        result['generated_ginsberg_analysis'] = file['generated_ginsberg']
+        result['generated_whitman_analysis'] = file['generated_whitman']
         
         try: 
             return Response(result, status=status.HTTP_200_OK)
