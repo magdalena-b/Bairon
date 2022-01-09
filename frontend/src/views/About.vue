@@ -43,7 +43,11 @@
                         <p>Average rating</p>
                     </div>
                     <div class="header-body py-4 px-4">
-                        <p>{{score}}</p>
+                        <p>{{Math.round(score*10)/10}}</p>
+                    </div>
+                    <p> Average style transfer rating </p>
+                    <div class="header-body py-4 px-4">
+                        <p>{{Math.round(style_transfer_score*10)/10}}</p>
                     </div>
                     <div class="message-header">
                         <p>Turing Test votes</p>
@@ -77,6 +81,7 @@ export default ({
             TT_FH: 0,
             TT_TM: 0,
             TT_TM: 0,
+            style_transfer_score: 0
         }
     },
     methods: {
@@ -92,6 +97,7 @@ export default ({
                         "TT-FH": this.TT_FH,
                         "TT-TM": this.TT_TM,
                         "TT-FM": this.TT_FM,
+                        "style-transfer-rate-average": this.style_transfer_score,
                     } = data)
                     callback()
                 })

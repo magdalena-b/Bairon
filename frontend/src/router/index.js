@@ -62,6 +62,16 @@ const routes = [
     name: 'Statistics',
     component: () => import(/* webpackChunkName: "about" */ '../views/Statistics.vue')
   },
+  {
+    path: '/poetry-turing-test-statistics',
+    name: 'PoetryTuringTestStatistics',
+    component: () => import(/* webpackChunkName: "about" */ '../views/PoetryTuringTestStatistics.vue')
+  },
+  {
+    path: '/ratings-statistics',
+    name: 'RatingStatistics',
+    component: () => import(/* webpackChunkName: "about" */ '../views/RatingStatistics.vue')
+  },
 ]
 
 const router = createRouter({

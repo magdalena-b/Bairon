@@ -34,16 +34,21 @@ class PoemSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         try:
             input, created = Poem.objects.get_or_create(
-                id = validated_data["input"].id,
+                id = validated_data["input"].id + 2000,
                 author = validated_data.get("get_author_display", "Machine"),
                 input = validated_data["input"],
                 text = validated_data["text"][:1000],
+                generator_type = validated_data["generator_type"],
+                style_transfer = validated_data["style_transfer"],
+                translations = validated_data["translations"],
+                bleu_score = validated_data["bleu_score"],
                 sentiment = validated_data["sentiment"],
             )
             input.save()
             return input
         except Exception as e:
             print(e)
+            pass
         return None
 
 
@@ -58,9 +63,11 @@ class RateSerializer(serializers.ModelSerializer):
             rate, created = Rate.objects.create(
                 poem = validated_data["poem"],
                 rate = validated_data["rate"],
+                category = validated_data["category"],
             )
             rate.save()
             return rate
+
         except Exception as e:
             print(e)
         return None

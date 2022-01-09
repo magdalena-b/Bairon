@@ -46,7 +46,9 @@
                             </div>
                             <div class="navbar-dropdown is-right">
                                 <router-link class="navbar-item" to="/statistics">Word Count</router-link>
-                                <router-link class="navbar-item" to="/sentiment-analysis">Sentiment Analysis</router-link>
+                                <router-link class="navbar-item" to="/sentiment-analysis">Emotion Analysis</router-link>
+                                <router-link class="navbar-item" to="/poetry-turing-test-statistics">Poetry Turing Test Statistics</router-link>
+                                <router-link class="navbar-item" to="/ratings-statistics">Rating Statistics</router-link>
                             </div>
                         </div>
                     </a>

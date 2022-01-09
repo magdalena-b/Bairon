@@ -8,11 +8,31 @@
                             <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{style}}</h3>
                             <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{first_line}}</h3>
                         </div>
-                        <div v-for="line in text.split('\n')" :key="line">
-                            <div v-if="line.length > 0">
-                                <p class="is-size-6 has-text-left">{{line}}</p>
+                        <div v-if='generator_type == "collab" '>
+                                    <div v-bind:class="{'is-hidden': counter = 0}">
+                                    </div>
+                                        <div v-for="line in text.split('|').slice(0, 20)" :key="line">
+
+                                            <div v-if="line.length > 0">
+                                                <div v-if="counter % 2 == 0">    
+                                                    <p class="is-size-6 has-text-left">{{line}} </p>
+                                                </div>
+                                                <div v-else>
+                                                    <p class="is-size-6 has-text-left"> <b> {{line}} </b> </p>
+                                                </div>
+                                            </div>
+                                            <div v-else><br/></div>
+                                            <div v-bind:class="{'is-hidden': counter += 1}">
+                                            </div>
+                                    </div>
+                                </div>
+                        <div v-else>
+                            <div v-for="line in text.split('\n').slice(0, 20)" :key="line">
+                                <div v-if="line.length > 0">
+                                    <p class="is-size-6 has-text-left">{{line}}</p>
+                                </div>
+                                <div v-else><br/></div>
                             </div>
-                            <div v-else><br/></div>
                         </div>
                         
                     </div>
@@ -32,8 +52,50 @@
                             <i class="fas fa-star"></i>
                         </span>
                     </div>
+
                     <p class="is-size-6">Average rating: {{Math.round(score*10)/10}}</p>
+                </div>
+
+                <div class="message has-text-centered is-primary" id="rating">
+                    <p class="message-header is-size-6">How good is the grammar?</p>
+                    <div class="stars icon-text py-2">
+                        <span class="star icon is-size-3 is-medium" v-for="n in [1,2,3,4,5,6,7,8,9,10]" :key="n" @click="rate_grammar(n)">
+                            <i class="fas fa-star"></i>
+                        </span>
+                    </div>
+
+                    <p class="is-size-6">Average rating: {{Math.round(grammar_score*10)/10}}</p>
+                </div>
+
+
+
+                    <div class="message has-text-centered is-primary" id="rating">
+                    <p class="message-header is-size-6">How much is it similar to the poet's style?</p>
+                    <div class="stars icon-text py-2">
+                        <span class="star icon is-size-3 is-medium" v-for="n in [1,2,3,4,5,6,7,8,9,10]" :key="n" @click="rate_style(n)">
+                            <i class="fas fa-star"></i>
+                        </span>
+                    </div>
+
+                    <p class="is-size-6">Average rating: {{Math.round(style_score*10)/10}}</p>
                     <p class="message-header is-size-6">views: {{views}}</p>
+                </div>
+
+                <div v-if='style_transfer == 1 '>
+                    <p class="message-header is-size-6 is-primary"> Style Transfer </p>
+                    <h1> <b> Translations </b> </h1>
+                    <div v-for="translated_line in translated_lines" :key="translated_line">
+                        {{translated_line}}
+                    </div>
+                    <h1> <b> BLEU score </b> </h1>
+                    <div> {{bleu_score}} </div>
+                    <div class="stars icon-text py-2">
+                        <span class="star icon is-size-3 is-medium" v-for="n in [1,2,3,4,5,6,7,8,9,10]" :key="n" @click="rate_style_transfer(n)">
+                            <i class="fas fa-star"></i>
+                        </span>
+                    </div>
+
+                    <p class="is-size-6">Average rating: {{Math.round(style_transfer_score*10)/10}}</p>
                 </div>
                 <div align="center">
                     <h3 class=" is-size-4  has-text-centered has-text-weight-bold" >Emotion analysis of your poem!</h3>
@@ -57,6 +119,7 @@
                 </div>
                 
             </div>
+
         </div>
     </div>
 </template>
@@ -79,6 +142,16 @@ export default {
             sentiment: "",
             views: 0,
             score: 0,
+            grammar_score: 0,
+            style_score: 0,
+            style_transfer_score: 0,
+            TT_machine: 0,
+            TT_human: 0,
+            generator_type: "",
+            style_transfer: 0,
+            translations: "",
+            bleu_score: 0,
+            translated_lines: "",
             json_sentiment: {},
             TT_machine: 0,
             TT_human: 0,
@@ -97,8 +170,10 @@ export default {
         fetch(`${API_URL}/api/poems/${this.id}/`)
             .then(res => res.json())
             .then(data => {
-                ({author: this.author, first_line: this.first_line, style: this.style, text: this.text,sentiment: this.sentiment, views: this.views, keys: this.keys, values: this.values} = data)
+                ({author: this.author, first_line: this.first_line, style: this.style, text: this.text, sentiment: this.sentiment, views: this.views, keys: this.keys, values: this.values, generator_type: this.generator_type, style_transfer: this.style_transfer, translations: this.translations, bleu_score: this.bleu_score, translated_lines: this.translated_lines} = data)
+                ({author: this.author, first_line: this.first_line, style: this.style, text: this.text, sentiment: this.sentiment, views: this.views, keys: this.keys, values: this.values} = data)
             })
+            .then()
             .catch(err => console.log(err.message))
         this.get_rating()
         this.fetch_text()
@@ -110,7 +185,7 @@ export default {
             fetch(`${API_URL}/api/rating/${this.id}/`)
                 .then(res => res.json())
                 .then(data => {
-                    ({"TT-human": this.TT_human, "TT-machine": this.TT_machine, "rate-average": this.score/** , "avg-rate-average": this.score_avg*/} = data)
+                    ({"TT-human": this.TT_human, "TT-machine": this.TT_machine, "rate-average": this.score, "grammar-rate-average": this.grammar_score, "style-rate-average": this.style_score, "style-transfer-rate-average": this.style_transfer_score} = data)
                 })
                 .catch(err => console.log(err.message))
         },
@@ -131,6 +206,55 @@ export default {
                 body: JSON.stringify({
                     "poem": this.id,
                     "rate": n,
+                    "category": "overall",
+                })
+            })
+                .then(res => {this.get_rating()})
+                .catch(err => console.log(err.message))
+            this.get_rating()
+        },
+        rate_grammar(n) {
+            fetch(`${API_URL}/api/add/rate/${this.id}/`,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "poem": this.id,
+                    "rate": n,
+                    "category": "grammar",
+                })
+            })
+                .then(res => {this.get_rating()})
+                .catch(err => console.log(err.message))
+            this.get_rating()
+        },
+        rate_style(n) {
+            fetch(`${API_URL}/api/add/rate/${this.id}/`,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "poem": this.id,
+                    "rate": n,
+                    "category": "style",
+                })
+            })
+                .then(res => {this.get_rating()})
+                .catch(err => console.log(err.message))
+            this.get_rating()
+        },
+        rate_style_transfer(n) {
+            fetch(`${API_URL}/api/add/rate/${this.id}/`,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "poem": this.id,
+                    "rate": n,
+                    "category": "style_transfer",
                 })
             })
                 .then(res => {this.get_rating()})

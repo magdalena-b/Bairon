@@ -22,6 +22,8 @@ urlpatterns = [
     path('add/turing-test-vote/<int:id>/', CreateTuringTestVote.as_view(), name='TTvote'),
     path('sentiment-analysis/', SentimentAnalysisView.as_view(), name='sentiment-analysis'),
     path('statistics/', StatisticsView.as_view(), name='statistics'),
+    path('poetry-turing-test-statistics/', PoetryTuringTestStatisticsView.as_view(), name='poetry-turing-test-statistics'),
+    path('ratings-statistics/', RatingStatisticsView.as_view(), name='ratings-statistics'),
     path('get/tt-fragment/', TuringTestFragmentView.as_view(), name='tt-fragment'),
     path('generations-count/', GenerationsCount.as_view(), name='generations-count')
 ]

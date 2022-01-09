@@ -24,6 +24,17 @@
                         </button>
                     </div>
 
+                    <h2 class="is-size-3-tablet is-size-4-mobile">Choose a language model</h2>
+                    <div class="buttons is-centered">
+                        <button class="button is-rounded has-tooltip-arrow" @click="selectModel('gpt2')" v-bind:class="{'is-primary': model_type == 'gpt2'}" data-tooltip="generate whole poem">
+                            GPT2
+                        </button>
+
+                        <button class="button is-rounded has-tooltip-arrow" @click="selectModel('gpt-neo')" v-bind:class="{'is-primary': model_type == 'gpt-neo'}" data-tooltip="generate poem line by line alternately with the generator">
+                            GPT-Neo
+                        </button>
+                    </div>
+
                     <h2 class="is-size-3-tablet is-size-4-mobile mt-5">Type your first line</h2>
                     <div class="field is-grouped">
                         <div class="control is-expanded">
@@ -62,6 +73,7 @@
                                 <div class="control buttons mt-3 is-centered">
                                     <button v-if=" collab_lines != null" id="generate_button" class="button is-rounded is-info"  @click="fetch_poem_line(next_human_line)">continue generating</button>
                                     <button class="button is-info is-rounded" @click="clear_collab_lines_cache">clear</button>
+                                    <button class="button is-info is-rounded" @click="save_collab_poem">save</button>
                                 </div>
                                 </div>
 
@@ -71,7 +83,11 @@
                     </template>
                     <template v-if="generator_type == 'full'">
                         <div v-if=" translated_lines != null & poet == 'Shakespeare'">
-                            <div class="button is_rounded is_info" @click="fetch_poem(translated_line)" v-for="translated_line in translated_lines" :key="translated_line">{{ translated_line }} </div>
+                            <div class="button is_rounded is_info" @click="fetch_poem(translated_line, true)" v-for="translated_line in translated_lines" :key="translated_line">{{ translated_line }} </div>
+                        </div>
+
+                        <div v-if=" bleu_score != null & poet == 'Shakespeare'">
+                            <h3> BLEU score: {{bleu_score}} </h3>
                         </div>
 
                         <div id="poem_container" class="mt-5" v-bind:style="{'max-height':(( poem != '' || show_notification) ? '100vh' : '0px')}">
@@ -122,14 +138,21 @@ export default {
             first_line: "",
             poet: "Shakespeare",
             poem: "",
-            sentiment:"",
-            avaible_poets: ["Shakespeare", "Ginsberg", "Cummings", "Lorem Ipsum"],
+            avaible_poets: ["Shakespeare", "Cummings", "Whitman", "Lorem Ipsum"],
+            sentiment: "",
             input_id: null,
             translated_lines: null,
             generator_type: "full",
+            model_type: "gpt2",
             collab_lines: null,
             next_human_line: null,
-            next_machine_line: null
+            next_machine_line: null,
+            formatted_collab_lines: null,
+            show_notification: false,
+            bleu_score: null,
+            used_style_transfer: 0,
+            saved_poem_id: null,
+            translations: null
         }
     },
     methods: {
@@ -140,7 +163,12 @@ export default {
             console.log(bool)
             this.show_notification = bool
         },
-        fetch_poem(line){
+        fetch_poem(line, first_line_from_style_transfer){
+
+            if (first_line_from_style_transfer){
+                this.used_style_transfer = 1
+            }
+
             this.poem = ""
             const generate_button = document.querySelector('#generate_button')
 
@@ -156,6 +184,7 @@ export default {
                 body: JSON.stringify({
                     "style": this.poet,
                     "first_line": line,
+                    "model_type": this.model_type
                 })
             })
                 .then(res => {
@@ -174,10 +203,28 @@ export default {
                 })
                 .catch(err => console.log(err.message))
         },
+
         fetch_poem_line(line){
 
             const generate_button = document.querySelector('#generate_button')
             generate_button.classList.add('is-loading')
+            this.input = null
+
+
+            if (this.next_machine_line === null){
+                this.input = line
+                this.formatted_collab_lines = line + "|"
+            }
+            else {
+                this.input = this.next_machine_line + line
+                this.formatted_collab_lines += line + "|"
+            }
+
+            if (this.collab_lines == null) {
+                this.collab_lines = line
+            } else {
+                this.collab_lines +=  " " + line
+            }
 
             fetch(`${API_URL}/api/generate-line/`, {
                 method: 'POST',
@@ -186,7 +233,8 @@ export default {
                 },
                 body: JSON.stringify({
                     "style": this.poet,
-                    "first_line": line,
+                    "first_line": this.collab_lines,
+                    "model_type": this.model_type
                 })
             })
                 .then(res => res.json())
@@ -194,9 +242,11 @@ export default {
                     ({text: this.next_machine_line, input: this.input_id} = data)
                     generate_button.classList.remove("is-loading")
                     if (this.collab_lines != null) {
-                        this.collab_lines = this.collab_lines + this.next_machine_line
+                        this.formatted_collab_lines += this.next_machine_line.substring(this.collab_lines.length + line.length, this.next_machine_line.length) + "|"
+                        this.collab_lines = this.next_machine_line
                     }
                     else {
+                        this.formatted_collab_lines += this.next_machine_line.substring(line.length, this.next_machine_line.length) + "|"
                         this.collab_lines = this.next_machine_line
                     }
                 })
@@ -204,13 +254,8 @@ export default {
         },
 
         clear_collab_lines_cache(){
-            fetch(`${API_URL}/api/generate-line/`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-                .catch(err => console.log(err.message))
+            this.collab_lines = null
+            this.formatted_collab_lines = null
         },
 
         fetch_style_transfer_line(first_line){
@@ -226,11 +271,35 @@ export default {
             })
                 .then(res => res.json())
                 .then(data => {
-                    ({translated_lines: this.translated_lines} = data)
+                    ({translated_lines: this.translated_lines, bleu_score: this.bleu_score} = data)
                 })
                 .catch(err => console.log(err.message))
         },
+
         save_poem() {
+
+            if (this.translated_lines != null) {
+                this.translations = this.translated_lines.join("|")
+                this.translated_lines = this.translated_lines.join("|")
+            }
+            else {
+                this.translations = ""
+            }
+
+            this.translated_lines = null
+
+            if (this.generator_type == 'collab') {
+                this.generator_type = "collab"
+            }
+            else {
+                this.generator_type = "full"
+            }
+
+            if (this.bleu_score != null) {
+                this.bleu_score = this.bleu_score.toString()
+            }
+            
+
             fetch(`${API_URL}/api/save/`, {
                 method: 'POST',
                 headers: {
@@ -239,19 +308,53 @@ export default {
                 body: JSON.stringify({
                     "input": this.input_id,
                     "text": this.poem,
+                    "style_transfer": this.used_style_transfer.toString(),
+                    "translations": this.translations,
+                    "bleu_score": this.bleu_score,
+                    "generator_type": this.generator_type,
                     "sentiment": this.sentiment
+
+                    
                 })
             })
                 .then(() => {
-                    this.poem = ""
-                    this.sentiment = ""
-                    this.$router.push(`/poem/${this.input_id}`)
+                    this.poem = "",
+                    this.used_style_transfer = 0,
+                    this.sentiment = "",
+                    this.saved_poem_id = 2000 + this.input_id,
+                    this.$router.push(`/poem/${this.saved_poem_id}`)            
+                })
+                .catch(err => console.log(err.message))
+        },
+        save_collab_poem() {
+            fetch(`${API_URL}/api/save/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "input": this.input_id,
+                    "text": this.formatted_collab_lines,
+                    "generator_type": this.generator_type,
+                    "style_transfer": 0,
+                    "translations": "",
+                    "bleu_score": 0,
+                    "generator_type": this.generator_type
+                })
+            })
+                .then(() => {
+                    this.poem = "",
+                    this.used_style_transfer = 0
                 })
                 .catch(err => console.log(err.message))
         },
         selectGenerator(g) {
             this.generator_type = g
+        },
+        selectModel(m) {
+            this.model_type = m
         }
+
     },
 }
 </script>

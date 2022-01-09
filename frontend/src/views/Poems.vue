@@ -9,7 +9,7 @@
             <button class="button is-rounded is-info" @click="fetch_poems">filter</button>
         </div>
         <div class="columns scrollable mt-4">
-            <div class="column is-4-desktop is-6-tablet" v-for="{id, input, text, style} in poems" :key="id">
+            <div class="column is-4-desktop is-6-tablet" v-for="{id, input, text, style, generator_type} in poems" :key="id">
                 <router-link  :to="'/poem/'+id">
                     <div id="poem_container" class="mt-5">
                         <div id="poem" class="card">
@@ -18,12 +18,33 @@
                                     <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{style}}</h3>
                                     <h3 class="is-size-5 is-capitalized has-text-weight-bold">{{input}}</h3>
                                 </div>
-                                <div v-for="line in text.split('\n').slice(0, 20)" :key="line">
-                                    <div v-if="line.length > 0">
-                                        <p class="is-size-6 has-text-left">{{line}}</p>
+                                <div v-if='generator_type == "collab" '>
+                                    <div v-bind:class="{'is-hidden': counter = 0}">
                                     </div>
-                                    <div v-else><br/></div>
+                                        <div v-for="line in text.split('|').slice(0, 20)" :key="line">
+
+                                            <div v-if="line.length > 0">
+                                                <div v-if="counter % 2 == 0">    
+                                                    <p class="is-size-6 has-text-left">{{line}} </p>
+                                                </div>
+                                                <div v-else>
+                                                    <p class="is-size-6 has-text-left"> <b> {{line}} </b> </p>
+                                                </div>
+                                            </div>
+                                            <div v-else><br/></div>
+                                            <div v-bind:class="{'is-hidden': counter += 1}">
+                                            </div>
+                                    </div>
                                 </div>
+                                <div v-else>
+                                    <div v-for="line in text.split('\n').slice(0, 20)" :key="line">
+                                        <div v-if="line.length > 0">
+                                            <p class="is-size-6 has-text-left">{{line}}</p>
+                                        </div>
+                                        <div v-else><br/></div>
+                                    </div>
+                                </div>
+
                                 <p class="is-size-6 has-text-centered" v-if="text.split('\n').length > 20"> ... </p>
                             </div>
                         </div>
@@ -43,7 +64,7 @@ export default {
     data() {
         return {
             poems: [],
-            avaible_styles: ["Shakespeare", "Ginsberg", "Cummings", "Lorem Ipsum"],
+            avaible_styles: ["Shakespeare", "Cummings", "Whitman", "Lorem Ipsum"],
             style: "",
             // TODO filtering by sentiments
             avaible_sentiments: ["normal"],

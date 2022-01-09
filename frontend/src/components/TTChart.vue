@@ -67,7 +67,7 @@ export default {
                             'rgb(255, 99, 132)',
                         ],
                         borderWidth: 1,
-                        data: [this.TT_FH, this.TT_FH],
+                        data: [this.TT_FH, this.TT_FM],
                     }]
                 },
                 options: {}
