@@ -43,16 +43,16 @@ class PoemGenerator:
             if style == "Shakespeare":
 
                 if model_type == "gpt2":
-                    load_model("shakespeare2")
+                    load_model("shakespeare_gpt2_500_steps")
                     start = time.time()
                     with graph.as_default():
-                        text = gpt2.generate(sess, run_name='shakespeare2', prefix = first_line, length = length, return_as_list=True)[0]
+                        text = gpt2.generate(sess, run_name='shakespeare_gpt2_500_steps', prefix = first_line, length = length, return_as_list=True)[0]
                         sentiment_analysis = te.get_emotion(text)
                         sentiment = json.dumps(sentiment_analysis)
                     print("generating time:",time.time()-start,"s")
 
                 if model_type == "gpt-neo":
-                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/shakespeare_gpt_neo_model/")
+                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/shakespeare_gpt_neo_model_100_epochs/")
                     args = GENSettings(no_repeat_ngram_size = 2, num_beams = 5, max_length = length)
                     result = happy_gen_loaded.generate_text(first_line, args = args)
                     text = result.text
@@ -64,16 +64,16 @@ class PoemGenerator:
             elif style == "Cummings":
 
                 if model_type == "gpt2":         
-                    load_model("cummings2")
+                    load_model("cummings_gpt2_500_steps")
                     start = time.time()
                     with graph.as_default():
-                        text = gpt2.generate(sess, run_name='cummings2', prefix = first_line, length = length, return_as_list=True)[0]
+                        text = gpt2.generate(sess, run_name='cummings_gpt2_500_steps', prefix = first_line, length = length, return_as_list=True)[0]
                         sentiment_analysis = te.get_emotion(text)
                         sentiment = json.dumps(sentiment_analysis)
                     print("generating time:",time.time()-start,"s")
 
                 if model_type == "gpt-neo":
-                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/cummings_gpt_neo_model/")
+                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/cummings_gpt_neo_model_100_epochs/")
                     args = GENSettings(no_repeat_ngram_size=2, num_beams = 5, max_length = length)
                     result = happy_gen_loaded.generate_text(first_line, args = args)
                     text = result.text
@@ -84,16 +84,16 @@ class PoemGenerator:
             elif style == "Whitman":
 
                 if model_type == "gpt2":         
-                    load_model("whitman2")
+                    load_model("whitman_gpt2_500_steps")
                     start = time.time()
                     with graph.as_default():
-                        text = gpt2.generate(sess, run_name='whitman2', prefix = first_line, length = length, return_as_list=True)[0]
+                        text = gpt2.generate(sess, run_name='whitman_gpt2_500_steps', prefix = first_line, length = length, return_as_list=True)[0]
                         sentiment_analysis = te.get_emotion(text)
                         sentiment = json.dumps(sentiment_analysis)
                     print("generating time:",time.time()-start,"s")
 
                 if model_type == "gpt-neo":
-                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/whitman_gpt_neo_model/")
+                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/whitman_gpt_neo_model_100_epochs/")
                     args = GENSettings(no_repeat_ngram_size = 2, num_beams = 5, max_length = length)
                     result = happy_gen_loaded.generate_text(first_line, args = args)
                     text = result.text
@@ -126,16 +126,16 @@ class PoemGenerator:
             if style == "Shakespeare":
 
                 if model_type == "gpt2":         
-                    load_model("shakespeare2")
+                    load_model("shakespeare_gpt2_500_steps")
                     start = time.time()
                     with graph.as_default():
-                        text = gpt2.generate(sess, run_name='shakespeare2', prefix = first_line, length = line_length, return_as_list=True)[0]
+                        text = gpt2.generate(sess, run_name='shakespeare_gpt2_500_steps', prefix = first_line, length = line_length, return_as_list=True)[0]
                         sentiment_analysis = te.get_emotion(text)
                         sentiment = json.dumps(sentiment_analysis)
                     print("generating time:",time.time()-start,"s")
 
                 if model_type == "gpt-neo":
-                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/shakespeare_gpt_neo_model/")
+                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/shakespeare_gpt_neo_model_100_epochs/")
                     args = GENSettings(no_repeat_ngram_size=2, num_beams=5, max_length=line_length)
                     result = happy_gen_loaded.generate_text(first_line, args = args)
                     text = first_line + " " + result.text
@@ -145,16 +145,16 @@ class PoemGenerator:
             elif style == "Cummings":
 
                 if model_type == "gpt2":
-                    load_model("cummings2")
+                    load_model("cummings_gpt2_500_steps")
                     start = time.time()
                     with graph.as_default():
-                        text = gpt2.generate(sess, run_name='cummings2', prefix = first_line, length = line_length, return_as_list=True)[0]
+                        text = gpt2.generate(sess, run_name='cummings_gpt2_500_steps', prefix = first_line, length = line_length, return_as_list=True)[0]
                         sentiment_analysis = te.get_emotion(text)
                         sentiment = json.dumps(sentiment_analysis)
                     print("generating time:",time.time()-start,"s")
 
                 if model_type == "gpt-neo":
-                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/cummings_gpt_neo_model/")
+                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/cummings_gpt_neo_model_100_epochs/")
                     args = GENSettings(no_repeat_ngram_size=2, num_beams=5, max_length=line_length)
                     result = happy_gen_loaded.generate_text(first_line, args = args)
                     text = result.text
@@ -164,16 +164,16 @@ class PoemGenerator:
             elif style == "Whitman":
 
                 if model_type == "gpt2":
-                    load_model("whitman2")
+                    load_model("whitman_gpt2_500_steps")
                     start = time.time()
                     with graph.as_default():
-                        text = gpt2.generate(sess, run_name='whitman2', prefix = first_line, length = line_length, return_as_list=True)[0]
+                        text = gpt2.generate(sess, run_name='whitman_gpt2_500_steps', prefix = first_line, length = line_length, return_as_list=True)[0]
                         sentiment_analysis = te.get_emotion(text)
                         sentiment = json.dumps(sentiment_analysis)
                     print("generating time:",time.time()-start,"s")
 
                 if model_type == "gpt-neo":
-                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/whitman_gpt_neo_model/")
+                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/whitman_gpt_neo_model_100_epochs/")
                     args = GENSettings(no_repeat_ngram_size=2, num_beams=5, max_length=line_length)
                     result = happy_gen_loaded.generate_text(first_line, args = args)
                     text = result.text
