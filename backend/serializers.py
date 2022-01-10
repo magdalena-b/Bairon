@@ -9,13 +9,14 @@ class InputSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Input
-        fields = ('style', 'first_line')
+        fields = ('style', 'first_line', 'model_type')
 
     def create(self, validated_data):
         try:
             input = Input.objects.create(
                 style = validated_data["style"],
-                first_line = validated_data["first_line"]
+                first_line = validated_data["first_line"],
+                model_type = validated_data["model_type"]
             )
             input.save()
             return input
