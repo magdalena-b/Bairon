@@ -9,21 +9,21 @@
                             <canvas id="cummingsWordCountChart"></canvas>
                         </div>  
                     </div>
-                </div>
-                <div class="columns is-centered is-vcentered">
                     <div class="column is-6 is-12-mobile">
                         <h2 class="is-size-5"> Generated poems - GPT2 </h2>
                         <div>
                             <canvas id="generatedcummingsGPT2WordCountChart"></canvas>
                         </div>  
                     </div>
+                </div>
+                <!-- <div class="columns is-centered is-vcentered">
                     <div class="column is-6 is-12-mobile">
                         <h2 class="is-size-5"> Generated poems - GPT-Neo </h2>
                         <div>
                             <canvas id="generatedcummingsGPTNeoWordCountChart"></canvas>
                         </div>  
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="container">
                 <h1 class="is-size-4"> William Shakespeare </h1>
@@ -34,21 +34,21 @@
                             <canvas id="shakespeareWordCountChart"></canvas>
                         </div>  
                     </div>
-                </div>
-                <div class="columns is-centered is-vcentered">
                     <div class="column is-6 is-12-mobile">
                         <h2 class="is-size-5"> Generated poems - GPT2 </h2>
                         <div>
                             <canvas id="generatedshakespeareGPT2WordCountChart"></canvas>
                         </div>  
                     </div>
+                </div>
+                <!-- <div class="columns is-centered is-vcentered">
                     <div class="column is-6 is-12-mobile">
                         <h2 class="is-size-5"> Generated poems - GPT-Neo </h2>
                         <div>
                             <canvas id="generatedshakespeareGPTNeoWordCountChart"></canvas>
                         </div>  
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="container">
                 <h1 class="is-size-4"> Walt Whitman </h1>
@@ -59,21 +59,21 @@
                             <canvas id="whitmanWordCountChart"></canvas>
                         </div>  
                     </div>
-                </div>
-                <div class="columns is-centered is-vcentered">
                     <div class="column is-6 is-12-mobile">
                         <h2 class="is-size-5"> Generated poems - GPT2 </h2>
                         <div>
                             <canvas id="generatedwhitmanGPT2WordCountChart"></canvas>
                         </div>  
                     </div>
+                </div>
+                <!-- <div class="columns is-centered is-vcentered">
                     <div class="column is-6 is-12-mobile">
                         <h2 class="is-size-5"> Generated poems - GPT-Neo </h2>
                         <div>
                             <canvas id="generatedwhitmanGPTNeoWordCountChart"></canvas>
                         </div>  
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>       
 </template>

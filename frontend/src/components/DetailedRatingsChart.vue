@@ -5,47 +5,45 @@
             <div>
                 <div class="container">
                     <div class="columns is-centered is-vcentered">
-                        <div class="column is-5 is-12-mobile">
+                        <div class="column is-6 is-12-mobile">
                             <h1 class="is-size-3">GPT2</h1>
                         </div>  
-                        <div class="column is-5 is-12-mobile">
+                        <!-- <div class="column is-5 is-12-mobile">
                             <h1 class="is-size-3">GPT-Neo</h1>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="container">
                     <h1 class="is-size-4"> e.e.cummings </h1>
                     <div class="columns is-centered is-vcentered">
-                        <div class="column is-5 is-12-mobile">
+                        <div class="column is-6 is-12-mobile">
                                 <canvas id="cummings_GPT2_RatingsChart"></canvas> 
                         </div>  
-                        <div class="column is-5 is-12-mobile">
-                                <canvas id="cummings_GPT_Neo_RatingsChart"></canvas> 
-                        </div>
+                        <!-- <div class="column is-5 is-12-mobile">
+                            <canvas id="cummings_GPT_Neo_RatingsChart"></canvas> 
+                        </div> -->
                     </div>
                 </div>
                 <div class="container">
                     <h1 class="is-size-4"> William Shakespare </h1>
                     <div class="columns is-centered is-vcentered">
-                        <div class="column is-5 is-12-mobile">
+                        <div class="column is-6 is-12-mobile">
                             <canvas id="shakespeare_GPT2_RatingsChart"></canvas>
                         </div>
-                        <div class="column is-5 is-12-mobile">
+                        <!-- <div class="column is-5 is-12-mobile">
                             <canvas id="shakespeare_GPT_Neo_RatingsChart"></canvas>
-                        </div>
-
+                        </div> -->
                     </div>
                 </div>
                 <div class="container">
                     <h1 class="is-size-4"> Walt Whitman </h1>
                     <div class="columns is-centered is-vcentered">
-                        <div class="column is-5 is-12-mobile">
+                        <div class="column is-6 is-12-mobile">
                             <canvas id="whitman_GPT2_RatingsChart"></canvas>
                         </div>
-                        <div class="column is-5 is-12-mobile">
+                        <!-- <div class="column is-5 is-12-mobile">
                             <canvas id="whitman_GPT_Neo_RatingsChart"></canvas>
-                        </div>
-
+                        </div> -->
                     </div>
                 </div>
             </div>
