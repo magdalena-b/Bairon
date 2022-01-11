@@ -3,8 +3,8 @@ import transformers
 import gpt_2_simple as gpt2
 import tensorflow
 import time
-from happytransformer import HappyGeneration
-from happytransformer import GENSettings
+# from happytransformer import HappyGeneration
+# from happytransformer import GENSettings
 import text2emotion as te
 import json
 
@@ -43,62 +43,98 @@ class PoemGenerator:
             if style == "Shakespeare":
 
                 if model_type == "gpt2":
-                    load_model("shakespeare_gpt2_500_steps")
+                    load_model("gpt2_shakespeare")
                     start = time.time()
                     with graph.as_default():
-                        text = gpt2.generate(sess, run_name='shakespeare_gpt2_500_steps', prefix = first_line, length = length, return_as_list=True)[0]
+                        text = gpt2.generate(sess, run_name='gpt2_shakespeare', prefix = first_line, length = length, return_as_list=True)[0]
                         sentiment_analysis = te.get_emotion(text)
                         sentiment = json.dumps(sentiment_analysis)
                     print("generating time:",time.time()-start,"s")
 
                 if model_type == "gpt-neo":
-                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/shakespeare_gpt_neo_model_100_epochs/")
-                    args = GENSettings(no_repeat_ngram_size = 2, num_beams = 5, max_length = length)
-                    result = happy_gen_loaded.generate_text(first_line, args = args)
-                    text = result.text
-                    sentiment_analysis = te.get_emotion(text)
-                    sentiment = json.dumps(sentiment_analysis)
+                    try:
+                        from aitextgen import aitextgen
+                        ai = aitextgen(model_folder="checkpoint/neo_shakespeare/", to_gpu=False)
+                        text = ai.generate_one(batch_size=5,
+                            prompt=first_line,
+                            max_length=200,
+                            temperature=1.0,
+                            top_p=0.9)
+                        sentiment_analysis = te.get_emotion(text)
+                        sentiment = json.dumps(sentiment_analysis)
+                    except Exception as e:
+                        print(e)
+
+                    # happy_gen_loaded = HappyGeneration(load_path="checkpoint/neo_shakespeare/")
+                    # args = GENSettings(no_repeat_ngram_size = 2, num_beams = 5, max_length = length)
+                    # result = happy_gen_loaded.generate_text(first_line, args = args)
+                    # text = result.text
+
 
 
 
             elif style == "Cummings":
 
                 if model_type == "gpt2":         
-                    load_model("cummings_gpt2_500_steps")
+                    load_model("gpt2_cummings")
                     start = time.time()
                     with graph.as_default():
-                        text = gpt2.generate(sess, run_name='cummings_gpt2_500_steps', prefix = first_line, length = length, return_as_list=True)[0]
+                        text = gpt2.generate(sess, run_name='gpt2_cummings', prefix = first_line, length = length, return_as_list=True)[0]
                         sentiment_analysis = te.get_emotion(text)
                         sentiment = json.dumps(sentiment_analysis)
                     print("generating time:",time.time()-start,"s")
 
                 if model_type == "gpt-neo":
-                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/cummings_gpt_neo_model_100_epochs/")
-                    args = GENSettings(no_repeat_ngram_size=2, num_beams = 5, max_length = length)
-                    result = happy_gen_loaded.generate_text(first_line, args = args)
-                    text = result.text
-                    sentiment_analysis = te.get_emotion(text)
-                    sentiment = json.dumps(sentiment_analysis)
+                    try:
+                        from aitextgen import aitextgen
+                        ai = aitextgen(model_folder="checkpoint/neo_cummings/", to_gpu=True)
+                        text = ai.generate(n=1,
+                            batch_size=5,
+                            prompt=first_line,
+                            max_length=200,
+                            temperature=0.7,
+                            top_p=0.9)
+                        # happy_gen_loaded = HappyGeneration(load_path="checkpoint/neo_cummings/")
+                        # args = GENSettings(no_repeat_ngram_size=2, num_beams = 5, max_length = length)
+                        # result = happy_gen_loaded.generate_text(first_line, args = args)
+                        # text = result.text
+                        sentiment_analysis = te.get_emotion(text)
+                        sentiment = json.dumps(sentiment_analysis)
+                    except Exception as e:
+                        print(e)
+
 
 
             elif style == "Whitman":
 
                 if model_type == "gpt2":         
-                    load_model("whitman_gpt2_500_steps")
+                    load_model("gpt2_whitman")
                     start = time.time()
                     with graph.as_default():
-                        text = gpt2.generate(sess, run_name='whitman_gpt2_500_steps', prefix = first_line, length = length, return_as_list=True)[0]
+                        text = gpt2.generate(sess, run_name='gpt2_whitman', prefix = first_line, length = length, return_as_list=True)[0]
                         sentiment_analysis = te.get_emotion(text)
                         sentiment = json.dumps(sentiment_analysis)
                     print("generating time:",time.time()-start,"s")
 
                 if model_type == "gpt-neo":
-                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/whitman_gpt_neo_model_100_epochs/")
-                    args = GENSettings(no_repeat_ngram_size = 2, num_beams = 5, max_length = length)
-                    result = happy_gen_loaded.generate_text(first_line, args = args)
-                    text = result.text
-                    sentiment_analysis = te.get_emotion(text)
-                    sentiment = json.dumps(sentiment_analysis)
+                    try:
+                        from aitextgen import aitextgen
+
+                        ai = aitextgen(model_folder="checkpoint/neo_whitman/", to_gpu=False)
+                        text = ai.generate(n=1,
+                            batch_size=5,
+                            prompt=first_line,
+                            max_length=200,
+                            temperature=0.7,
+                            top_p=0.9)
+                        # happy_gen_loaded = HappyGeneration(load_path="checkpoint/neo_whitman/")
+                        # args = GENSettings(no_repeat_ngram_size = 2, num_beams = 5, max_length = length)
+                        # result = happy_gen_loaded.generate_text(first_line, args = args)
+                        # text = result.text
+                        sentiment_analysis = te.get_emotion(text)
+                        sentiment = json.dumps(sentiment_analysis)
+                    except Exception as e:
+                        print(e)
 
                 
             else: raise Exception("Style not found")
@@ -126,40 +162,66 @@ class PoemGenerator:
             if style == "Shakespeare":
 
                 if model_type == "gpt2":         
-                    load_model("shakespeare_gpt2_500_steps")
+                    load_model("gpt2_shakespeare")
                     start = time.time()
                     with graph.as_default():
-                        text = gpt2.generate(sess, run_name='shakespeare_gpt2_500_steps', prefix = first_line, length = line_length, return_as_list=True)[0]
+                        text = gpt2.generate(sess, run_name='gpt2_shakespeare', prefix = first_line, length = line_length, return_as_list=True)[0]
                         sentiment_analysis = te.get_emotion(text)
                         sentiment = json.dumps(sentiment_analysis)
                     print("generating time:",time.time()-start,"s")
 
                 if model_type == "gpt-neo":
-                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/shakespeare_gpt_neo_model_100_epochs/")
-                    args = GENSettings(no_repeat_ngram_size=2, num_beams=5, max_length=line_length)
-                    result = happy_gen_loaded.generate_text(first_line, args = args)
-                    text = first_line + " " + result.text
-                    sentiment_analysis = te.get_emotion(text)
-                    sentiment = json.dumps(sentiment_analysis)
+                    try:
+
+                        from aitextgen import aitextgen
+
+                        ai = aitextgen(model_folder="checkpoint/neo_whitman/", to_gpu=False)
+                        text = ai.generate(n=1,
+                            batch_size=5,
+                            prompt=first_line,
+                            max_length=200,
+                            temperature=0.7,
+                            top_p=0.9)
+                        # happy_gen_loaded = HappyGeneration(load_path="checkpoint/neo_shakespeare/")
+                        # args = GENSettings(no_repeat_ngram_size=2, num_beams=5, max_length=line_length)
+                        # result = happy_gen_loaded.generate_text(first_line, args = args)
+                        # text = first_line + " " + result.text
+                        sentiment_analysis = te.get_emotion(text)
+                        sentiment = json.dumps(sentiment_analysis)
+                    
+                    except Exception as e:
+                        print(e)
 
             elif style == "Cummings":
 
                 if model_type == "gpt2":
-                    load_model("cummings_gpt2_500_steps")
+                    load_model("gpt2_cummings")
                     start = time.time()
                     with graph.as_default():
-                        text = gpt2.generate(sess, run_name='cummings_gpt2_500_steps', prefix = first_line, length = line_length, return_as_list=True)[0]
+                        text = gpt2.generate(sess, run_name='gpt2_cummings', prefix = first_line, length = line_length, return_as_list=True)[0]
                         sentiment_analysis = te.get_emotion(text)
                         sentiment = json.dumps(sentiment_analysis)
                     print("generating time:",time.time()-start,"s")
 
                 if model_type == "gpt-neo":
-                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/cummings_gpt_neo_model_100_epochs/")
-                    args = GENSettings(no_repeat_ngram_size=2, num_beams=5, max_length=line_length)
-                    result = happy_gen_loaded.generate_text(first_line, args = args)
-                    text = result.text
-                    sentiment_analysis = te.get_emotion(text)
-                    sentiment = json.dumps(sentiment_analysis)
+                    try:
+                        from aitextgen import aitextgen
+
+                        ai = aitextgen(model_folder="checkpoint/neo_cummings/", to_gpu=False)
+                        text = ai.generate(n=1,
+                            batch_size=5,
+                            prompt=first_line,
+                            max_length=200,
+                            temperature=0.7,
+                            top_p=0.9)
+                    # happy_gen_loaded = HappyGeneration(load_path="checkpoint/neo_cummings/")
+                    # args = GENSettings(no_repeat_ngram_size=2, num_beams=5, max_length=line_length)
+                    # result = happy_gen_loaded.generate_text(first_line, args = args)
+                    # text = result.text
+                        sentiment_analysis = te.get_emotion(text)
+                        sentiment = json.dumps(sentiment_analysis)
+                    except Exception as e:
+                        print(e)
 
             elif style == "Whitman":
 
@@ -173,13 +235,24 @@ class PoemGenerator:
                     print("generating time:",time.time()-start,"s")
 
                 if model_type == "gpt-neo":
-                    happy_gen_loaded = HappyGeneration(load_path="checkpoint/whitman_gpt_neo_model_100_epochs/")
-                    args = GENSettings(no_repeat_ngram_size=2, num_beams=5, max_length=line_length)
-                    result = happy_gen_loaded.generate_text(first_line, args = args)
-                    text = result.text
-                    sentiment_analysis = te.get_emotion(text)
-                    sentiment = json.dumps(sentiment_analysis)
+                    try:
+                        from aitextgen import aitextgen
 
+                        ai = aitextgen(model_folder="checkpoint/neo_whitman/", to_gpu=False)
+                        text = ai.generate(n=1,
+                            batch_size=5,
+                            prompt=first_line,
+                            max_length=200,
+                            temperature=0.7,
+                            top_p=0.9)
+                    # happy_gen_loaded = HappyGeneration(load_path="checkpoint/neo_whitman/")
+                    # args = GENSettings(no_repeat_ngram_size=2, num_beams=5, max_length=line_length)
+                    # result = happy_gen_loaded.generate_text(first_line, args = args)
+                    # text = result.text
+                        sentiment_analysis = te.get_emotion(text)
+                        sentiment = json.dumps(sentiment_analysis)
+                    except Exception as e:
+                        print(e)
                 
             else: raise Exception("Style not found")
 
