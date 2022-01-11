@@ -1,26 +1,37 @@
 <template>
     <div id="wrapper">
-        <div class="container">
-            <h1 class="is-size-3">Poetry Turing Test Statistics</h1>
+        <div class="container has-text-centered">
+            <h1 class="is-size-2">Poetry Turing Test Statistics</h1>
             <div>
-                <h1 class="is-size-3">GPT2</h1>
+                <div class="container">
+                    <div class="columns is-centered is-vcentered">
+                        <div class="column is-5 is-12-mobile">
+                            <h1 class="is-size-3">GPT2</h1>
+                        </div>  
+                        <div class="column is-5 is-12-mobile">
+                            <h1 class="is-size-3">GPT-Neo</h1>
+                        </div>
+                    </div>
+                </div>
                 <div class="container">
                     <h1 class="is-size-4"> e.e.cummings </h1>
                     <div class="columns is-centered is-vcentered">
-                        <div class="column is-6 is-12-mobile">
-                            <div>
+                        <div class="column is-5 is-12-mobile">
                                 <canvas id="cummings_GPT2_TTChart"></canvas> 
-                            </div>  
+                        </div>  
+                        <div class="column is-5 is-12-mobile">
+                                <canvas id="cummings_GPT_Neo_TTChart"></canvas> 
                         </div>
                     </div>
                 </div>
                 <div class="container">
                     <h1 class="is-size-4"> William Shakespare </h1>
                     <div class="columns is-centered is-vcentered">
-                        <div class="column is-6 is-12-mobile">
-                            <div>
-                                <canvas id="shakespeare_GPT2_TTChart"></canvas>
-                            </div>  
+                        <div class="column is-5 is-12-mobile">
+                            <canvas id="shakespeare_GPT2_TTChart"></canvas>
+                        </div>
+                        <div class="column is-5 is-12-mobile">
+                            <canvas id="shakespeare_GPT_Neo_TTChart"></canvas>
                         </div>
 
                     </div>
@@ -28,51 +39,16 @@
                 <div class="container">
                     <h1 class="is-size-4"> Walt Whitman </h1>
                     <div class="columns is-centered is-vcentered">
-                        <div class="column is-6 is-12-mobile">
-                            <div>
-                                <canvas id="whitman_GPT2_TTChart"></canvas>
-                            </div>  
+                        <div class="column is-5 is-12-mobile">
+                            <canvas id="whitman_GPT2_TTChart"></canvas>
+                        </div>
+                        <div class="column is-5 is-12-mobile">
+                            <canvas id="whitman_GPT_Neo_TTChart"></canvas>
                         </div>
 
                     </div>
-            </div>
-            <div>
-                <h1 class="is-size-3">GPT-Neo</h1>
-                <!-- whitman_GPT_Neo_TTChart -->
-                    <div class="container">
-                        <h1 class="is-size-4"> e.e.cummings </h1>
-                        <div class="columns is-centered is-vcentered">
-                            <div class="column is-6 is-12-mobile">
-                                <div>
-                                    <canvas id="cummings_GPT_Neo_TTChart"></canvas> 
-                                </div>  
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <h1 class="is-size-4"> William Shakespare </h1>
-                        <div class="columns is-centered is-vcentered">
-                            <div class="column is-6 is-12-mobile">
-                                <div>
-                                    <canvas id="shakespeare_GPT_Neo_TTChart"></canvas>
-                                </div>  
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="container">
-                        <h1 class="is-size-4"> Walt Whitman </h1>
-                        <div class="columns is-centered is-vcentered">
-                            <div class="column is-6 is-12-mobile">
-                                <div>
-                                    <canvas id="whitman_GPT_Neo_TTChart"></canvas>
-                                </div>  
-                            </div>
-
-                        </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>        
 </template>

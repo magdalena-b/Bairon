@@ -6,7 +6,7 @@
             <div class="navbar-brand">
                 <div class="navbar-item">
                     <figure class="image is-64x64 mx-4">
-                        <img src="../assets/logo.png" style="max-height: 128px; max-width: 128px;">
+                        <img src="../assets/logo1.png" style="max-height: 128px; max-width: 128px;">
                     </figure>
                     <h1 class="title mx-4">
                         BAIron
@@ -20,7 +20,7 @@
             <div class="navbar-brand">
                 <router-link to="/" class="navbar-item">
                     <figure class="image is-64x64 mx-4">
-                        <img src="../assets/logo.png" style="max-height: 128px; max-width: 128px;">
+                        <img src="../assets/logo1.png" style="max-height: 128px; max-width: 128px;">
                     </figure>
                     <h1 class="title mx-4">
                         Bairon
