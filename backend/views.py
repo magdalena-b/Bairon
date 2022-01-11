@@ -312,7 +312,7 @@ class TuringTestFragmentView(views.APIView):
                 coin_toss = random.randint(0, 1)
 
                 if coin_toss == 0:
-                    poems = Poem.objects.filter(author="Machine").exclude(input__style="Lorem Ipsum")
+                    poems = Poem.objects.filter(author="Machine").filter(generator_type="full").exclude(input__style="Lorem Ipsum")
                     correct = "Machine"
 
                 else:
